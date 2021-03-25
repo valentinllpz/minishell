@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:39:42 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/03/25 11:13:22 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/03/25 13:00:27 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ static t_token		*new_token(char *s)
 		token->type = DRIGHT;
 	else if (s[0] == '<' && s[1] == '<')
 		token->type = LEFT;
-	else if (s[0] == '$')
-		token->type = ENV_VAR;
 	return (token);
 }
 
