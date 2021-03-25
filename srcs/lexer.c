@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:39:42 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/03/24 17:57:06 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/03/25 11:13:22 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,25 @@ static t_token		*new_token(char *s)
 
 	if (!(token = ft_calloc(sizeof(t_token), 1)))
 		return (NULL);
-	if (s)
-	{
-		token->s = s;
-		if (s[0] == '&' && s[1] == '&')
-			token->type = AND;
-		else if (s[0] == '|' && s[1] == '|')
-			token->type = OR;
-		else if (s[0] == ';')
-			token->type = SEMICOLON;
-		else if (s[0] == '|')
-			token->type = PIPE;
-		else if (s[0] == '>')
-			token->type = RIGHT;
-		else if (s[0] == '<')
-			token->type = LEFT;
-		else if (s[0] == '>' && s[1] == '>')
-			token->type = DRIGHT;
-		else if (s[0] == '<' && s[1] == '<')
-			token->type = LEFT;
-	}
+	token->s = s;
+	if (s[0] == '&' && s[1] == '&')
+		token->type = AND;
+	else if (s[0] == '|' && s[1] == '|')
+		token->type = OR;
+	else if (s[0] == ';')
+		token->type = SEMICOLON;
+	else if (s[0] == '|')
+		token->type = PIPE;
+	else if (s[0] == '>')
+		token->type = RIGHT;
+	else if (s[0] == '<')
+		token->type = LEFT;
+	else if (s[0] == '>' && s[1] == '>')
+		token->type = DRIGHT;
+	else if (s[0] == '<' && s[1] == '<')
+		token->type = LEFT;
+	else if (s[0] == '$')
+		token->type = ENV_VAR;
 	return (token);
 }
 
