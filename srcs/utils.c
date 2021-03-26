@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:52:26 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/03/24 17:31:42 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/03/26 15:55:43 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,13 @@ t_token		**free_lexer(t_token **lexer)
 	i = 0;
 	while (lexer[i])
 	{
+		free(lexer[i]->s);
+		lexer[i]->s = NULL;
 		free(lexer[i]);
+		lexer[i] = NULL;
 		i++;
 	}
 	free(lexer);
+	lexer = NULL;
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/03/25 12:34:05 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/03/26 15:42:54 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,15 @@ void		skip_spaces(char *str, int *i);
 t_token		**free_lexer(t_token **lexer);
 
 // LEXER.C
-t_token		**ft_lexer(char *s);
+t_token		*new_token(char *s);
+void			skip_to_next_valid_quote(char *s, int *i);
+t_token		*build_token(char *s);
+int			word_count(char *s);
+t_token				**ft_lexer(char *s);
+
+// PARSER.C
+int			syntax_err(t_token **lexer, int	i);
+int			syntax_check(t_token **lexer);
+t_node		*parser(t_token **lexer);
 
 #endif

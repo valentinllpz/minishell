@@ -6,19 +6,21 @@
 #    By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/03/24 17:55:12 by vlugand-         ###   ########.fr        #
+#    Updated: 2021/03/26 15:12:42 by vlugand-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		=	minishell
 
-SRCS		= 	srcs/lexer.c\
+SRCS		= 	srcs/parser.c\
+				srcs/lexer.c\
 				srcs/utils.c\
 				srcs/main_test.c
 
 CC			= 	gcc
 OBJS		= 	${SRCS:.c=.o}
 OBJS_BONUS 	= 	${SRCS_BONUS:.c=.o}
+CFLAGS		= 	-Wall -Wextra -Werror -fsanitize=address -g3
 LIBS		=	-L libft -lft
 RM			= 	rm -f
 

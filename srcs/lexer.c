@@ -6,13 +6,13 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:39:42 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/03/25 13:00:27 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/03/26 15:42:49 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static t_token		*new_token(char *s)
+t_token		*new_token(char *s)
 {
 	t_token		*token;
 
@@ -38,7 +38,7 @@ static t_token		*new_token(char *s)
 	return (token);
 }
 
-static void			skip_to_next_valid_quote(char *s, int *i)
+void			skip_to_next_valid_quote(char *s, int *i)
 {
 	if (s[*i] && !is_escaped('\'', s, *i))
 	{
@@ -62,7 +62,7 @@ static void			skip_to_next_valid_quote(char *s, int *i)
 	}
 }
 
-static t_token		*build_token(char *s)
+t_token		*build_token(char *s)
 {
 	int			len;
 	char		*dst;
@@ -86,7 +86,7 @@ static t_token		*build_token(char *s)
 	return (new_token(dst));
 }
 
-static int			word_count(char *s)
+int			word_count(char *s)
 {
 	int			i;
 	int			wc;
