@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:09:59 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/03/26 15:56:56 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/01 18:00:32 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		main(int ac, char **av)
 	lexer = ft_lexer(av[1]); 
 	if (!syntax_check(lexer))
 		return (1);
+	parser(lexer);
 	while (lexer[i])
 	{
 		printf("lexer[%i]: type = [%i] | s = [%s]\n", i, lexer[i]->type, lexer[i]->s);

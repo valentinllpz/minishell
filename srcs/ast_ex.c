@@ -141,8 +141,6 @@ char	**lexer(char *s)
 	char	**split;
 
 	split = ft_split(s, ' ');
-//	analyse 
-// verif la validité
 	return (split);
 }
 
