@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/04/01 17:54:28 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/05 13:52:56 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct		s_cmd
 typedef struct	s_node
 {
 	enum type 		type; 
-	t_list			*cmd_lst;
+	t_list			*cmd_lst; // content = t_cmd
 	struct s_node	*left;
 	struct s_node	*right;
 }				t_node;
@@ -73,11 +73,12 @@ int			is_space(char c);
 int			is_escaped(char c, char *s, int i);
 void		skip_spaces(char *str, int *i);
 t_token		**free_lexer(t_token **lexer);
+int			is_special(char *s, int i);
 
 // LEXER.C
 t_token		*new_token(char *s);
 void		skip_to_next_valid_quote(char *s, int *i);
-t_token		*build_token(char *s);
+t_token		*build_token(char *s, int *i);
 int			word_count(char *s);
 t_token		**ft_lexer(char *s);
 

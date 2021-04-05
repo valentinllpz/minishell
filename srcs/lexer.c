@@ -6,13 +6,13 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:39:42 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/03/26 15:42:49 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/05 14:36:45 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_token		*new_token(char *s)
+t_token			*new_token(char *s)
 {
 	t_token		*token;
 
@@ -62,31 +62,7 @@ void			skip_to_next_valid_quote(char *s, int *i)
 	}
 }
 
-t_token		*build_token(char *s)
-{
-	int			len;
-	char		*dst;
-	int			i;
-
-	len = 0;
-	while (s[len])
-	{
-		if (s[len] == '\'' || s[len] == '\"')
-			skip_to_next_valid_quote(s, &len);
-		if (is_space(s[len]))
-			break ;
-		len++;
-	}
-	if (!(dst = malloc((len + 1) * sizeof(char))))
-		return (NULL);
-	i = -1;
-	while (++i < len)
-		dst[i] = s[i];
-	dst[i] = '\0';
-	return (new_token(dst));
-}
-
-int			word_count(char *s)
+int				word_count(char *s)
 {
 	int			i;
 	int			wc;
@@ -96,20 +72,48 @@ int			word_count(char *s)
 	skip_spaces(s, &i);
 	while (s[i])
 	{
-		while (s[i] && !is_space(s[i]))
+		if (s[i] && !is_space(s[i]) && !is_special(s, i))
+			wc++;
+		while (s[i] && !is_space(s[i]) && !is_special(s, i))
 		{
 			if (s[i] == '\'' || s[i] == '\"')
 				skip_to_next_valid_quote(s, &i);
 			i++;
 		}
+		if (s[i] && (is_special(s, i) == 1 || is_special(s, i) == 2))
+			wc++;
+		i += is_special(s, i);
 		while (s[i] && is_space(s[i]))
 			i++;
-		wc++;
 	}
 	return (wc);
 }
 
-t_token				**ft_lexer(char *s)
+t_token			*build_token(char *s, int *i)
+{
+	int			len;
+	char		*dst;
+
+	len = 0;
+	while (s[*i] && !is_space(s[*i]) && !is_special(s, *i))
+	{
+		if (s[*i] == '\'' || s[*i] == '\"')
+			skip_to_next_valid_quote(s, i);
+		(*i)++;
+		len++;
+	}
+	if (s[*i] && (is_special(s, *i) == 1 || is_special(s, *i) == 2) && len == 0)
+	{
+		len = is_special(s, *i);
+		*i += len;
+	}
+	if (!(dst = malloc((len + 1) * sizeof(char))))
+		return (NULL);
+	ft_strlcpy(dst, s + (*i - len), (len + 1));
+	return (new_token(dst));
+}
+
+t_token			**ft_lexer(char *s)
 {
 	int			i;
 	int			j;
@@ -122,16 +126,9 @@ t_token				**ft_lexer(char *s)
 	skip_spaces(s, &i);
 	while (s[i])
 	{
-		if (!(lexer[j] = build_token(s + i)))
+		if (!(lexer[j] = build_token(s, &i)))
 			return (free_lexer(lexer));
-		while (s[i] && !is_space(s[i]))
-		{
-			if (s[i] == '\'' || s[i] == '\"')
-				skip_to_next_valid_quote(s, &i);
-			i++;
-		}
-		while (s[i] && is_space(s[i]))
-			i++;
+		skip_spaces(s, &i);
 		j++;
 	}
 	lexer[j] = NULL;

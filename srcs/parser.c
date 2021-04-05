@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:20:30 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/01 17:59:36 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/05 17:53:27 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int			syntax_err(t_token **lexer, int	i)
 {
 	if (!lexer[i] && lexer[i - 1]->type > 0 && lexer[i - 1]->type < 5)
 		ft_putstr_fd("multiline is currently not supported\n", 2);
-	else if (!lexer[i] && lexer[i - 1]->type > 5 && lexer[i - 1]->type < 9)
+	else if (!lexer[i] && lexer[i - 1]->type > 4 && lexer[i - 1]->type < 9)
 		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
 	else
 	{
@@ -80,6 +80,8 @@ t_node		*build_node(t_token **lexer)
 	t_rdir		*rdir;
 
 	i = 0;
+	cmd_lst = NULL;
+	rdir = NULL;
 	if (!(cmd = ft_calloc(sizeof(t_cmd), 1)) || !(rdir = ft_calloc(sizeof(t_rdir), 1)))
 		return (NULL);
 	while (lexer[i])
@@ -101,18 +103,19 @@ t_node		*build_node(t_token **lexer)
 				rdir->flag = 3;
 			else
 				rdir->flag = 4;
-			rdir->file = ft_strdup(lexer[i]->s);
+			rdir->file = ft_strdup(lexer[i + 1]->s);
 			ft_lstadd_back(&(cmd->rdir_lst), ft_lstnew(rdir));
 		 	if (!(rdir = ft_calloc(sizeof(t_rdir), 1))) // prev. pointer was saved in the list content
 				return (NULL);
-			i++; // to skip both the redir token + the following linked to it
+			i++; // to skip both the redir token + the following token linked to it
 		}
 		else
 			ft_lstadd_back(&(cmd->exec_lst), ft_lstnew(ft_strdup(lexer[i]->s))); // STRDUP car plus facile pour free derriere vu qu'on ne va plus utiliser lexer mais tjr les pointeurs qu'il contient
-		if (!(cmd_lst))
-			return (NULL);
 		i++;
 	}
+	ft_lstadd_back(&(cmd_lst), ft_lstnew(cmd));
+	if (!(cmd_lst))
+			return (NULL);
 	return (ft_new_node(CMD, cmd_lst));
 }
 

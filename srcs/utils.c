@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:52:26 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/03/26 15:55:43 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/05 16:02:52 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,43 @@ int		is_escaped(char c, char *s, int i)
 	else if (s[i] == c && i > 0 && s[i - 1] != '\\')
 		return (0);
 	return (1);
+}
+
+int			is_special(char *s, int i)
+{
+	if (s[i] == '\0')
+		return (0);
+	if (((s[i] == '>' && s[i + 1] == '>') || (s[i] == '&' && s[i + 1] == '&') ||
+	(s[i] == '|' && s[i + 1] == '|')) && !is_escaped(s[i], s, i))
+		return (2);
+	else if ((s[i] == ';' || s [i] == '|' || s[i] == '>' || s[i] == '<') && !is_escaped(s[i], s, i))
+		return (1);
+	else
+		return (0);
+}
+
+int		which_operator(char *s, int i)
+{
+	if (s[i] == '\0')
+		return (0);
+	if (s[i] == '&' && s[i + 1] == '&')
+		return (AND);
+	else if (s[i] == '|' && s[i + 1] == '|')
+		return (OR);
+	else if (s[i] == ';')
+		return (SEMICOLON);
+	else if (s[i] == '|')
+		return (PIPE);
+	else if (s[i] == '>')
+		return (RIGHT);
+	else if (s[i] == '<')
+		return (LEFT);
+	else if (s[i] == '>' && s[i + 1] == '>')
+		return (DRIGHT);
+	else if (s[i] == '<' && s[i + 1] == '<')
+		return (DLEFT);
+	else
+		return (0);
 }
 
 void	skip_spaces(char *s, int *i)
