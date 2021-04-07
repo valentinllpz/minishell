@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/04/07 14:58:08 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/07 17:35:36 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,13 @@ int			add_to_rdir_lst(t_token **lexer, int *i, t_cmd *cmd);
 int			add_to_exec_lst(t_token **lexer, t_cmd *cmd, int i);
 t_node		*build_node(t_token **lexer);
 t_node		*build_tree(t_token **lexer);
+
+// FREE_AST.C
+void	free_rdir(t_rdir *rdir);
+void	free_cmd(t_cmd *cmd);
+void	free_cmd_lst(t_list *cmd_lst);
+void	free_node(t_node *node);
+void	free_ast(t_node *ast);
 
 // PRINT_LEXER_PARSER.C -- to delete before eval
 void	print_lexer(t_token **lexer, char *s);

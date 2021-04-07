@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 14:33:36 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/07 14:49:46 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/07 17:55:44 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@ void	print_lexer(t_token **lexer, char *s)
 		printf("lexer[%i]: type = [%i] | s = [%s]\n", i, lexer[i]->type, lexer[i]->s);
 		i++;
 	}
-}
-
-void	print_parser(t_node *ast)
-{
-	printf("\n********************* P A R S E R *********************\n\n");
-	print_ast_node(ast, 0);
 }
 
 void	print_exec_lst(t_list *exec_lst)
@@ -67,6 +61,22 @@ void	print_rdir_lst(t_list *rdir_lst)
 	printf("\n");
 }
 
+void	print_cmd_lst(t_list *cmd_lst)
+{
+	int		i;
+
+	i = 0;
+	while (cmd_lst)
+	{
+		printf("\ncmd_lst: node {%i}\n", i);
+		printf("pipe_flag = %i\n", ((t_cmd *)cmd_lst->content)->pipe_flag);
+		print_exec_lst(((t_cmd *)cmd_lst->content)->exec_lst);
+		print_rdir_lst(((t_cmd *)cmd_lst->content)->rdir_lst);
+		cmd_lst = cmd_lst->next;
+		i++;
+	}
+}
+
 void	print_children(t_node *node, int tree_pos)
 {
 	printf("-------------------------------------------------------\n");
@@ -86,9 +96,6 @@ void	print_children(t_node *node, int tree_pos)
 
 void	print_ast_node(t_node *node, int tree_pos)
 {
-	int		i;
-
-	i = 0;
 	if (!node)
 		return;
 	if (tree_pos == 0)
@@ -111,15 +118,13 @@ void	print_ast_node(t_node *node, int tree_pos)
 	else if (node->type == CMD)
 	{
 		printf("node->type = \'CMD\'\n");
-		while(node->cmd_lst)
-		{
-			printf("\ncmd_lst: node {%i}\n", i);
-			printf("pipe_flag = %i\n", ((t_cmd *)node->cmd_lst->content)->pipe_flag);
-			print_exec_lst(((t_cmd *)node->cmd_lst->content)->exec_lst);
-			print_rdir_lst(((t_cmd *)node->cmd_lst->content)->rdir_lst);
-			node->cmd_lst = node->cmd_lst->next;
-			i++;
-		}
+		print_cmd_lst(node->cmd_lst);
 		print_children(node, tree_pos);
 	}
+}
+
+void	print_parser(t_node *ast)
+{
+	printf("\n********************* P A R S E R *********************\n\n");
+	print_ast_node(ast, 0);
 }
