@@ -6,16 +6,18 @@
 #    By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/03/26 15:12:42 by vlugand-         ###   ########.fr        #
+#    Updated: 2021/04/07 14:58:36 by vlugand-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		=	minishell
 
-SRCS		= 	srcs/parser.c\
-				srcs/lexer.c\
+SRCS		= 	srcs/lexer.c\
+				srcs/parser1.c\
+				srcs/parser2.c\
 				srcs/utils.c\
-				srcs/main_test.c
+				srcs/print_lexer_parser.c\
+				srcs/main.c
 
 CC			= 	gcc
 OBJS		= 	${SRCS:.c=.o}

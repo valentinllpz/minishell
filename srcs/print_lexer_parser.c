@@ -1,20 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_test.c                                        :+:      :+:    :+:   */
+/*   print_lexer_parser.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 14:09:59 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/05 17:57:57 by vlugand-         ###   ########.fr       */
+/*   Created: 2021/04/06 14:33:36 by vlugand-          #+#    #+#             */
+/*   Updated: 2021/04/07 14:49:46 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+void	print_lexer(t_token **lexer, char *s)
+{
+	int		i;
+
+	i = 0;
+	printf("ORIGINAL STRING: [%s]\n", s);
+	printf("\n********************* L E X E R ***********************\n\n");
+	while (lexer[i])
+	{
+		printf("lexer[%i]: type = [%i] | s = [%s]\n", i, lexer[i]->type, lexer[i]->s);
+		i++;
+	}
+}
+
+void	print_parser(t_node *ast)
+{
+	printf("\n********************* P A R S E R *********************\n\n");
+	print_ast_node(ast, 0);
+}
+
 void	print_exec_lst(t_list *exec_lst)
 {
 	printf("exec_lst: ");
+	if (!exec_lst)
+		printf("(null)");
 	while (exec_lst)
 	{
 		printf("[%s] ", exec_lst->content);
@@ -26,6 +48,8 @@ void	print_exec_lst(t_list *exec_lst)
 void	print_rdir_lst(t_list *rdir_lst)
 {
 	printf("rdir_lst: ");
+	if (!rdir_lst)
+		printf("(null)");
 	while (rdir_lst)
 	{
 		if (((t_rdir *)rdir_lst->content)->flag == 1)
@@ -38,31 +62,51 @@ void	print_rdir_lst(t_list *rdir_lst)
 			printf("flag = [<<] |");
 		printf(" file = [%s]", ((t_rdir *)rdir_lst->content)->file);
 		rdir_lst = rdir_lst->next;
+		printf("\n          ");
 	}
 	printf("\n");
 }
 
-void	print_ast_node(t_node *node)
+void	print_children(t_node *node, int tree_pos)
+{
+	printf("-------------------------------------------------------\n");
+	if (node->left)
+	{
+		tree_pos++;
+		printf("\nLEFT CHILD --------------------------------------------\n");
+		print_ast_node(node->left, tree_pos);
+	}
+	if (node->right)
+	{
+		tree_pos++;
+		printf("\nRIGHT CHILD -------------------------------------------\n");
+		print_ast_node(node->right, tree_pos);
+	}
+}
+
+void	print_ast_node(t_node *node, int tree_pos)
 {
 	int		i;
 
 	i = 0;
 	if (!node)
 		return;
+	if (tree_pos == 0)
+		printf("ROOT --------------------------------------------------\n");
 	if (node->type == SEMICOLON)
 	{
 		printf("node->type = \';\'\n");
-		print_ast_node(node->left);
+		print_children(node, tree_pos);
 	}
 	else if (node->type == AND)
 	{
 		printf("node->type = \'&&\'\n");
-		print_ast_node(node->left);
+		print_children(node, tree_pos);
 	}
 	else if (node->type == OR)
 	{
 		printf("node->type = \'||\'\n");
-		print_ast_node(node->left);
+		print_children(node, tree_pos);
 	}
 	else if (node->type == CMD)
 	{
@@ -76,38 +120,6 @@ void	print_ast_node(t_node *node)
 			node->cmd_lst = node->cmd_lst->next;
 			i++;
 		}
-		print_ast_node(node->left);
+		print_children(node, tree_pos);
 	}
 }
-
-int		main(int ac, char **av)
-{
-	t_token		**lexer;
-	t_node		*ast;
-	int			i; 
-
-	i = 0;
-	(void)ac;
-	printf("original string: [%s]\n", av[1]);
-	printf("wc: %i\n", word_count(av[1]));
-	lexer = ft_lexer(av[1]); 
-	if (!syntax_check(lexer))
-		return (1);
-	printf("\n****************** LEXER ******************\n\n");
-	while (lexer[i])
-	{
-		printf("lexer[%i]: type = [%i] | s = [%s]\n", i, lexer[i]->type, lexer[i]->s);
-		i++;
-	}
-	ast = parser(lexer);
-	printf("\n****************** PARSER *****************\n\n");
-	print_ast_node(ast);
-	return (0);
-}
-
-/*ATTENTION VAR 
-
-check les chifres et symboles spe
-difference avec ou sans export
-peut concat avec +=
-*/
