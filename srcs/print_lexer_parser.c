@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 14:33:36 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/07 17:55:44 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/07 18:12:48 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	print_exec_lst(t_list *exec_lst)
 		printf("(null)");
 	while (exec_lst)
 	{
-		printf("[%s] ", exec_lst->content);
+		printf("[%s] ", ((char *)exec_lst->content));
 		exec_lst = exec_lst->next;
 	}
 	printf("\n");

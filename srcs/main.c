@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:09:59 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/07 17:59:09 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/07 18:13:08 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		main(int ac, char **av)
 		return (0);
 	print_parser(ast); // print to debug
 	free_ast(ast);
-//	system("leaks minishell");// uncomment to test leaks on mac os
+	system("leaks minishell");// uncomment to test leaks on mac os
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 17:33:39 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/07 17:40:30 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/07 18:12:10 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	free_cmd(t_cmd *cmd)
 {
 	while (cmd->exec_lst)
 	{
-		printf("free: [%s]\n", cmd->exec_lst->content);
-		free(cmd->exec_lst->content);
+		free(((char *)cmd->exec_lst->content));
 		free(cmd->exec_lst);
 		cmd->exec_lst = cmd->exec_lst->next;
 	}
@@ -58,5 +57,4 @@ void	free_ast(t_node *ast)
 	if (ast->right)
 		free_ast(ast->right);
 	free_node(ast);
-	write(1, "lol", 3);
 }
