@@ -20,28 +20,36 @@ void	free_rdir(t_rdir *rdir)
 
 void	free_cmd(t_cmd *cmd)
 {
+	t_list		*tmp;
+
 	while (cmd->exec_lst)
 	{
 		free(((char *)cmd->exec_lst->content));
+		tmp = cmd->exec_lst->next;
 		free(cmd->exec_lst);
-		cmd->exec_lst = cmd->exec_lst->next;
+		cmd->exec_lst = tmp;
 	}
 	while (cmd->rdir_lst)
 	{
-		free_rdir(cmd->rdir_lst->content);
+		free_rdir(((t_rdir *)cmd->rdir_lst->content));
+		tmp = cmd->rdir_lst->next;
 		free(cmd->rdir_lst);
-		cmd->rdir_lst = cmd->rdir_lst->next; 
+		cmd->rdir_lst = tmp; 
 	}
 	free(cmd);
 }
 
 void	free_cmd_lst(t_list *cmd_lst)
 {
+	t_list	*tmp;
+
 	while (cmd_lst)
 	{
 		free_cmd(cmd_lst->content);
-		cmd_lst = cmd_lst->next;
-	}	
+		tmp = cmd_lst->next;
+		free(cmd_lst);
+		cmd_lst = tmp;
+	}
 }
 
 void	free_node(t_node *node)

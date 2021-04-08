@@ -25,7 +25,7 @@ int		main(int ac, char **av)
 		return (0);
 	print_parser(ast); // print to debug
 	free_ast(ast);
-	system("leaks minishell");// uncomment to test leaks on mac os
+//	system("leaks minishell");// uncomment to test leaks on mac os
 	return (0);
 }
 

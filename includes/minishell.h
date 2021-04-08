@@ -60,7 +60,6 @@ typedef struct	s_node
 	struct s_node	*right;
 }				t_node;
 
-
 typedef struct		s_rdir
 {
 	int				flag; // 1 == > // 2 == < // 3 == >> // 4 == <<

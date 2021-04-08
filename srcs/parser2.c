@@ -16,7 +16,7 @@ int			add_to_cmd_lst(t_cmd **cmd, t_list **cmd_lst, int pipe_flag)
 {
 	(*cmd)->pipe_flag = pipe_flag;
 	ft_lstadd_back(cmd_lst, ft_lstnew(*cmd));
-	if (!(*cmd = ft_calloc(sizeof(t_cmd), 1)) || !(*cmd_lst))// prev. pointer was saved in the list content
+	if (pipe_flag && (!(*cmd = ft_calloc(sizeof(t_cmd), 1)) || !(*cmd_lst)))// prev. pointer was saved in the list content
 		return (0);
 	return (1);
 }
@@ -26,7 +26,7 @@ int			add_to_rdir_lst(t_token **lexer, int *i, t_cmd *cmd)
 	t_rdir		*rdir;
 
 	rdir = NULL;
-	if (!(rdir = ft_calloc(sizeof(t_rdir), 1)))
+	if (!(rdir = ft_calloc(sizeof(t_rdir), 1)))// prev. pointer was saved in the list content
 		return (0);
 	if (lexer[*i]->type == RIGHT)
 		rdir->flag = 1;
@@ -39,7 +39,7 @@ int			add_to_rdir_lst(t_token **lexer, int *i, t_cmd *cmd)
 	(*i)++;
 	rdir->file = ft_strdup(lexer[*i]->s);
 	ft_lstadd_back(&(cmd->rdir_lst), ft_lstnew(rdir));
-	if (!(rdir = ft_calloc(sizeof(t_rdir), 1)) || !(cmd->rdir_lst))// prev. pointer was saved in the list content
+	if (!(cmd->rdir_lst))
 		return (0);
 	return (1);
 }
