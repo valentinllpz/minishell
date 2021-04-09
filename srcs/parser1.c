@@ -6,11 +6,13 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:26:58 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/07 15:03:08 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/09 15:16:06 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+/* rajouter un \r sur les putstr*/
 
 int			syntax_err(t_token **lexer, int i)
 {

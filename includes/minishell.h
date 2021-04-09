@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/04/07 17:35:36 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/09 15:29:30 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct	s_node
 typedef struct		s_rdir
 {
 	int				flag; // 1 == > // 2 == < // 3 == >> // 4 == <<
-	char			*file;
+	char			*file; // attention aux ambiguous redirect  jeej="file    mdr"     $ echo test > $jeej
 }					t_rdir;
 
 
