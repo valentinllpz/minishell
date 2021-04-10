@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentinll <valentinll@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 11:27:23 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/09 18:24:16 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/10 17:15:10 by valentinll       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,12 @@ int			is_env_var(char *s)
 	return (0);
 }
 
-// check aussi file dans rdir
-
 t_list		*var_tokenizer(char *var)
 {
 	char	**split;
 	int		i;
 	t_list	*lst;
 
-	if (var[0] == '\'' || var[0] == '\"')
-		return (ft_lstnew(ft_strdup(var)));
 	split = ft_split(var, ' ');
 	while (split[i])
 	{
@@ -47,36 +43,39 @@ t_list		*var_tokenizer(char *var)
 	return (lst);
 }
 
-void		replace_token(t_list **exec_lst, t_list *env)
+void		replace_token(t_list *exec_lst, t_list *env)
 {
 	int		len;
 	char	*var;
+	t_list	*tmp;
 
-	len = ft_strlen(((char *)((*exec_lst)->content))) - 1;//we don't count the $
+	len = ft_strlen(((char *)(exec_lst->content))) - 1;//we don't count the $
 	while (env)
 	{
-		if ((var = ft_strnstr(((char *)(env->content) + 1), ((char *)((*exec_lst)->content)), len)))
+		if ((var = ft_strnstr(((char *)(env->content) + 1), ((char *)(exec_lst->content)), len)) && var[len] == '=')
 		{
-			if (var[len] == '=')
-				(*exec_lst)->content = ;
+			tmp = exec_lst;
+			exec_lst = var_tokenizer(var + len + 1);//we send only the part after =
+			while (exec_lst)
+				exec_lst = exec_lst->next;
+			exec_lst->next = tmp;
+			return (exec_lst);
 		}
-
+		env = env->next;
 	}
+	return (NULL);
 }
 
 void		env_var_expansion(t_list *exec_lst, t_list *rdir_lst, t_list *env)
-{
-	char	*needle;
-	
+{	
 	while (exec_lst)
 	{
-		if (is_env_var((char *)(exec_lst->content))
-		{
-			
-		}
+		if (is_env_var(((char *)(exec_lst->content))) == 1)
+			exec_lst = replace_token(exec_lst, env);
+		exec_lst = exec_lst->next;
 	}
-	while (rdir_lst)
-	{
-		
-	}
+	// check aussi file dans rdir
 }
+
+// add shell lvl
+// think about the case where the var is between quotes --> maybe send a struct with the var + a flag if between quotes ?
