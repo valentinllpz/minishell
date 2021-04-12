@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 17:33:39 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/11 17:28:21 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/12 17:18:46 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,28 @@ char		*join_three_str(char *s1, char *s2, char *s3)
 	return (dst);
 }
 
-void		enclosed_expansion(char **s, char *var, t_list *env)
+char	*enclosed_expansion(char *s, char *var, t_list *env)
 {
 	int		len1;
 	int		len2;
-	char	*tmp;
+	char	*dst;
 	
 	len1 = 0;
-	while ((*s)[len1] && (*s)[len1] != '$')
+	while (s[len1] && s[len1] != '$')
 		len1++;
 	len2 = ft_strlen(var);
 	while (env)
 	{
-		if ((tmp = ft_strnstr(((char *)(env->content)), var + 1, len2 - 1)) && tmp[len2 - 1] == '=')
+		if ((dst = ft_strnstr(((char *)(env->content)), var + 1, len2 - 1)) && dst[len2 - 1] == '=')
 		{
-			(*s)[len1] = '\0';
-			tmp = join_three_str(*s, tmp + len2, *s + len1 + len2);
-			free(*s);
-			*s = tmp;
+			s[len1] = '\0';
+			dst = join_three_str(s, dst + len2, s + len1 + len2);
+			free(s);
+			return (dst);
 		}
 		env = env->next;
 	}
+	return (NULL);
 }
 
 int main()
@@ -76,7 +77,7 @@ int main()
 	env = ft_lstnew(ft_strdup("test1=jeej"));
 	ft_lstadd_back(&env, ft_lstnew(ft_strdup("test2=fuuf  mdr")));
 	s = ft_strdup("\"this is a $test1 trop mdr\"");
-	enclosed_expansion(&s, "$test2", env);
+	s = enclosed_expansion(s, "$test2", env);
 	printf("%s\n", s);
 	return (0);
 }
