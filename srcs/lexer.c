@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:39:42 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/12 14:43:12 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/15 16:19:12 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,30 +36,6 @@ t_token			*new_token(char *s)
 	else if (s[0] == '<' && s[1] == '<')
 		token->type = DLEFT;
 	return (token);
-}
-
-void			skip_to_next_valid_quote(char *s, int *i)
-{
-	if (s[*i] && !is_escaped('\'', s, *i))
-	{
-		(*i)++;
-		while (s[*i])
-		{
-			if (s[*i] == '\'' && !is_escaped('\'', s, *i))
-				break ;
-			(*i)++;
-		}
-	}
-	else if (s[*i] && !is_escaped('\"', s, *i))
-	{
-		(*i)++;
-		while (s[*i])
-		{
-			if (s[*i] == '\"' && !is_escaped('\"', s, *i))
-				break ;
-			(*i)++;
-		}
-	}
 }
 
 int				word_count(char *s)

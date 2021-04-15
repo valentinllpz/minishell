@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 11:27:23 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/12 18:23:25 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/15 14:33:00 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*enclosed_expansion(char *s, char *var, t_list *env)
 	return (NULL);
 }
 
-char		*get_var_to_expand(char *s, int *flag_q)
+char		*get_var_to_expand(char *s, int *flag_dq)
 {
 	int		i;
 	int		len;
@@ -70,13 +70,15 @@ char		*get_var_to_expand(char *s, int *flag_q)
 
 	i = 0;
 	len = 0;
-	if (s && (s[0] == "\'" || s[0] == "\""))
-		*flag_q = 1;
+	if (s && (s[0] == "\'"))
+		return (NULL);
+	else if (s[0] == "\"")
+		*flag_dq = 1;
 	while (s[i])
 	{
 		if (s[i] == '$' && !is_escaped('$', s, i))
 		{
-			while (s[i + len] && !is_space(s[i + len]))
+			while (s[i + len] && !is_space(s[i + len]) && (len > 0 && s[i] == '$' && !is_escaped('$', s, i + len)))
 				len++;
 			c = s[i + len];
 			s[i + len] = '\0';
@@ -131,18 +133,18 @@ t_list		*regular_expansion(t_list *exec_lst, char *var, t_list *env)
 	return (NULL);
 }
 
-void		env_var_expansion1(t_list *exec_lst, t_list *env)
+void		expansion_in_exec_lst(t_list *exec_lst, t_list *env)
 {	
-	int		flag_q;
+	int		flag_dq;
 	char	*var;
 	
 	while (exec_lst)
 	{
-		flag_q = 0;
-		var = get_var_to_expand((char *)(exec_lst->content), &flag_q);
-		if (var && !flag_q)
+		flag_dq = 0;
+		var = get_var_to_expand((char *)(exec_lst->content), &flag_dq);
+		if (var && !flag_dq)
 			exec_lst = regular_expansion(exec_lst, var, env);
-		else if (var && flag_q)
+		else if (var && flag_dq)
 			exec_lst->content = enclosed_expansion((char *)(exec_lst->content), var, env);
 		else
 			exec_lst = exec_lst->next;
@@ -151,28 +153,98 @@ void		env_var_expansion1(t_list *exec_lst, t_list *env)
 	}
 }
 /*
-void		env_var_expansion2(t_list *rdir_lst, t_list *env)
+int			err_ambiguous_redirect(char *s)
+{
+
+}
+
+void		expansion_in_rdir_lst(t_list *rdir_lst, t_list *env)
 {	
-	int		flag_q;
+	int		flag_dq;
 	char	*var;
+	t_list	*tmp;
 	
 	while (rdir_lst)
 	{
-		flag_q = 0;
-		var = get_var_to_expand((t_rdir *)(rdir_lst->content)->file, &flag_q);
-		if (var && !flag_q)
-			exec_lst = regular_expansion(exec_lst, var, env);
-		else if (var && flag_q)
-			exec_lst->content = enclosed_expansion((char *)(exec_lst->content), var, env);
+		flag_dq = 0;
+		if (var = get_var_to_expand(((t_rdir *)rdir_lst->content)->file, &flag_dq))
+			tmp = ft_lstnew(((t_rdir *)rdir_lst->content)->file);
+		if (var && !flag_dq)
+			tmp = regular_expansion(tmp, var, env);
+		else if (var && flag_dq)
+			((t_rdir *)rdir_lst->content)->file = enclosed_expansion(((t_rdir *)rdir_lst->content)->file, var, env);
 		else
 			exec_lst = exec_lst->next;
 		if (var)
 			free(var);
 	}
-}
-*/
-// quotes issue with lexer !!!!!!!!!!!!!
+}*/
+
+// quotes issue with lexer !!!!!!!!!!!!! echo mdr > te' 'st // retirer les quotes qui ne servent à rien au début
+/*bash-3.2$ echo $lol$mdr
+jeej fuuflolilol*/
 //remove quotes
 // add shell lvl
 // what if malloc fails?
 // think about the case where the var is between quotes --> maybe send a struct with the var + a flag if between quotes ?
+
+
+//ARG=arg echo lol --> l'assignation est ignorée, si on essaye echo $ARG on aura rien
+
+/*
+
+-> un token peut contenir plusieurs env var
+
+bash-3.2$ one="    one"
+bash-3.2$ two="    two"
+bash-3.2$ three="     three"
+bash-3.2$ "$one"$two
+bash:     one: command not found
+bash-3.2$ $one"$two"
+bash: one    two: command not found
+bash-3.2$ $one"$two"three
+bash: one    twothree: command not found
+bash-3.2$ $one"$two"$three
+bash: one    two: command not found
+bash-3.2$ e=e c=c h=h o=o
+bash-3.2$ $e$c$h$o lol
+lol
+
+
+- il remplace les variables d'env texto
+- il refait des tokens en splitant sur les espaces
+- il enlève les guillemets
+
+
+------ IMPORT ENV -----
+bash-3.2$ te\$t=echo
+bash: te$t=echo: command not found
+tiens ça c'est pour la gestion de l'environnement
+
+si jamais il y a un backslash qq part il ne prend pas pas ça pour une assignation de variable
+
+mais comme une commade
+bash-3.2$ te$t=echo
+bash: te=echo: command not found
+pareil pour le dollar
+bash-3.2$ t\est=echo
+bash: test=echo: command not found
+bash-3.2$ t+est=echo
+bash: t+est=echo: command not found
+bash-3.2$ t-est=echo
+bash: t-est=echo: command not found
+bash-3.2$ t^est=echo
+bash: t^est=echo: command not found
+
+en fait pour c'est valable pour tous les caracteres speciaux
+
+
+oui en vrai le parsing c'est chaud de ouf
+faut vraiment analyser avec plein de cas de merde pour comprendre les limites de certains comportement
+donc comment c'est codé
+
+TOUJOURS FAIRE PLEIN DE TESTS CHELOU SUR LA PARTIE QUE VOUS ALLEZ CODER
+
+
+ATTENTION POUR CD QUAND ON DEL LE DOSSIER DANS LEQUEL ON EST
+*/

@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:52:26 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/09 12:05:17 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/15 16:59:50 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		is_space(char c)
 	return (0);	
 }
 
-int		is_escaped(char c, char *s, int i)
+int		is_escaped(char c, char *s, int i) //ne marche pas pour plusieurs //
 {
 	if (s[i] == c && i == 0)
 		return (0);
@@ -69,6 +69,30 @@ void	skip_spaces(char *s, int *i)
 {
 	while (s[*i] && ((s[*i] > 8 && s[*i] < 14) || s[*i] == ' '))
 		(*i)++;
+}
+
+void			skip_to_next_valid_quote(char *s, int *i)
+{
+	if (s[*i] && !is_escaped('\'', s, *i))
+	{
+		(*i)++;
+		while (s[*i])
+		{
+			if (s[*i] == '\'' && !is_escaped('\'', s, *i))
+				break ;
+			(*i)++;
+		}
+	}
+	else if (s[*i] && !is_escaped('\"', s, *i))
+	{
+		(*i)++;
+		while (s[*i])
+		{
+			if (s[*i] == '\"' && !is_escaped('\"', s, *i))
+				break ;
+			(*i)++;
+		}
+	}
 }
 
 t_token		**free_lexer(t_token **lexer)
