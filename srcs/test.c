@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 17:33:39 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/15 17:22:21 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/16 18:23:17 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,43 +37,6 @@ char		*join_three_str(char *s1, char *s2, char *s3)
 	return (dst);
 }
 
-void print_lst(t_list *lst)
-{
-	while (lst)
-	{
-		printf("main : %s | %p\n", lst->content, lst);
-		lst = lst->next;
-	}
-}
-
-void	replace_elem(t_list **elem, t_list *prev, t_list *next, t_list *new)
-{
-	free((*elem)->content);
-	free(*elem);
-	*elem = new;
-	ft_lstlast(*elem)->next = next;
-}
-
-t_list		*env_var_tokenizer(char *s)
-{
-	char	**split;
-	int		i;
-	t_list	*lst;
-	
-	i = 0;
-	lst = NULL;
-	if (!s)
-		return (NULL);
-	split = ft_split(s, ' ');
-	while (split[i])
-	{
-		ft_lstadd_back(&lst, ft_lstnew(split[i]));
-		i++;
-	}
-	free(split);
-	return (lst);
-}
-
 
 char	*find_match_in_env(char *s, int *len, t_list *env)
 {
@@ -82,9 +45,9 @@ char	*find_match_in_env(char *s, int *len, t_list *env)
 	i = 0;
 	while (s[i])
 	{
-		if ((s[i] == '\'' && !is_escaped('\'', s, i))
-		|| (s[i] == '\"' && !is_escaped('\"', s, i))
-		|| (s[i] == '$' && !is_escaped('$', s, i)))
+		if ((s[i] == '\'' && !is_escaped(s, i))
+		|| (s[i] == '\"' && !is_escaped(s, i))
+		|| (s[i] == '$' && !is_escaped(s, i)))
 			break ;
 		i++;
 	}
@@ -122,12 +85,12 @@ char	*expand_content(char *s, t_list *env)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == '\'' && !is_escaped('\'', s, i))
+		if (s[i] == '\'' && !is_escaped(s, i))
 		{
 			skip_to_next_valid_quote(s, &i);
 			i++;
 		}
-		if (s[i] == '$' && !is_escaped('$', s, i))
+		if (s[i] == '$' && !is_escaped(s, i))
 			s = replace_var(s, i, env);
 		else
 			i++;
@@ -135,83 +98,79 @@ char	*expand_content(char *s, t_list *env)
 	return (s);
 }
 
-char	*check_dollar_sign(char *s)
+int		check_dollar_sign(char *s)
 {
 	int		i;
 
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == '$' && !is_escaped('$', s[i], i))
+		if (s[i] == '$' && !is_escaped(s, i))
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
+void		replace_elem(t_token **content, t_list *elem, t_list *prev)
+{
+	int			i;
+	t_list		*lst;
+
+	i = 0;
+	lst = NULL;
+	while (content[i])
+	{
+		ft_lstadd_back(&lst, ft_lstnew(ft_strdup(content[i]->s)));
+		i++;
+	}
+	ft_lstadd_back(&lst, elem->next);
+	free_lexer(content);
+	free(elem->content);
+	free(elem);
+	prev->next = lst;
+}
+
 void	expansion_in_exec_lst(t_list *exec_lst, t_list *env)
 {
-	t_list *prev;
-	
+	t_list		*prev;
+
 	prev = NULL;
 	while (exec_lst)
 	{
 		if (check_dollar_sign(exec_lst->content))
-			exec_lst->content = expand_token(&exec_lst, prev, exec_lst->content, env);
+		{
+			if (!(exec_lst->content = expand_content(exec_lst->content, env)))
+			{
+				prev->next = exec_lst->next;
+				free(exec_lst);
+			}
+			replace_elem(ft_lexer(exec_lst->content), exec_lst, prev);
+		}
 		prev = exec_lst;
 		exec_lst = exec_lst->next;
 	}
-	
-}
-
-
-int main(int ac, char **av)
-{
-	t_list *env;
-	char *s;
-
-	s = ft_strdup("'$test1'\"thisis\"$lol$test1\"$test2\"");
-	env = ft_lstnew(ft_strdup("test1=fucking "));
-	ft_lstadd_back(&env, ft_lstnew(ft_strdup("test2=working")));
-	s = expand_content(s, env);
-	printf("%s\n", s);
-	return 0;
 }
 /*
-int main()
+int main(int ac, char **av)
 {
-	t_list	*lst;
-	t_list	*new;
+	t_list *exec_lst;
+	t_list *env;
+	char *s;
+	int		i;
 
-	lst = ft_lstnew(ft_strdup("one"));
-	ft_lstadd_back(&lst, ft_lstnew(ft_strdup("$")));
-	ft_lstadd_back(&lst, ft_lstnew(ft_strdup("four")));
-	print_lst(lst);
-	new = ft_lstnew(ft_strdup("two"));
-	ft_lstadd_back(&new, ft_lstnew(ft_strdup("three")));
-	replace_elem(&(lst->next), lst, lst->next->next, new);
-	print_lst(lst);
-	while (lst)
+	i = 0;
+	env = ft_lstnew(ft_strdup("test1=fucking "));
+	ft_lstadd_back(&env, ft_lstnew(ft_strdup("test2=working")));
+	exec_lst = ft_lstnew(ft_strdup("thereisnothinghere"));
+	ft_lstadd_back(&exec_lst, ft_lstnew(ft_strdup("ihopeits$test1\"$test2\"")));
+	expansion_in_exec_lst(exec_lst, env);
+	while (exec_lst)
 	{
-		free(lst->content);
-		free(lst);
-		lst = lst->next;
+		printf("token %i %s\n", i, exec_lst->content);
+		i++;
+		exec_lst = exec_lst->next;
 	}
-	return (0);
-}
-
-
-int main()
-{
-	char	*s;
-	t_list	*env;
-//	t_list	*exec_lst;
-	char *tmp;
-
-	env = ft_lstnew(ft_strdup("test1=jeej"));
-	ft_lstadd_back(&env, ft_lstnew(ft_strdup("test2=fuuf  mdr")));
-//	exec_lst = ft_lstnew(ft_strdup("$test1"));
-//	ft_lstadd_back(&exec_lst, ft_lstnew(ft_strdup("\"this is a $test1 $test2 trop mdr\"")));
-	exec_lst = expansion_in_exec_lst(exec_lst, env);
-	return (0);
-}*/
+	return 0;
+}	
+*/

@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:39:42 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/15 16:19:12 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/16 18:04:02 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,14 @@ t_token			*build_token(char *s, int *i)
 	int			len;
 	char		*dst;
 
-	len = 0;
+	len = *i;
 	while (s[*i] && !is_space(s[*i]) && !is_special(s, *i))
 	{
 		if (s[*i] == '\'' || s[*i] == '\"')
 			skip_to_next_valid_quote(s, i);
 		(*i)++;
-		len++;
 	}
+	len = *i - len;
 	if (s[*i] && (is_special(s, *i) == 1 || is_special(s, *i) == 2) && len == 0)
 	{
 		len = is_special(s, *i);

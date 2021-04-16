@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/04/09 15:29:30 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/16 14:44:47 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct		s_rdir
 
 // UTILS.C
 int			is_space(char c);
-int			is_escaped(char c, char *s, int i);
+int			is_escaped(char *s, int pos);
 void		skip_spaces(char *str, int *i);
 t_token		**free_lexer(t_token **lexer);
 int			is_special(char *s, int i);
