@@ -6,7 +6,7 @@
 #    By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/04/07 17:34:47 by vlugand-         ###   ########.fr        #
+#    Updated: 2021/04/17 15:24:56 by vlugand-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS		= 	srcs/lexer.c\
 				srcs/utils.c\
 				srcs/print_lexer_parser.c\
 				srcs/free_ast.c\
+				srcs/expansion.c\
 				srcs/main.c
 
 CC			= 	gcc

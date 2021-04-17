@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 17:33:39 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/16 18:23:17 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/17 15:21:11 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,32 +145,47 @@ void	expansion_in_exec_lst(t_list *exec_lst, t_list *env)
 				prev->next = exec_lst->next;
 				free(exec_lst);
 			}
-			replace_elem(ft_lexer(exec_lst->content), exec_lst, prev);
+			else
+				replace_elem(ft_lexer(exec_lst->content), exec_lst, prev);
 		}
 		prev = exec_lst;
 		exec_lst = exec_lst->next;
 	}
 }
-/*
-int main(int ac, char **av)
+
+int			err_ambiguous_redirect(char *s)
 {
-	t_list *exec_lst;
-	t_list *env;
-	char *s;
+	int			i;
+	t_token		**tmp;
+	
+	i = 0;
+	if (!s || s[0] == '\0')
+		return (0);
+	tmp = ft_lexer(s);
+	while (tmp[i])
+		i++;
+	free_lexer(tmp);
+	if (i > 1)
+		return (0);
+	return (1);
+}
+
+int		expansion_in_rdir_lst(t_list *rdir_lst, t_list *env) // if ret = 0 -> ambiguous redirect
+{
 	int		i;
+	char	*tmp;
 
 	i = 0;
-	env = ft_lstnew(ft_strdup("test1=fucking "));
-	ft_lstadd_back(&env, ft_lstnew(ft_strdup("test2=working")));
-	exec_lst = ft_lstnew(ft_strdup("thereisnothinghere"));
-	ft_lstadd_back(&exec_lst, ft_lstnew(ft_strdup("ihopeits$test1\"$test2\"")));
-	expansion_in_exec_lst(exec_lst, env);
-	while (exec_lst)
+	while (rdir_lst)
 	{
-		printf("token %i %s\n", i, exec_lst->content);
-		i++;
-		exec_lst = exec_lst->next;
+		if (check_dollar_sign(((t_rdir *)(rdir_lst->content))->file))
+		{
+			((t_rdir *)(rdir_lst->content))->file =
+			expand_content(((t_rdir *)(rdir_lst->content))->file, env);
+			if (!(err_ambiguous_redirect(((t_rdir *)(rdir_lst->content))->file)))
+				return (0);
+		}
+		rdir_lst = rdir_lst->next;
 	}
-	return 0;
-}	
-*/
+	return (1);
+}
