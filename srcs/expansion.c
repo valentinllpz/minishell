@@ -6,37 +6,11 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 17:33:39 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/17 15:21:11 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/19 15:05:44 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-char		*join_three_str(char *s1, char *s2, char *s3)
-{
-	int		i;
-	int		j;
-	int		len;
-	char	*dst;
-
-	len = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
-	if (!(dst = malloc((len + 1) * sizeof(char))))
-		return (NULL);
-	i = -1;
-	while (s1[++i])
-		dst[i] = s1[i];
-	j = i;
-	i = -1;
-	while (s2[++i])
-		dst[j + i] = s2[i];
-	j += i;
-	i = -1;
-	while (s3[++i])
-		dst[j + i] = s3[i];
-	dst[j + i] = '\0';
-	return (dst);
-}
-
 
 char	*find_match_in_env(char *s, int *len, t_list *env)
 {

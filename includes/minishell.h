@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/04/19 11:46:16 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/19 15:01:07 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int			is_escaped(char *s, int pos);
 void		skip_spaces(char *str, int *i);
 t_token		**free_lexer(t_token **lexer);
 int			is_special(char *s, int i);
+char		*join_three_str(char *s1, char *s2, char *s3);
 
 // LEXER.C
 t_token		*new_token(char *s);

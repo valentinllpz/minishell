@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:52:26 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/16 17:11:08 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/19 17:34:29 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,16 +127,59 @@ t_token		**free_lexer(t_token **lexer)
 	return (NULL);
 }
 
-int		find_index(char *s, char c)
+char		*join_three_str(char *s1, char *s2, char *s3)
 {
 	int		i;
+	int		len1;
+	int		len2;
+	int		len3;
+	char	*dst;
 
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == c)
-			return (i);
-		i++;
-	}
-	return (-1);
+	if (s1)
+		len1 = ft_strlen(s1);
+	else
+		len1 = 0;
+	if (s2)
+		len2 = ft_strlen(s2);
+	else
+		len2 = 0;
+	if (s3)
+		len3 = ft_strlen(s3);
+	else
+		len3 = 0;
+	if (!(dst = malloc((len1 + len2 + len3 + 1) * sizeof(char))))
+		return (NULL);
+	ft_strlcpy(dst, s1, len1 + 1);
+	ft_strlcpy(dst + len1, s2, len2 + 1);
+	ft_strlcpy(dst + len1 + len2, s3, len3 + 1);
+	return (dst);
 }
+
+/*char		*join_three_str(char *s1, char *s2, char *s3)
+{
+	int		i;
+	int		j;
+	int		len;
+	char	*dst;
+
+	len = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
+	if (!(dst = malloc((len + 1) * sizeof(char))))
+		return (NULL);
+	i = -1;
+	if (!s1)
+		ft_strlcpy(dst, s1, ft_strlen(s1));
+	while (s1[++i])
+		dst[i] = s1[i];
+	j = i;
+	i = -1;
+	if (s2)
+		while (s2[++i])
+			dst[j + i] = s2[i];
+	j += i;
+	i = -1;
+	if (s3)
+		while (s3[++i])
+			dst[j + i] = s3[i];
+	dst[j + i] = '\0';
+	return (dst);
+}*/
