@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:46:43 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/19 18:15:22 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/19 18:18:28 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		quotes_removal(char **s)
 		i++;
 	}
 }
-
+/*
 int main(int ac, char **av)
 {
 	char *s;
@@ -67,4 +67,4 @@ int main(int ac, char **av)
 	quotes_removal(&s);
 	printf("after s = [%s]\n", s);
 	return (0);
-}
+}*/
