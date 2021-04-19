@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/04/17 15:28:46 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/19 11:46:16 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,5 @@ void	print_parser(t_node *ast);
 //exp
 
 void	expansion_in_exec_lst(t_list *exec_lst, t_list *env);
-int		expansion_in_rdir_lst(t_list *rdir_lst, t_list *env);
+int		expansion_in_rdir_lst(t_list *rdir_lst, t_list *env); // if ret = 0 -> ambiguous redirect
 #endif
