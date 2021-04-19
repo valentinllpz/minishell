@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:52:26 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/19 17:34:29 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/19 18:06:21 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ t_token		**free_lexer(t_token **lexer)
 
 char		*join_three_str(char *s1, char *s2, char *s3)
 {
-	int		i;
 	int		len1;
 	int		len2;
 	int		len3;

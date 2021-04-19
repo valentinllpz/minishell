@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 17:33:39 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/19 15:05:44 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/19 18:17:36 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void	expansion_in_exec_lst(t_list *exec_lst, t_list *env)
 			else
 				replace_elem(ft_lexer(exec_lst->content), exec_lst, prev);
 		}
+		quotes_removal(&(exec_lst->content));
 		prev = exec_lst;
 		exec_lst = exec_lst->next;
 	}
@@ -144,7 +145,7 @@ int			err_ambiguous_redirect(char *s)
 	return (1);
 }
 
-int		expansion_in_rdir_lst(t_list *rdir_lst, t_list *env) // if ret = 0 -> ambiguous redirect
+void		expansion_in_rdir_lst(t_list *rdir_lst, t_list *env)
 {
 	int		i;
 	char	*tmp;
@@ -156,9 +157,10 @@ int		expansion_in_rdir_lst(t_list *rdir_lst, t_list *env) // if ret = 0 -> ambig
 		{
 			((t_rdir *)(rdir_lst->content))->file =
 			expand_content(((t_rdir *)(rdir_lst->content))->file, env);
-			if (!(err_ambiguous_redirect(((t_rdir *)(rdir_lst->content))->file)))
-				return (0);
+			if (err_ambiguous_redirect(((t_rdir *)(rdir_lst->content))->file))
+				((t_rdir *)(rdir_lst->content))->flag = 0;
 		}
+		quotes_removal(&(((t_rdir *)(rdir_lst->content))->file));
 		rdir_lst = rdir_lst->next;
 	}
 	return (1);

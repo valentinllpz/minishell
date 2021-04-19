@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:46:43 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/19 16:56:32 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/19 18:15:22 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,11 @@ void		quotes_removal(char **s)
 
 int main(int ac, char **av)
 {
-	char *s1 = "this";
-	char *s2 = NULL;
-	char *s3 = " works";
-	
-	printf("[%s]\n", join_three_str(s1, s2, s3));
+	char *s;
+
+	s = ft_strdup(av[1]);
+	printf("before s = [%s]\n", s);
+	quotes_removal(&s);
+	printf("after s = [%s]\n", s);
 	return (0);
 }
