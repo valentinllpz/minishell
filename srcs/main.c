@@ -19,19 +19,12 @@ int		main(int ac, char **av)
 
 	(void)ac;
 	if (!(lexer = ft_lexer(av[1])))
-		return (0); 
+		return (1); 
 	print_lexer(lexer, av[1]); // print to debug
 	if(!(ast = parser(lexer)))
-		return (0);
+		return (1);
 	print_parser(ast); // print to debug
-	free_ast(ast);
+	free_ast(ast); // free_ast(ast, 1);
 //	system("leaks minishell");// uncomment to test leaks on mac os
 	return (0);
 }
-
-/*ATTENTION VAR 
-
-check les chifres et symboles spe
-difference avec ou sans export
-peut concat avec +=
-*/

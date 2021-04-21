@@ -128,21 +128,21 @@ void	expansion_in_exec_lst(t_list *exec_lst, t_list *env)
 	}
 }
 
-int			err_ambiguous_redirect(char *s)
+int			is_ambiguous_redirect(char *s)
 {
 	int			i;
 	t_token		**tmp;
 	
 	i = 0;
 	if (!s || s[0] == '\0')
-		return (0);
+		return (1);
 	tmp = ft_lexer(s);
 	while (tmp[i])
 		i++;
 	free_lexer(tmp);
 	if (i > 1)
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 void		expansion_in_rdir_lst(t_list *rdir_lst, t_list *env)
