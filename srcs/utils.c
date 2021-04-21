@@ -58,37 +58,13 @@ int			is_special(char *s, int i)
 		return (0);
 }
 
-int		which_operator(char *s, int i)
-{
-	if (s[i] == '\0')
-		return (0);
-	if (s[i] == '&' && s[i + 1] == '&')
-		return (AND);
-	else if (s[i] == '|' && s[i + 1] == '|')
-		return (OR);
-	else if (s[i] == ';')
-		return (SEMICOLON);
-	else if (s[i] == '|')
-		return (PIPE);
-	else if (s[i] == '>')
-		return (RIGHT);
-	else if (s[i] == '<')
-		return (LEFT);
-	else if (s[i] == '>' && s[i + 1] == '>')
-		return (DRIGHT);
-	else if (s[i] == '<' && s[i + 1] == '<')
-		return (DLEFT);
-	else
-		return (0);
-}
-
-void	skip_spaces(char *s, int *i)
+void		skip_spaces(char *s, int *i)
 {
 	while (s[*i] && ((s[*i] > 8 && s[*i] < 14) || s[*i] == ' '))
 		(*i)++;
 }
 
-void			skip_to_next_valid_quote(char *s, int *i)
+void		skip_to_next_valid_quote(char *s, int *i)
 {
 	if (s[*i] == '\'' && !is_escaped(s, *i))
 	{
@@ -154,31 +130,28 @@ char		*join_three_str(char *s1, char *s2, char *s3)
 	return (dst);
 }
 
-/*char		*join_three_str(char *s1, char *s2, char *s3)
-{
-	int		i;
-	int		j;
-	int		len;
-	char	*dst;
 
-	len = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
-	if (!(dst = malloc((len + 1) * sizeof(char))))
-		return (NULL);
-	i = -1;
-	if (!s1)
-		ft_strlcpy(dst, s1, ft_strlen(s1));
-	while (s1[++i])
-		dst[i] = s1[i];
-	j = i;
-	i = -1;
-	if (s2)
-		while (s2[++i])
-			dst[j + i] = s2[i];
-	j += i;
-	i = -1;
-	if (s3)
-		while (s3[++i])
-			dst[j + i] = s3[i];
-	dst[j + i] = '\0';
-	return (dst);
+/*
+int		which_operator(char *s, int i)
+{
+	if (s[i] == '\0')
+		return (0);
+	if (s[i] == '&' && s[i + 1] == '&')
+		return (AND);
+	else if (s[i] == '|' && s[i + 1] == '|')
+		return (OR);
+	else if (s[i] == ';')
+		return (SEMICOLON);
+	else if (s[i] == '|')
+		return (PIPE);
+	else if (s[i] == '>')
+		return (RIGHT);
+	else if (s[i] == '<')
+		return (LEFT);
+	else if (s[i] == '>' && s[i + 1] == '>')
+		return (DRIGHT);
+	else if (s[i] == '<' && s[i + 1] == '<')
+		return (DLEFT);
+	else
+		return (0);
 }*/

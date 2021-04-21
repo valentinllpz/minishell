@@ -39,9 +39,6 @@ char	*make_unquoted_str(char *s, int *i)
 void		quotes_removal(char **s)
 {
 	int		i;
-	int		j;
-	char	*tmp1;
-	char	*tmp2;
 	char	*dst;
 
 	i = 0;

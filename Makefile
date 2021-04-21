@@ -16,9 +16,20 @@ SRCS		= 	srcs/lexer.c\
 				srcs/parser1.c\
 				srcs/parser2.c\
 				srcs/utils.c\
+				srcs/utils1.c\
+				srcs/utils2.c\
 				srcs/print_lexer_parser.c\
 				srcs/free_ast.c\
 				srcs/expansion.c\
+				srcs/execute1.c\
+				srcs/execute2.c\
+				srcs/readline1.c\
+				srcs/readline2.c\
+				srcs/readline3.c\
+				srcs/redirections.c\
+				srcs/terminal.c\
+				srcs/safer_libft.c\
+				srcs/quotes.c\
 				srcs/main.c
 
 CC			= 	gcc
@@ -39,7 +50,7 @@ lbft:
 			@echo "\033[0;36m\033[1mLibft is ready to use.\033[0m"
 			
 ${NAME}:	${OBJS_PATH} ${OBJS} lbft
-			${CC} ${CFLAGS} ${OBJS} ${LIBS} -o ${NAME}
+			${CC} ${CFLAGS} ${OBJS} ${LIBS} -o ${NAME} -lncurses
 			@echo "\033[0;32m\033[1mMinishell is now ready!\033[0m"
 
 clean:		

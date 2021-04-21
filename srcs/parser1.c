@@ -12,19 +12,17 @@
 
 #include "../includes/minishell.h"
 
-/* rajouter un \r sur les putstr*/
-
 int			syntax_err(t_token **lexer, int i)
 {
 	if (!lexer[i] && lexer[i - 1]->type > 0 && lexer[i - 1]->type < 5)
-		ft_putstr_fd("multiline is currently not supported\n", 2);
+		ft_putstr_fd("multiline is currently not supported\r\n", 2);
 	else if (!lexer[i] && lexer[i - 1]->type > 4 && lexer[i - 1]->type < 9)
-		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
+		ft_putstr_fd("syntax error near unexpected token `newline'\r\n", 2);
 	else
 	{
 		ft_putstr_fd("syntax error near unexpected token `", 2);
 		ft_putstr_fd(lexer[i]->s, 2);
-		write(2, "'\n", 2);
+		write(2, "'\r\n", 2);
 	}
 	free_lexer(lexer);
 	return (0);

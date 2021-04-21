@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   execute2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/16 17:51:53 by vlugand-          #+#    #+#             */
-/*   Updated: 2019/11/17 22:59:32 by vlugand-         ###   ########.fr       */
+/*   Created: 2021/04/15 17:40:33 by ade-garr          #+#    #+#             */
+/*   Updated: 2021/04/15 19:37:12 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-int		ft_lstsize(t_list *lst)
+void	launch_execution(t_node *node)
 {
-	int		size;
-
-	size = 0;
-	while (lst)
+	if (node->type == CMD)
 	{
-		lst = lst->next;
-		size++;
+		ft_exec_cmd(node); // a modifier
 	}
-	return (size);
+	else
+	{
+		launch_execution(node->left);
+		launch_execution(node->right);
+	}
 }

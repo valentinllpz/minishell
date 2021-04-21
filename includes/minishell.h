@@ -23,6 +23,9 @@
 # include <stdio.h>
 # include <errno.h>
 # include <sys/wait.h>
+# include <termios.h>
+# include <curses.h>
+# include <term.h>
 # include "../libft/libft.h"
 
 enum	type
@@ -66,21 +69,70 @@ typedef struct		s_rdir
 	char			*file; // attention aux ambiguous redirect  jeej="file    mdr"     $ echo test > $jeej
 }					t_rdir;
 
+typedef struct		s_shell
+{
+	t_list			*env;
+	t_list			*cmd; // à changer ?
+	t_list			*tmp_cmd; // à changer ?
+	t_list			*tmp_dir; // à changer ?
+	t_node			*ast;
+	char			*line;
+	int				child_status;
+	pid_t			pid_pipe;
+	pid_t			pid_exec;
+	int				pipefd[2];
+	int				error_flag;
+	int				child_flag; // à voir si à garder
+	int				return_value; // à voir si à garder
+	struct termios	orig_termios;
+	int				flag_termios;
+	char			*del_c;		//pas besoin de free
+	char			*del_line;	//pas besoin de free, à voir si à garder ou non
+	char			*left_c;	//pas besoin de free
+	char			*line_up;	//pas besoin de free
+	char			*end_line;
+	int				nb_col;
+	int				pos_x;
+	int				nb_hist;
+	t_list			*hist;
+	char			*saved_line;
+}					t_shell;
 
-// UTILS.C
-int			is_space(char c);
-int			is_escaped(char *s, int pos);
-void		skip_spaces(char *str, int *i);
-t_token		**free_lexer(t_token **lexer);
-int			is_special(char *s, int i);
-char		*join_three_str(char *s1, char *s2, char *s3);
+t_shell *g_shell;
+
+
+//execute1.c
+void				ft_exec_cmd(t_node *node);
+void				ft_process_cmd(void);
+void				ft_do_pipes(void);
+void				ft_do_dup_child(void);
+void				ft_do_dup_parent(void);
+
+//execute2.c
+void				launch_execution(t_node *node);
+
+//expansion.c
+char				*find_match_in_env(char *s, int *len, t_list *env);
+char				*replace_var(char *s, int i, t_list *env);
+char				*expand_content(char *s, t_list *env);
+int					check_dollar_sign(char *s);
+void				replace_elem(t_token **content, t_list *elem, t_list *prev);
+void				expansion_in_exec_lst(t_list *exec_lst, t_list *env);
+int					is_ambiguous_redirect(char *s);
+void				expansion_in_rdir_lst(t_list *rdir_lst, t_list *env);
+
+// FREE_AST.C
+void				free_rdir(t_rdir *rdir);
+void				free_cmd(t_cmd *cmd);
+void				free_cmd_lst(t_list *cmd_lst);
+void				free_node(t_node *node);
+void				free_ast(t_node *ast);
 
 // LEXER.C
-t_token		*new_token(char *s);
-void		skip_to_next_valid_quote(char *s, int *i);
-t_token		*build_token(char *s, int *i);
-int			word_count(char *s);
-t_token		**ft_lexer(char *s);
+t_token				*new_token(char *s);
+int					word_count(char *s);
+t_token				*build_token(char *s, int *i);
+t_token				**ft_lexer(char *s);
 
 // PARSER1.C
 int			syntax_err(t_token **lexer, int	i);
@@ -96,12 +148,74 @@ int			add_to_exec_lst(t_token **lexer, t_cmd *cmd, int i);
 t_node		*build_node(t_token **lexer);
 t_node		*build_tree(t_token **lexer);
 
-// FREE_AST.C
-void	free_rdir(t_rdir *rdir);
-void	free_cmd(t_cmd *cmd);
-void	free_cmd_lst(t_list *cmd_lst);
-void	free_node(t_node *node);
-void	free_ast(t_node *ast);
+// QUOTES.C
+
+char	*make_unquoted_str(char *s, int *i);
+void		quotes_removal(char **s);
+
+// READLINE1.C
+void	ft_del_char(void);
+void	ft_add_char(char c);
+void	ft_analyse_del(void);
+void	ft_analyse_c(char c);
+void	ft_readline(void);
+
+// READLINE2.C
+void	ft_add_to_hist(void);
+void	ft_unwrite_line(void);
+void	ft_write_line(void);
+void	ft_process_arrow_up(void);
+void	ft_analyse_escp(void);
+
+// READLINE3.C
+void	ft_process_arrow_down(void);
+
+// REDIRECTIONS.C
+void	ft_redirect_from(void);
+void	ft_redirect_to_append(void);
+void	ft_redirect_to(void);
+void	ft_do_redirections(void);
+
+// SAFER LIBFT
+int         ft_isprint_safe(int c);
+size_t		ft_strlen_safe(const char *s);
+char		*ft_strdup_safe(const char *src);
+
+// TERMINAL.C
+void	param_termcap3();
+void	param_termcap2();
+void	param_termcap();
+void	enable_raw_mode();
+
+// UTILS.C
+int					is_space(char c);
+int					is_escaped(char *s, int pos);
+void				skip_spaces(char *str, int *i);
+t_token				**free_lexer(t_token **lexer);
+int					is_special(char *s, int i);
+char				*join_three_str(char *s1, char *s2, char *s3);
+void				skip_to_next_valid_quote(char *s, int *i);
+
+// UTILS1.c
+void	ft_incr_pos_x(void);
+int		ft_putchar(int c);
+int		ft_iscntrl(char c);
+void	ft_lstclear_env(t_list **lst);
+void	ft_error_bis(void);
+
+// UTILS2.c
+void	free_global_struct(void);
+void	ft_do_ctrl_d(void);
+void	ft_error(void);
+char	*ft_get_history(void);
+
+
+// MAIN ???
+
+t_node		*ft_launch_lexer(char *line);
+void	ft_exit(void);
+void    init_shell(void);
+void    get_list_env(char **env);
 
 // PRINT_LEXER_PARSER.C -- to delete before eval
 void	print_lexer(t_token **lexer, char *s);
@@ -111,8 +225,4 @@ void	print_children(t_node *node, int tree_pos);
 void	print_ast_node(t_node *node, int tree_pos);
 void	print_parser(t_node *ast);
 
-//exp
-
-void	expansion_in_exec_lst(t_list *exec_lst, t_list *env);
-int		expansion_in_rdir_lst(t_list *rdir_lst, t_list *env); // if ret = 0 -> ambiguous redirect
 #endif

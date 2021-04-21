@@ -108,6 +108,7 @@ void		replace_elem(t_token **content, t_list *elem, t_list *prev)
 void	expansion_in_exec_lst(t_list *exec_lst, t_list *env)
 {
 	t_list		*prev;
+	char		*tmp;
 
 	prev = NULL;
 	while (exec_lst)
@@ -122,7 +123,8 @@ void	expansion_in_exec_lst(t_list *exec_lst, t_list *env)
 			else
 				replace_elem(ft_lexer(exec_lst->content), exec_lst, prev);
 		}
-		quotes_removal(&(exec_lst->content));
+		tmp = ((char *)exec_lst->content);
+		quotes_removal(&tmp);
 		prev = exec_lst;
 		exec_lst = exec_lst->next;
 	}
@@ -148,7 +150,6 @@ int			is_ambiguous_redirect(char *s)
 void		expansion_in_rdir_lst(t_list *rdir_lst, t_list *env)
 {
 	int		i;
-	char	*tmp;
 
 	i = 0;
 	while (rdir_lst)
@@ -157,11 +158,10 @@ void		expansion_in_rdir_lst(t_list *rdir_lst, t_list *env)
 		{
 			((t_rdir *)(rdir_lst->content))->file =
 			expand_content(((t_rdir *)(rdir_lst->content))->file, env);
-			if (err_ambiguous_redirect(((t_rdir *)(rdir_lst->content))->file))
+			if (is_ambiguous_redirect(((t_rdir *)(rdir_lst->content))->file))
 				((t_rdir *)(rdir_lst->content))->flag = 0;
 		}
 		quotes_removal(&(((t_rdir *)(rdir_lst->content))->file));
 		rdir_lst = rdir_lst->next;
 	}
-	return (1);
 }
