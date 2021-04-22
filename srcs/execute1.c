@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:30:22 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/22 09:59:36 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/22 13:07:45 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_process_cmd(t_shell *shell)
 		waitpid(shell->pid_pipe, &shell->child_status, 0);
 	if (shell->child_flag == 1)
 	{
-		tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->orig_termios);
+		tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->term.orig_termios);
 		exit(0);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 18:26:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/22 09:54:52 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/22 13:06:55 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,21 +67,21 @@ void	ft_analyse_del(t_shell *shell)
 {
 	if (ft_strlen_safe(shell->line) != 0)
 	{
-		if ((ft_strlen_safe(shell->line) + 2) % shell->nb_col == 0 && shell->pos_x == shell->nb_col)
-			tputs(shell->del_c, 1, ft_putchar);
-		else if ((ft_strlen_safe(shell->line) + 2) % shell->nb_col == 0 && shell->pos_x == 1)
+		if ((ft_strlen_safe(shell->line) + 2) % shell->term.nb_col == 0 && shell->term.pos_x == shell->term.nb_col)
+			tputs(shell->term.del_c, 1, ft_putchar);
+		else if ((ft_strlen_safe(shell->line) + 2) % shell->term.nb_col == 0 && shell->term.pos_x == 1)
 		{
-			tputs(shell->line_up, 1, ft_putchar);
-			tputs(tgoto(shell->end_line, 0, shell->nb_col - 1), 1, ft_putchar);
-			tputs(shell->del_c, 1, ft_putchar);
+			tputs(shell->term.line_up, 1, ft_putchar);
+			tputs(tgoto(shell->term.end_line, 0, shell->term.nb_col - 1), 1, ft_putchar);
+			tputs(shell->term.del_c, 1, ft_putchar);
 		}
 		else
 		{
-			tputs(shell->left_c, 1, ft_putchar);
-			tputs(shell->del_c, 1, ft_putchar);
+			tputs(shell->term.left_c, 1, ft_putchar);
+			tputs(shell->term.del_c, 1, ft_putchar);
 		}
 		ft_del_char(shell);
-		shell->pos_x = ((ft_strlen_safe(shell->line) + 2) % shell->nb_col) + 1;
+		shell->term.pos_x = ((ft_strlen_safe(shell->line) + 2) % shell->term.nb_col) + 1;
 	}
 }
 
@@ -102,7 +102,7 @@ void	ft_analyse_c(char c, t_shell *shell)
 	// A VIRER
 	if (c == 'q')
 	{
-		tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->orig_termios);
+		tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->term.orig_termios);
 		exit(1);
 	}
 	// A VIRER
@@ -116,7 +116,7 @@ void	ft_readline(t_shell *shell)
 	while (1)
 	{
 		write(2, "$ ", 2);
-		shell->pos_x = 3;
+		shell->term.pos_x = 3;
 		shell->nb_hist = 0;
 		while (1)
 		{

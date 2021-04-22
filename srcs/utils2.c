@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 14:58:56 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/22 09:39:37 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/22 13:06:31 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	free_global_struct(t_shell *shell) // A MODIFIER, COMPLETER
 		shell->line = NULL;
 	}
 	/// FREE CMD ET DIR
-	if (shell->flag_termios == 1)
+	if (shell->term.flag_termios == 1)
 	{
-		if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->orig_termios) == -1)
+		if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->term.orig_termios) == -1)
 		{
 			buf = strerror(errno);
 			write(2, buf, ft_strlen_safe(buf));
