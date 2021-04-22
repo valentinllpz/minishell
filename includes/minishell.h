@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/04/22 09:55:01 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/22 12:38:53 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ typedef struct		s_rdir
 	char			*file; // attention aux ambiguous redirect  jeej="file    mdr"     $ echo test > $jeej
 }					t_rdir;
 
+typedef struct		s_termios
+{
+
+}					t_termios;
+
 typedef struct		s_shell
 {
 	t_list			*env;
@@ -84,7 +89,7 @@ typedef struct		s_shell
 	int				error_flag;
 	int				child_flag; // à voir si à garder
 	int				return_value; // à voir si à garder
-	struct termios	orig_termios;
+	struct termios	orig_termios; // ->
 	int				flag_termios;
 	char			*del_c;		//pas besoin de free
 	char			*del_line;	//pas besoin de free, à voir si à garder ou non
@@ -92,7 +97,7 @@ typedef struct		s_shell
 	char			*line_up;	//pas besoin de free
 	char			*end_line;
 	int				nb_col;
-	int				pos_x; // set à 3
+	int				pos_x; // set à 3 // <- 
 	int				nb_hist;
 	t_list			*hist;
 	char			*saved_line;
