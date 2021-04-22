@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:40:41 by user42            #+#    #+#             */
-/*   Updated: 2021/04/18 17:02:32 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/22 09:57:36 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,37 +28,43 @@ t_node		*ft_launch_lexer(char *line)
 	return (ast);
 }
 
-void	ft_exit(void)	// a revoir selon parsing et code
+void	ft_exit(t_shell *shell)	// a revoir selon parsing et code
 {
-	free_global_struct();
+	free_global_struct(shell);
 	exit(1);
 }
 
-void    init_shell(void)
+t_shell	*init_shell(void)
 {
-	g_shell = malloc(sizeof(t_shell) * 1);
-	if (g_shell == NULL)
+	t_shell	*shell;
+	char	*buf;
+	
+	shell = malloc(sizeof(t_shell) * 1);
+	if (shell == NULL)
 	{
-		printf("%s\n", strerror(errno));
+		buf = strerror(errno);
+		write(2, buf, ft_strlen_safe(buf));
+		write(2, "\n", 1);
 		exit(1);
 	}
-	g_shell->env = NULL;
-	g_shell->line = NULL;
-	g_shell->tmp_cmd = NULL;
-	g_shell->cmd = NULL;
-	g_shell->child_flag = 0;
-	g_shell->flag_termios = 0;
-	g_shell->pos_x = 3;
-	g_shell->nb_hist = 0;
-	g_shell->hist = NULL;
-	g_shell->saved_line = NULL;
-	g_shell->return_value = 0;
-	g_shell->pid_pipe = 0;
-	g_shell->pid_exec = 0;
-	g_shell->error_flag = 0;
+	shell->env = NULL;
+	shell->line = NULL;
+	shell->tmp_cmd = NULL;
+	shell->cmd = NULL;
+	shell->child_flag = 0;
+	shell->flag_termios = 0;
+	shell->pos_x = 3;
+	shell->nb_hist = 0;
+	shell->hist = NULL;
+	shell->saved_line = NULL;
+	shell->return_value = 0;
+	shell->pid_pipe = 0;
+	shell->pid_exec = 0;
+	shell->error_flag = 0;
+	return(shell);
 }
 
-void    get_list_env(char **env)
+void    get_list_env(char **env, t_shell *shell)
 {
 	int     i;
 	t_list  *tmp;
@@ -68,20 +74,22 @@ void    get_list_env(char **env)
 	{
 		tmp = ft_lstnew(env[i]);
 		if (tmp == NULL)
-			ft_error();
-		ft_lstadd_back(&g_shell->env, tmp);
+			ft_error(shell);
+		ft_lstadd_back(&shell->env, tmp);
 		i++;
 	}
 }
 
 int     main(int argc, char **argv, char **env)
 {
+	t_shell	*shell;
+
 	(void)argc;
 	(void)argv;
-	init_shell(); // a revoir selon parsing et code
-	enable_raw_mode();
-	get_list_env(env);
-	param_termcap();
-	ft_readline();
+	shell = init_shell(); // a revoir selon parsing et code
+	enable_raw_mode(shell);
+	get_list_env(env, shell);
+	param_termcap(shell);
+	ft_readline(shell);
 	return (0);
 }

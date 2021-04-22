@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 17:33:39 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/19 18:17:36 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/21 20:24:42 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,9 +149,6 @@ int			is_ambiguous_redirect(char *s)
 
 void		expansion_in_rdir_lst(t_list *rdir_lst, t_list *env)
 {
-	int		i;
-
-	i = 0;
 	while (rdir_lst)
 	{
 		if (check_dollar_sign(((t_rdir *)(rdir_lst->content))->file))

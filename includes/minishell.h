@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/04/19 15:01:07 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/22 09:55:01 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct		s_shell
 	t_list			*tmp_dir; // à changer ?
 	t_node			*ast;
 	char			*line;
-	int				child_status;
+	int				child_status; //à garder ?
 	pid_t			pid_pipe;
 	pid_t			pid_exec;
 	int				pipefd[2];
@@ -92,24 +92,21 @@ typedef struct		s_shell
 	char			*line_up;	//pas besoin de free
 	char			*end_line;
 	int				nb_col;
-	int				pos_x;
+	int				pos_x; // set à 3
 	int				nb_hist;
 	t_list			*hist;
 	char			*saved_line;
 }					t_shell;
 
-t_shell *g_shell;
-
-
 //execute1.c
-void				ft_exec_cmd(t_node *node);
-void				ft_process_cmd(void);
-void				ft_do_pipes(void);
-void				ft_do_dup_child(void);
-void				ft_do_dup_parent(void);
+void				ft_exec_cmd(t_node *node, t_shell *shell);
+void				ft_process_cmd(t_shell *shell);
+void				ft_do_pipes(t_shell *shell);
+void				ft_do_dup_child(t_shell *shell);
+void				ft_do_dup_parent(t_shell *shell);
 
 //execute2.c
-void				launch_execution(t_node *node);
+void				launch_execution(t_node *node, t_shell *shell);
 
 //expansion.c
 char				*find_match_in_env(char *s, int *len, t_list *env);
@@ -154,27 +151,27 @@ char	*make_unquoted_str(char *s, int *i);
 void		quotes_removal(char **s);
 
 // READLINE1.C
-void	ft_del_char(void);
-void	ft_add_char(char c);
-void	ft_analyse_del(void);
-void	ft_analyse_c(char c);
-void	ft_readline(void);
+void	ft_del_char(t_shell *shell);
+void	ft_add_char(char c, t_shell *shell);
+void	ft_analyse_del(t_shell *shell);
+void	ft_analyse_c(char c, t_shell *shell);
+void	ft_readline(t_shell *shell);
 
 // READLINE2.C
-void	ft_add_to_hist(void);
-void	ft_unwrite_line(void);
-void	ft_write_line(void);
-void	ft_process_arrow_up(void);
-void	ft_analyse_escp(void);
+void	ft_add_to_hist(t_shell *shell);
+void	ft_unwrite_line(t_shell *shell);
+void	ft_write_line(t_shell *shell);
+void	ft_process_arrow_up(t_shell *shell);
+void	ft_analyse_escp(t_shell *shell);
 
 // READLINE3.C
-void	ft_process_arrow_down(void);
+void	ft_process_arrow_down(t_shell *shell);
 
 // REDIRECTIONS.C
-void	ft_redirect_from(void);
-void	ft_redirect_to_append(void);
-void	ft_redirect_to(void);
-void	ft_do_redirections(void);
+void	ft_redirect_from(t_shell *shell);
+void	ft_redirect_to_append(t_shell *shell);
+void	ft_redirect_to(t_shell *shell);
+void	ft_do_redirections(t_shell *shell);
 
 // SAFER LIBFT
 int         ft_isprint_safe(int c);
@@ -182,10 +179,10 @@ size_t		ft_strlen_safe(const char *s);
 char		*ft_strdup_safe(const char *src);
 
 // TERMINAL.C
-void	param_termcap3();
-void	param_termcap2();
-void	param_termcap();
-void	enable_raw_mode();
+void	param_termcap3(t_shell *shell);
+void	param_termcap2(t_shell *shell);
+void	param_termcap(t_shell *shell);
+void	enable_raw_mode(t_shell *shell);
 
 // UTILS.C
 int					is_space(char c);
@@ -197,25 +194,25 @@ char				*join_three_str(char *s1, char *s2, char *s3);
 void				skip_to_next_valid_quote(char *s, int *i);
 
 // UTILS1.c
-void	ft_incr_pos_x(void);
+void	ft_incr_pos_x(t_shell *shell);
 int		ft_putchar(int c);
 int		ft_iscntrl(char c);
 void	ft_lstclear_env(t_list **lst);
-void	ft_error_bis(void);
+void	ft_error_bis(t_shell *shell);
 
 // UTILS2.c
-void	free_global_struct(void);
-void	ft_do_ctrl_d(void);
-void	ft_error(void);
-char	*ft_get_history(void);
+void	free_global_struct(t_shell *shell);
+void	ft_do_ctrl_d(t_shell *shell);
+void	ft_error(t_shell *shell);
+char	*ft_get_history(t_shell *shell);
 
 
 // MAIN ???
 
-t_node		*ft_launch_lexer(char *line);
-void	ft_exit(void);
-void    init_shell(void);
-void    get_list_env(char **env);
+t_node	*ft_launch_lexer(char *line);
+void	ft_exit(t_shell *shell);
+t_shell	*init_shell(void);
+void	get_list_env(char **env, t_shell *shell);
 
 // PRINT_LEXER_PARSER.C -- to delete before eval
 void	print_lexer(t_token **lexer, char *s);
