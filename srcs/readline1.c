@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 18:26:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/22 13:06:55 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/22 17:17:49 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	ft_analyse_c(char c, t_shell *shell)
 	if (c == 'q')
 	{
 		tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->term.orig_termios);
+		write(1, "\n", 1);
 		exit(1);
 	}
 	// A VIRER
@@ -115,13 +116,13 @@ void	ft_readline(t_shell *shell)
 
 	while (1)
 	{
-		write(2, "$ ", 2);
-		shell->term.pos_x = 3;
+		write(2, "minishell$ ", 11);
+		shell->term.pos_x = 12;
 		shell->nb_hist = 0;
 		while (1)
 		{
 			c =  '\0';
-			if (read(STDIN_FILENO, &c, 1) == -1 && errno != EAGAIN)
+			if (read(STDIN_FILENO, &c, 1) == -1)
 				ft_error(shell);
 			ft_analyse_c(c, shell);
 			if (c == 13)

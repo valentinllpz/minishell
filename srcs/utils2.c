@@ -6,11 +6,30 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 14:58:56 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/22 13:06:31 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/26 10:35:21 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+char	**ft_list_to_char(t_list *lst)
+{
+	char	**tab;
+	int		i;
+
+	i = 0;
+	tab = malloc(sizeof(char *) * (ft_lstsize(lst) + 1));
+	if (tab == NULL)
+		return(NULL);
+	while (lst != NULL)
+	{
+		tab[i] = ((char *)lst->content);
+		i++;
+		lst = lst->next;
+	}
+	tab[i] = NULL;
+	return(tab);
+}
 
 void	free_global_struct(t_shell *shell) // A MODIFIER, COMPLETER
 {

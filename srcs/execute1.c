@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:30:22 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/22 13:07:45 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/23 19:24:34 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ void	ft_process_cmd(t_shell *shell)
 {
 	ft_do_pipes(shell);
 	ft_do_redirections(shell);
+	if (shell->error_flag == 0)
+		ft_execution(shell);
+
+	
 
 	// POUR TEST PIPES
 	if (shell->error_flag == 0)

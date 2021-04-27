@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/04/22 12:53:07 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/27 09:47:42 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ typedef struct		s_term
 typedef struct		s_shell
 {
 	t_list			*env;
-	t_list			*cmd; // à changer ?
+	char			**envp; // initialiser à NULL, free uniquement le char **, pointeurs char * = pointeur de la ll env
+	char			**exec; // initialiser à NULL, free uniquement le char **, pointeurs char * = pointeur de la ll exec_lst
 	t_list			*tmp_cmd; // à changer ?
 	t_list			*tmp_dir; // à changer ?
 	t_node			*ast;
@@ -94,11 +95,11 @@ typedef struct		s_shell
 	pid_t			pid_pipe;
 	pid_t			pid_exec;
 	int				pipefd[2];
-	int				error_flag;
+	int				error_flag; // set à 0
 	int				child_flag; // à voir si à garder
 	int				return_value; // à voir si à garder
 	t_term			term;
-	int				nb_hist;
+	int				nb_hist; // = position dans la liste chainée d'historique
 	t_list			*hist;
 	char			*saved_line;
 }					t_shell;
@@ -111,7 +112,9 @@ void				ft_do_dup_child(t_shell *shell);
 void				ft_do_dup_parent(t_shell *shell);
 
 //execute2.c
+void				ft_set_path(t_shell *shell);
 void				launch_execution(t_node *node, t_shell *shell);
+void				ft_execution(t_shell *shell);
 
 //expansion.c
 char				*find_match_in_env(char *s, int *len, t_list *env);
@@ -206,10 +209,15 @@ void	ft_lstclear_env(t_list **lst);
 void	ft_error_bis(t_shell *shell);
 
 // UTILS2.c
+char	**ft_list_to_char(t_list *lst);
 void	free_global_struct(t_shell *shell);
 void	ft_do_ctrl_d(t_shell *shell);
 void	ft_error(t_shell *shell);
 char	*ft_get_history(t_shell *shell);
+
+// UTILS3.c
+char	*get_env_path(char *s, int len, t_list *env);
+int		ft_check_path(t_shell *shell);
 
 
 // MAIN ???

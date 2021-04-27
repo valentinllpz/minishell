@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:40:41 by user42            #+#    #+#             */
-/*   Updated: 2021/04/22 12:54:12 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/23 20:00:23 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_node		*ft_launch_lexer(char *line)
 	t_node		*ast;
 
 	if (!(lexer = ft_lexer(line)))
-		return (0); 
+		return(0);
 	// print_lexer(lexer, line); // print to debug
 	if(!(ast = parser(lexer)))
 		return (0);
@@ -50,10 +50,9 @@ t_shell	*init_shell(void)
 	shell->env = NULL;
 	shell->line = NULL;
 	shell->tmp_cmd = NULL;
-	shell->cmd = NULL;
 	shell->child_flag = 0;
 	shell->term.flag_termios = 0;
-	shell->term.pos_x = 3;
+	shell->term.pos_x = 12;
 	shell->nb_hist = 0;
 	shell->hist = NULL;
 	shell->saved_line = NULL;
@@ -61,6 +60,7 @@ t_shell	*init_shell(void)
 	shell->pid_pipe = 0;
 	shell->pid_exec = 0;
 	shell->error_flag = 0;
+	shell->envp = NULL;
 	return(shell);
 }
 
