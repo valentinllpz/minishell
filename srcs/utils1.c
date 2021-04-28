@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 15:28:25 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/22 12:59:49 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/28 15:21:54 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_incr_pos_x(t_shell *shell)
 {
-	shell->term.pos_x = ((ft_strlen_safe(shell->line) + 2) % shell->term.nb_col) + 1;
-	if (shell->term.pos_x == 1)
-		shell->term.pos_x = shell->term.nb_col;
+	shell->term->pos_x = ((ft_strlen_safe(shell->line) + 11) % shell->term->nb_col) + 1;
+	if (shell->term->pos_x == 1)
+		shell->term->pos_x = shell->term->nb_col;
 }
 
 int		ft_putchar(int c)

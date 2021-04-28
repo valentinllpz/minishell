@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:30:22 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/23 19:24:34 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/28 15:49:51 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,25 +62,42 @@ void	ft_process_cmd(t_shell *shell)
 	ft_do_redirections(shell);
 	if (shell->error_flag == 0)
 		ft_execution(shell);
+	if (shell->pid_pipe != 0)
+	{
+		if (waitpid(shell->pid_pipe, &shell->pipe_status, 0) == -1)
+			ft_error(shell);
+		shell->return_value = WEXITSTATUS(shell->pipe_status); 
+	}
+	else if (shell->error_flag)
+		shell->return_value = 1;
+	else
+	{
+		if (waitpid(shell->pid_exec, &shell->exec_status, 0) == -1)
+			ft_error(shell);
+		shell->return_value = WEXITSTATUS(shell->exec_status);
+	}
+	if (shell->child_flag == 1)
+		exit(shell->return_value);
+	
 
 	
 
-	// POUR TEST PIPES
-	if (shell->error_flag == 0)
-	{
-		write(1, ((char *)((t_cmd *)shell->tmp_cmd->content)->exec_lst->content), 4);
-		write(1, " ", 1);
-		write(1, ((char *)((t_cmd *)shell->tmp_cmd->content)->exec_lst->next->content), 3);
-		write(1, "\r\n", 2);
-	}
-	// FIN TEST PIPES
-	if (shell->pid_pipe != 0)
-		waitpid(shell->pid_pipe, &shell->child_status, 0);
-	if (shell->child_flag == 1)
-	{
-		tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->term.orig_termios);
-		exit(0);
-	}
+	// // POUR TEST PIPES
+	// if (shell->error_flag == 0)
+	// {
+	// 	write(1, ((char *)((t_cmd *)shell->tmp_cmd->content)->exec_lst->content), 4);
+	// 	write(1, " ", 1);
+	// 	write(1, ((char *)((t_cmd *)shell->tmp_cmd->content)->exec_lst->next->content), 3);
+	// 	write(1, "\r\n", 2);
+	// }
+	// // FIN TEST PIPES
+	// if (shell->pid_pipe != 0)
+	// 	waitpid(shell->pid_pipe, &shell->child_status, 0);
+	// if (shell->child_flag == 1)
+	// {
+	// 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->term->orig_termios);
+	// 	exit(0);
+	// }
 }
 
 void	ft_exec_cmd(t_node *node, t_shell *shell)

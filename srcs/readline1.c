@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 18:26:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/22 17:17:49 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/28 15:53:16 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,21 +67,21 @@ void	ft_analyse_del(t_shell *shell)
 {
 	if (ft_strlen_safe(shell->line) != 0)
 	{
-		if ((ft_strlen_safe(shell->line) + 2) % shell->term.nb_col == 0 && shell->term.pos_x == shell->term.nb_col)
-			tputs(shell->term.del_c, 1, ft_putchar);
-		else if ((ft_strlen_safe(shell->line) + 2) % shell->term.nb_col == 0 && shell->term.pos_x == 1)
+		if ((ft_strlen_safe(shell->line) + 11) % shell->term->nb_col == 0 && shell->term->pos_x == shell->term->nb_col)
+			tputs(shell->term->del_c, 1, ft_putchar);
+		else if ((ft_strlen_safe(shell->line) + 11) % shell->term->nb_col == 0 && shell->term->pos_x == 1)
 		{
-			tputs(shell->term.line_up, 1, ft_putchar);
-			tputs(tgoto(shell->term.end_line, 0, shell->term.nb_col - 1), 1, ft_putchar);
-			tputs(shell->term.del_c, 1, ft_putchar);
+			tputs(shell->term->line_up, 1, ft_putchar);
+			tputs(tgoto(shell->term->end_line, 0, shell->term->nb_col - 1), 1, ft_putchar);
+			tputs(shell->term->del_c, 1, ft_putchar);
 		}
 		else
 		{
-			tputs(shell->term.left_c, 1, ft_putchar);
-			tputs(shell->term.del_c, 1, ft_putchar);
+			tputs(shell->term->left_c, 1, ft_putchar);
+			tputs(shell->term->del_c, 1, ft_putchar);
 		}
 		ft_del_char(shell);
-		shell->term.pos_x = ((ft_strlen_safe(shell->line) + 2) % shell->term.nb_col) + 1;
+		shell->term->pos_x = ((ft_strlen_safe(shell->line) + 11) % shell->term->nb_col) + 1;
 	}
 }
 
@@ -102,7 +102,7 @@ void	ft_analyse_c(char c, t_shell *shell)
 	// A VIRER
 	if (c == 'q')
 	{
-		tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->term.orig_termios);
+		tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->term->orig_termios);
 		write(1, "\n", 1);
 		exit(1);
 	}
@@ -117,7 +117,7 @@ void	ft_readline(t_shell *shell)
 	while (1)
 	{
 		write(2, "minishell$ ", 11);
-		shell->term.pos_x = 12;
+		shell->term->pos_x = 12;
 		shell->nb_hist = 0;
 		while (1)
 		{
@@ -135,10 +135,19 @@ void	ft_readline(t_shell *shell)
 		write(1, "\r\n", 2);
 		shell->ast = ft_launch_lexer(shell->line);
 		launch_execution(shell->ast, shell);
+		write(1, "\r", 1);
 		// A MODIFIER + voir si certaines variables ne doivent pas être reset (child_flag / pid_pipe..)
 		free_ast(shell->ast);
+		free(shell->path);
+		shell->path = NULL;
 		free(shell->line);
 		shell->line = NULL;
+		shell->exec_status = 0;
+		shell->pipe_status = 0;
+		shell->pid_pipe = 0;
+		shell->pid_exec = 0;
+		shell->error_flag = 0;
+		shell->child_flag = 0;
 		// A MODIFIER
 	}
 }

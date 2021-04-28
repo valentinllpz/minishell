@@ -6,26 +6,81 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:40:33 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/27 09:51:52 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/28 15:49:41 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int		ft_set_path3(t_shell *shell, char *env_path, char **path_split)
+{
+	int			i;
+	char		*tmp;
+	struct stat	buf;
+
+	i = 0;
+	while (path_split[i] != NULL)
+	{
+		tmp = ft_strjoin(path_split[i], "/");
+		shell->path = ft_strjoin(tmp, shell->exec[0]);
+		if (tmp == NULL || shell->path == NULL)
+		{
+			free(tmp);
+			free(env_path);
+			free_charptr(path_split);
+			ft_error(shell);
+		}
+		free(tmp);
+		if (stat(shell->path, &buf) == 0 && S_ISREG(buf.st_mode) == 1)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	ft_set_path2(t_shell *shell, char *env_path)
+{
+	char	**path_split;
+
+	env_path = ft_strdup(env_path + 5);
+	if (env_path == NULL)
+		ft_error(shell);
+	path_split = ft_split(env_path, ':');
+	if (path_split == NULL)
+	{
+		free(env_path);
+		ft_error(shell);
+	}
+	if (ft_set_path3(shell, env_path, path_split) == 1)
+	{
+		write(2, shell->exec[0], ft_strlen_safe(shell->exec[0]));
+		write(2, ": command not found\r\n", 21);
+		shell->error_flag = 1;
+	}
+	free(env_path);
+	free_charptr(path_split);
+}
+
 void	ft_set_path(t_shell *shell)
 {
 	char	*env_path;
 
-	env_path = getenv_path("PATH=", 5, t_list *env);
-	if (env_path != NULL)
-		env_path = ft_strdup(env_path + 5);
+	env_path = getenv_path("PATH=", 5, shell->env);
+	if (env_path == NULL)
+	{
+		write(2, shell->exec[0], ft_strlen_safe(shell->exec[0]));
+		write(2, ": command not found\r\n", 21);
+		shell->error_flag = 1;
+	}
+	else
+		ft_set_path2(shell, env_path);
 }
 
 void	launch_execution(t_node *node, t_shell *shell)
 {
 	if (node->type == CMD)
 	{
-		ft_exec_cmd(node, shell); // a modifier
+		ft_exec_cmd(node, shell);
 	}
 	else
 	{
@@ -35,7 +90,9 @@ void	launch_execution(t_node *node, t_shell *shell)
 }
 
 void	ft_execution(t_shell *shell)
-{	
+{
+	int	ret;
+
 	expansion_in_exec_lst(((t_cmd *)shell->tmp_cmd->content)->exec_lst, shell->env);
 	free(shell->envp);
 	shell->envp = ft_list_to_char(shell->env);
@@ -47,6 +104,22 @@ void	ft_execution(t_shell *shell)
 		ft_error(shell);
 	if (ft_check_path(shell) == 0)
 		ft_set_path(shell);
-
-
+	else
+	{
+		shell->path = ft_strdup(shell->exec[0]);
+		if (shell->path == NULL)
+			ft_error(shell);
+	}
+	if (shell->error_flag == 0)
+	{
+		shell->pid_exec = fork();
+		if (shell->pid_exec == -1)
+			ft_error(shell);
+		if (shell->pid_exec == 0)
+		{
+			ret = execve(shell->path, shell->exec, shell->envp);
+			if (ret == -1)
+				ft_error(shell);
+		}
+	}
 }

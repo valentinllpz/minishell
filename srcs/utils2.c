@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 14:58:56 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/26 10:35:21 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/28 15:21:55 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 char	**ft_list_to_char(t_list *lst)
 {
-	char	**tab;
+	char	**char_tab;
 	int		i;
 
 	i = 0;
-	tab = malloc(sizeof(char *) * (ft_lstsize(lst) + 1));
-	if (tab == NULL)
+	char_tab = malloc(sizeof(char *) * (ft_lstsize(lst) + 1));
+	if (char_tab == NULL)
 		return(NULL);
 	while (lst != NULL)
 	{
-		tab[i] = ((char *)lst->content);
+		char_tab[i] = ((char *)lst->content);
 		i++;
 		lst = lst->next;
 	}
-	tab[i] = NULL;
-	return(tab);
+	char_tab[i] = NULL;
+	return(char_tab);
 }
 
 void	free_global_struct(t_shell *shell) // A MODIFIER, COMPLETER
@@ -43,9 +43,9 @@ void	free_global_struct(t_shell *shell) // A MODIFIER, COMPLETER
 		shell->line = NULL;
 	}
 	/// FREE CMD ET DIR
-	if (shell->term.flag_termios == 1)
+	if (shell->term->flag_termios == 1)
 	{
-		if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->term.orig_termios) == -1)
+		if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->term->orig_termios) == -1)
 		{
 			buf = strerror(errno);
 			write(2, buf, ft_strlen_safe(buf));
