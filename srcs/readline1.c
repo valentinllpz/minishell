@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 18:26:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/28 15:53:16 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/29 10:45:56 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,17 +125,17 @@ void	ft_readline(t_shell *shell)
 			if (read(STDIN_FILENO, &c, 1) == -1)
 				ft_error(shell);
 			ft_analyse_c(c, shell);
-			if (c == 13)
+			if (c == 10)
 				if (shell->line != NULL && shell->line[0] != '\0')
 				{
 					ft_add_to_hist(shell);
 					break;
 				}
 		}
-		write(1, "\r\n", 2);
+		write(1, "\n", 1);
 		shell->ast = ft_launch_lexer(shell->line);
 		launch_execution(shell->ast, shell);
-		write(1, "\r", 1);
+		// write(1, "\r", 1);
 		// A MODIFIER + voir si certaines variables ne doivent pas être reset (child_flag / pid_pipe..)
 		free_ast(shell->ast);
 		free(shell->path);

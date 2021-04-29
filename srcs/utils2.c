@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 14:58:56 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/28 15:21:55 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/29 10:44:33 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	free_global_struct(t_shell *shell) // A MODIFIER, COMPLETER
 		{
 			buf = strerror(errno);
 			write(2, buf, ft_strlen_safe(buf));
-			write(2, "\r\n", 2);
+			write(2, "\n", 1);
 		}
 	}
 	free(shell);
@@ -63,7 +63,7 @@ void	ft_do_ctrl_d(t_shell *shell)
 	{
 		ret = shell->return_value;
 		free_global_struct(shell);
-		write(1, "exit\r\n", 6);
+		write(1, "exit\n", 5);
 		exit(ret);
 	}
 }
@@ -74,7 +74,7 @@ void	ft_error(t_shell *shell)
 
 	buf = strerror(errno);
 	write(2, buf, ft_strlen_safe(buf));
-	write(2, "\r\n", 2);
+	write(2, "\n", 1);
 	ft_exit(shell);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 15:53:42 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/22 09:56:24 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/29 10:42:42 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_redirect_from(t_shell *shell)
 	{
 		buf = strerror(errno);
 		write(2, buf, ft_strlen_safe(buf));
-		write(2, "\r\n", 2);
+		write(2, "\n", 1);
 		shell->error_flag = 1;
 	}
 	else
@@ -71,7 +71,7 @@ void	ft_do_redirections(t_shell *shell)
 	{
 		if (((t_rdir *)shell->tmp_dir->content)->flag == 0)
 		{
-			write(2, "bash: ambigous redirect\r\n", 25);
+			write(2, "bash: ambigous redirect\n", 24);
 			shell->error_flag = 1;
 		}
 		else if (((t_rdir *)shell->tmp_dir->content)->flag == 1)

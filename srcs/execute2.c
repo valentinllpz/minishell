@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:40:33 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/28 15:49:41 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/29 12:41:39 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_set_path2(t_shell *shell, char *env_path)
 	if (ft_set_path3(shell, env_path, path_split) == 1)
 	{
 		write(2, shell->exec[0], ft_strlen_safe(shell->exec[0]));
-		write(2, ": command not found\r\n", 21);
+		write(2, ": command not found\n", 20);
 		shell->error_flag = 1;
 	}
 	free(env_path);
@@ -69,7 +69,7 @@ void	ft_set_path(t_shell *shell)
 	if (env_path == NULL)
 	{
 		write(2, shell->exec[0], ft_strlen_safe(shell->exec[0]));
-		write(2, ": command not found\r\n", 21);
+		write(2, ": command not found\n", 20);
 		shell->error_flag = 1;
 	}
 	else
@@ -80,6 +80,14 @@ void	launch_execution(t_node *node, t_shell *shell)
 {
 	if (node->type == CMD)
 	{
+		free(shell->path);
+		shell->path = NULL;
+		shell->exec_status = 0;
+		shell->pipe_status = 0;
+		shell->pid_pipe = 0;
+		shell->pid_exec = 0;
+		shell->error_flag = 0;
+		shell->child_flag = 0;
 		ft_exec_cmd(node, shell);
 	}
 	else
