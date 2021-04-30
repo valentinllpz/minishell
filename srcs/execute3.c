@@ -6,11 +6,30 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:47:23 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/30 13:58:38 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/30 15:56:23 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_execution2(t_shell *shell)
+{
+	int	ret;
+
+	if (shell->error_flag == 0)
+	{
+		if (shell->child_flag == 0)
+			shell->pid_exec = fork();
+		if (shell->pid_exec == -1)
+			ft_error(shell);
+		if (shell->pid_exec == 0)
+		{
+			ret = execve(shell->path, shell->exec, shell->envp);
+			if (ret == -1)
+				ft_error(shell);
+		}
+	}
+}
 
 void	ft_do_first_pipe(t_shell *shell)
 {

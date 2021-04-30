@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/04/30 13:59:12 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/30 15:58:54 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,17 +122,20 @@ void				launch_execution(t_node *node, t_shell *shell);
 void				ft_execution(t_shell *shell);
 
 //execute3.c
+void				ft_execution2(t_shell *shell);
 void				ft_do_first_pipe(t_shell *shell);
 
 //expansion.c
-char				*find_match_in_env(char *s, int *len, t_list *env);
-char				*replace_var(char *s, int i, t_list *env);
-char				*expand_content(char *s, t_list *env);
 int					check_dollar_sign(char *s);
 void				replace_elem(t_token **content, t_list *elem, t_list *prev);
 void				expansion_in_exec_lst(t_list *exec_lst, t_list *env);
 int					is_ambiguous_redirect(char *s);
 void				expansion_in_rdir_lst(t_list *rdir_lst, t_list *env);
+
+//expansion2.c
+char				*find_match_in_env(char *s, int *len, t_list *env);
+char				*replace_var(char *s, int i, t_list *env);
+char				*expand_content(char *s, t_list *env);
 
 // FREE_AST.C
 void				free_rdir(t_rdir *rdir);

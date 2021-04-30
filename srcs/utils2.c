@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 14:58:56 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/29 10:44:33 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/30 16:22:20 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**ft_list_to_char(t_list *lst)
 	i = 0;
 	char_tab = malloc(sizeof(char *) * (ft_lstsize(lst) + 1));
 	if (char_tab == NULL)
-		return(NULL);
+		return (NULL);
 	while (lst != NULL)
 	{
 		char_tab[i] = ((char *)lst->content);
@@ -28,7 +28,7 @@ char	**ft_list_to_char(t_list *lst)
 		lst = lst->next;
 	}
 	char_tab[i] = NULL;
-	return(char_tab);
+	return (char_tab);
 }
 
 void	free_global_struct(t_shell *shell) // A MODIFIER, COMPLETER
@@ -45,7 +45,8 @@ void	free_global_struct(t_shell *shell) // A MODIFIER, COMPLETER
 	/// FREE CMD ET DIR
 	if (shell->term->flag_termios == 1)
 	{
-		if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->term->orig_termios) == -1)
+		if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->term->orig_termios)
+		== -1)
 		{
 			buf = strerror(errno);
 			write(2, buf, ft_strlen_safe(buf));

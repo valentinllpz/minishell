@@ -6,25 +6,25 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:40:41 by user42            #+#    #+#             */
-/*   Updated: 2021/04/28 13:44:17 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/30 16:06:19 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_node		*ft_launch_lexer(char *line)
+t_node	*ft_launch_lexer(char *line)
 {
 	t_token		**lexer;
 	t_node		*ast;
 
 	if (!(lexer = ft_lexer(line)))
-		return(0);
-	// print_lexer(lexer, line); // print to debug
-	if(!(ast = parser(lexer)))
 		return (0);
-//	print_parser(ast); // print to debug
-//	free_ast(ast); 
-//	system("leaks minishell");// uncomment to test leaks on mac os
+	// print_lexer(lexer, line); // print to debug
+	if (!(ast = parser(lexer)))
+		return (0);
+	//	print_parser(ast); // print to debug
+	//	free_ast(ast);
+	//	system("leaks minishell");// uncomment to test leaks on mac os
 	return (ast);
 }
 
@@ -38,7 +38,7 @@ t_shell	*init_shell(void)
 {
 	t_shell	*shell;
 	char	*buf;
-	
+
 	shell = malloc(sizeof(t_shell) * 1);
 	if (shell == NULL)
 	{
@@ -72,13 +72,13 @@ t_shell	*init_shell(void)
 	shell->envp = NULL;
 	shell->exec_status = 0;
 	shell->pipe_status = 0;
-	return(shell);
+	return (shell);
 }
 
-void    get_list_env(char **env, t_shell *shell)
+void	get_list_env(char **env, t_shell *shell)
 {
-	int     i;
-	t_list  *tmp;
+	int		i;
+	t_list	*tmp;
 
 	i = 0;
 	while (env[i] != NULL)
@@ -91,7 +91,7 @@ void    get_list_env(char **env, t_shell *shell)
 	}
 }
 
-int     main(int argc, char **argv, char **env)
+int		main(int argc, char **argv, char **env)
 {
 	t_shell	*shell;
 

@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 18:26:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/29 10:45:56 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/30 16:13:59 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,15 @@ void	ft_analyse_del(t_shell *shell)
 {
 	if (ft_strlen_safe(shell->line) != 0)
 	{
-		if ((ft_strlen_safe(shell->line) + 11) % shell->term->nb_col == 0 && shell->term->pos_x == shell->term->nb_col)
+		if ((ft_strlen_safe(shell->line) + 11) % shell->term->nb_col == 0
+		&& shell->term->pos_x == shell->term->nb_col)
 			tputs(shell->term->del_c, 1, ft_putchar);
-		else if ((ft_strlen_safe(shell->line) + 11) % shell->term->nb_col == 0 && shell->term->pos_x == 1)
+		else if ((ft_strlen_safe(shell->line) + 11) %
+		shell->term->nb_col == 0 && shell->term->pos_x == 1)
 		{
 			tputs(shell->term->line_up, 1, ft_putchar);
-			tputs(tgoto(shell->term->end_line, 0, shell->term->nb_col - 1), 1, ft_putchar);
+			tputs(tgoto(shell->term->end_line, 0, shell->term->nb_col - 1),
+			1, ft_putchar);
 			tputs(shell->term->del_c, 1, ft_putchar);
 		}
 		else
@@ -81,7 +84,8 @@ void	ft_analyse_del(t_shell *shell)
 			tputs(shell->term->del_c, 1, ft_putchar);
 		}
 		ft_del_char(shell);
-		shell->term->pos_x = ((ft_strlen_safe(shell->line) + 11) % shell->term->nb_col) + 1;
+		shell->term->pos_x = ((ft_strlen_safe(shell->line) + 11)
+		% shell->term->nb_col) + 1;
 	}
 }
 
@@ -109,7 +113,6 @@ void	ft_analyse_c(char c, t_shell *shell)
 	// A VIRER
 }
 
-
 void	ft_readline(t_shell *shell)
 {
 	char	c;
@@ -121,7 +124,7 @@ void	ft_readline(t_shell *shell)
 		shell->nb_hist = 0;
 		while (1)
 		{
-			c =  '\0';
+			c = '\0';
 			if (read(STDIN_FILENO, &c, 1) == -1)
 				ft_error(shell);
 			ft_analyse_c(c, shell);
@@ -129,7 +132,7 @@ void	ft_readline(t_shell *shell)
 				if (shell->line != NULL && shell->line[0] != '\0')
 				{
 					ft_add_to_hist(shell);
-					break;
+					break ;
 				}
 		}
 		write(1, "\n", 1);

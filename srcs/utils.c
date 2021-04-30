@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:52:26 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/19 18:06:21 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/30 16:21:23 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		is_space(char c)
 {
 	if ((c > 8 && c < 14) || c == ' ')
 		return (1);
-	return (0);	
+	return (0);
 }
 
 int		is_escaped(char *s, int pos) //ne marche pas pour plusieurs //
@@ -45,26 +45,27 @@ int		is_escaped(char *s, int pos) //ne marche pas pour plusieurs //
 	return (0);
 }
 
-int			is_special(char *s, int i)
+int		is_special(char *s, int i)
 {
 	if (s[i] == '\0')
 		return (0);
-	if (((s[i] == '>' && s[i + 1] == '>') || (s[i] == '&' && s[i + 1] == '&') ||
-	(s[i] == '|' && s[i + 1] == '|')) && !is_escaped(s, i))
+	if (((s[i] == '>' && s[i + 1] == '>') || (s[i] == '&' && s[i + 1] == '&')
+	|| (s[i] == '|' && s[i + 1] == '|')) && !is_escaped(s, i))
 		return (2);
-	else if ((s[i] == ';' || s [i] == '|' || s[i] == '>' || s[i] == '<') && !is_escaped(s, i))
+	else if ((s[i] == ';' || s[i] == '|' || s[i] == '>' || s[i] == '<')
+	&& !is_escaped(s, i))
 		return (1);
 	else
 		return (0);
 }
 
-void		skip_spaces(char *s, int *i)
+void	skip_spaces(char *s, int *i)
 {
 	while (s[*i] && ((s[*i] > 8 && s[*i] < 14) || s[*i] == ' '))
 		(*i)++;
 }
 
-void		skip_to_next_valid_quote(char *s, int *i)
+void	skip_to_next_valid_quote(char *s, int *i)
 {
 	if (s[*i] == '\'' && !is_escaped(s, *i))
 	{
@@ -88,7 +89,7 @@ void		skip_to_next_valid_quote(char *s, int *i)
 	}
 }
 
-t_token		**free_lexer(t_token **lexer)
+t_token	**free_lexer(t_token **lexer)
 {
 	int			i;
 
@@ -103,7 +104,7 @@ t_token		**free_lexer(t_token **lexer)
 	return (NULL);
 }
 
-char		*join_three_str(char *s1, char *s2, char *s3)
+char	*join_three_str(char *s1, char *s2, char *s3)
 {
 	int		len1;
 	int		len2;
@@ -129,7 +130,6 @@ char		*join_three_str(char *s1, char *s2, char *s3)
 	ft_strlcpy(dst + len1 + len2, s3, len3 + 1);
 	return (dst);
 }
-
 
 /*
 int		which_operator(char *s, int i)

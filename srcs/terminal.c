@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 11:25:59 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/29 10:44:06 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/30 16:19:20 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	param_termcap(t_shell *shell)
 void	enable_raw_mode(t_shell *shell)
 {
 	struct termios raw;
-	
+
 	if (tcgetattr(STDIN_FILENO, &shell->term->orig_termios) == -1)
 		ft_error_bis(shell);
 	raw = shell->term->orig_termios;

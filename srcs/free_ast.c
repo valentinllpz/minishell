@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_ast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 17:33:39 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/07 18:12:10 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/30 16:00:31 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	free_cmd(t_cmd *cmd)
 		free_rdir(((t_rdir *)cmd->rdir_lst->content));
 		tmp = cmd->rdir_lst->next;
 		free(cmd->rdir_lst);
-		cmd->rdir_lst = tmp; 
+		cmd->rdir_lst = tmp;
 	}
 	free(cmd);
 }

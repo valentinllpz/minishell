@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 10:06:54 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/28 13:33:23 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/30 16:23:13 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_charptr(char **ptr)
 	i = 0;
 	if (ptr != NULL)
 	{
-		while(ptr[i] != NULL)
+		while (ptr[i] != NULL)
 		{
 			free(ptr[i]);
 			i++;
@@ -28,7 +28,7 @@ void	free_charptr(char **ptr)
 	}
 }
 
-char	*getenv_path(char *s,  int len, t_list *env)
+char	*getenv_path(char *s, int len, t_list *env)
 {
 	while (env != NULL)
 	{
@@ -48,10 +48,10 @@ int		ft_check_path(t_shell *shell)
 	buf = shell->exec[0];
 	if (buf != NULL)
 	{
-		while(buf[i] != '\0')
+		while (buf[i] != '\0')
 		{
 			if (buf[i] == '/')
-				return(1);
+				return (1);
 			i++;
 		}
 	}

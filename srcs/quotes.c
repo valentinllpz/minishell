@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:46:43 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/19 18:18:28 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/04/30 16:10:00 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*make_unquoted_str(char *s, int *i)
 	return (dst);
 }
 
-void		quotes_removal(char **s)
+void	quotes_removal(char **s)
 {
 	int		i;
 	char	*dst;
@@ -44,7 +44,7 @@ void		quotes_removal(char **s)
 	i = 0;
 	while ((*s)[i])
 	{
-		if (((*s)[i] == '\'' || (*s)[i] == '\"')  && !is_escaped(*s, i))
+		if (((*s)[i] == '\'' || (*s)[i] == '\"') && !is_escaped(*s, i))
 		{
 			dst = make_unquoted_str(*s, &i);
 			free(*s);
@@ -54,6 +54,7 @@ void		quotes_removal(char **s)
 		i++;
 	}
 }
+
 /*
 int main(int ac, char **av)
 {
