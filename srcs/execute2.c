@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:40:33 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/29 12:41:39 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/30 12:53:35 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	launch_execution(t_node *node, t_shell *shell)
 		shell->pid_pipe = 0;
 		shell->pid_exec = 0;
 		shell->error_flag = 0;
+		shell->parent_flag = 0;
 		shell->child_flag = 0;
 		ft_exec_cmd(node, shell);
 	}

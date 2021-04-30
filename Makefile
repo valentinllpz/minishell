@@ -6,7 +6,7 @@
 #    By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/04/26 10:29:16 by ade-garr         ###   ########.fr        #
+#    Updated: 2021/04/30 13:59:00 by ade-garr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS		= 	srcs/lexer.c\
 				srcs/expansion.c\
 				srcs/execute1.c\
 				srcs/execute2.c\
+				srcs/execute3.c\
 				srcs/readline1.c\
 				srcs/readline2.c\
 				srcs/readline3.c\

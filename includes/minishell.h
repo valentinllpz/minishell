@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/04/28 13:40:27 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/30 13:59:12 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct		s_shell
 	pid_t			pid_exec;
 	int				pipefd[2];
 	int				error_flag; // set à 0
+	int				parent_flag;
 	int				child_flag; // à voir si à garder
 	int				return_value; // à voir si à garder
 	t_term			*term;
@@ -119,6 +120,9 @@ void				ft_set_path2(t_shell *shell, char *env_path);
 void				ft_set_path(t_shell *shell);
 void				launch_execution(t_node *node, t_shell *shell);
 void				ft_execution(t_shell *shell);
+
+//execute3.c
+void				ft_do_first_pipe(t_shell *shell);
 
 //expansion.c
 char				*find_match_in_env(char *s, int *len, t_list *env);

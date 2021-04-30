@@ -6,23 +6,13 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:30:22 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/29 12:29:37 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/04/30 13:58:08 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 void	ft_do_dup_parent(t_shell *shell)
-{
-	if (close(shell->pipefd[0]) == -1)
-		ft_error(shell);
-	if (dup2(shell->pipefd[1], 1) == -1)
-		ft_error(shell);
-	if (close(shell->pipefd[1]) == -1)
-		ft_error(shell);
-}
-
-void	ft_do_dup_child(t_shell *shell)
 {
 	if (close(shell->pipefd[1]) == -1)
 		ft_error(shell);
@@ -32,6 +22,16 @@ void	ft_do_dup_child(t_shell *shell)
 		ft_error(shell);
 	shell->tmp_cmd = shell->tmp_cmd->next;
 	ft_do_pipes(shell);
+}
+
+void	ft_do_dup_child(t_shell *shell)
+{
+	if (close(shell->pipefd[0]) == -1)
+		ft_error(shell);
+	if (dup2(shell->pipefd[1], 1) == -1)
+		ft_error(shell);
+	if (close(shell->pipefd[1]) == -1)
+		ft_error(shell);
 }
 
 void	ft_do_pipes(t_shell *shell)
@@ -58,17 +58,21 @@ void	ft_do_pipes(t_shell *shell)
 
 void	ft_process_cmd(t_shell *shell)
 {
-	ft_do_pipes(shell);
-	ft_do_redirections(shell);
-	if (shell->error_flag == 0)
-		ft_execution(shell);
-	if (shell->pid_pipe != 0)
+	ft_do_first_pipe(shell);
+	if (shell->parent_flag == 0)
+	{
+		ft_do_pipes(shell);
+		ft_do_redirections(shell);
+		if (shell->error_flag == 0)
+			ft_execution(shell);
+	}
+	if (shell->parent_flag == 1)
 	{
 		if (waitpid(shell->pid_pipe, &shell->pipe_status, 0) == -1)
 			ft_error(shell);
 		shell->return_value = WEXITSTATUS(shell->pipe_status); 
 	}
-	else if (shell->error_flag)
+	else if (shell->error_flag == 1)
 		shell->return_value = 1;
 	else
 	{
@@ -78,6 +82,7 @@ void	ft_process_cmd(t_shell *shell)
 	}
 	if (shell->child_flag == 1)
 		exit(shell->return_value);
+
 	
 
 	
