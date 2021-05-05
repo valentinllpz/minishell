@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:39:42 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/16 18:04:02 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/05/05 10:11:26 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ t_token			*new_token(char *s)
 		token->type = SEMICOLON;
 	else if (s[0] == '|')
 		token->type = PIPE;
-	else if (s[0] == '>')
-		token->type = RIGHT;
-	else if (s[0] == '<')
-		token->type = LEFT;
 	else if (s[0] == '>' && s[1] == '>')
 		token->type = DRIGHT;
 	else if (s[0] == '<' && s[1] == '<')
 		token->type = DLEFT;
+	else if (s[0] == '>')
+		token->type = RIGHT;
+	else if (s[0] == '<')
+		token->type = LEFT;
 	return (token);
 }
 
