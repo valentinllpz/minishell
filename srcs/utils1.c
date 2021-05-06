@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 15:28:25 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/30 16:21:40 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/06 12:21:01 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,8 @@ void	ft_lstclear_env(t_list **lst)
 	}
 }
 
-void	ft_error_bis(t_shell *shell)
+void	disable_raw_mode(t_shell *shell)
 {
-	char	*buf;
-
-	buf = strerror(errno);
-	write(2, buf, ft_strlen_safe(buf));
-	write(2, "\n", 1);
-	ft_exit(shell);
+	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->term->orig_termios) == -1)
+		ft_error(shell);
 }

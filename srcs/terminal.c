@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 11:25:59 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/30 16:19:20 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/06 12:11:13 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ void	enable_raw_mode(t_shell *shell)
 {
 	struct termios raw;
 
-	if (tcgetattr(STDIN_FILENO, &shell->term->orig_termios) == -1)
-		ft_error_bis(shell);
 	raw = shell->term->orig_termios;
 	// raw.c_iflag &= ~(ICRNL);
 	raw.c_iflag &= ~(BRKINT | INPCK | ISTRIP | IXON);
@@ -92,6 +90,5 @@ void	enable_raw_mode(t_shell *shell)
 	raw.c_cc[VMIN] = 0;
 	raw.c_cc[VTIME] = 1;
 	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw) == -1)
-		ft_error_bis(shell);
-	shell->term->flag_termios = 1;
+		ft_error(shell);
 }

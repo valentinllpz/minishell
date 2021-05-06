@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:30:22 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/30 15:42:44 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/06 10:20:12 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,15 @@ void	ft_process_cmd(t_shell *shell)
 		if (shell->error_flag == 0)
 			ft_execution(shell);
 	}
+	if (shell->parent_flag == 0 && shell->pid_pipe != 0)
+	{
+		// printf("cmd %s passe par ici\n", (char *)((t_cmd *)shell->tmp_cmd->content)->exec_lst->content);
+		if (waitpid(shell->pid_pipe, &shell->pipe_status, 0) == -1)
+			ft_error(shell);
+	}
 	if (shell->parent_flag == 1)
 	{
+		// printf("le père passe par icilà\n");
 		if (waitpid(shell->pid_pipe, &shell->pipe_status, 0) == -1)
 			ft_error(shell);
 		shell->return_value = WEXITSTATUS(shell->pipe_status);
@@ -76,6 +83,7 @@ void	ft_process_cmd(t_shell *shell)
 		shell->return_value = 1;
 	else
 	{
+		// printf("cmd %s passe par là\n", (char *)((t_cmd *)shell->tmp_cmd->content)->exec_lst->content);
 		if (waitpid(shell->pid_exec, &shell->exec_status, 0) == -1)
 			ft_error(shell);
 		shell->return_value = WEXITSTATUS(shell->exec_status);

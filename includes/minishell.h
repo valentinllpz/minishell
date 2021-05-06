@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/04/30 15:58:54 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/06 12:14:20 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ void	ft_incr_pos_x(t_shell *shell);
 int		ft_putchar(int c);
 int		ft_iscntrl(char c);
 void	ft_lstclear_env(t_list **lst);
-void	ft_error_bis(t_shell *shell);
+void	disable_raw_mode(t_shell *shell);
 
 // UTILS2.c
 char	**ft_list_to_char(t_list *lst);

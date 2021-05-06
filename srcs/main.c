@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:40:41 by user42            #+#    #+#             */
-/*   Updated: 2021/04/30 16:06:19 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/06 12:23:45 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_node	*ft_launch_lexer(char *line)
 	// print_lexer(lexer, line); // print to debug
 	if (!(ast = parser(lexer)))
 		return (0);
-	//	print_parser(ast); // print to debug
+	// print_parser(ast); // print to debug
 	//	free_ast(ast);
 	//	system("leaks minishell");// uncomment to test leaks on mac os
 	return (ast);
@@ -72,6 +72,9 @@ t_shell	*init_shell(void)
 	shell->envp = NULL;
 	shell->exec_status = 0;
 	shell->pipe_status = 0;
+	if (tcgetattr(STDIN_FILENO, &shell->term->orig_termios) == -1)
+		ft_error(shell);
+	shell->term->flag_termios = 1;
 	return (shell);
 }
 
@@ -98,7 +101,6 @@ int		main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	shell = init_shell(); // a revoir selon parsing et code
-	enable_raw_mode(shell);
 	get_list_env(env, shell);
 	param_termcap(shell);
 	ft_readline(shell);

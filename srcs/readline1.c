@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 18:26:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/30 16:13:59 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/06 12:27:20 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void	ft_readline(t_shell *shell)
 
 	while (1)
 	{
+		enable_raw_mode(shell);
 		write(2, "minishell$ ", 11);
 		shell->term->pos_x = 12;
 		shell->nb_hist = 0;
@@ -137,6 +138,7 @@ void	ft_readline(t_shell *shell)
 		}
 		write(1, "\n", 1);
 		shell->ast = ft_launch_lexer(shell->line);
+		disable_raw_mode(shell);
 		launch_execution(shell->ast, shell);
 		// write(1, "\r", 1);
 		// A MODIFIER + voir si certaines variables ne doivent pas être reset (child_flag / pid_pipe..)
