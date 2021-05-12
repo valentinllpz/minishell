@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/05/06 12:14:20 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/12 11:36:06 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void				launch_execution(t_node *node, t_shell *shell);
 void				ft_execution(t_shell *shell);
 
 //execute3.c
+void				get_return_value(t_shell *shell);
 void				ft_execution2(t_shell *shell);
 void				ft_do_first_pipe(t_shell *shell);
 

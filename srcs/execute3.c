@@ -6,11 +6,38 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:47:23 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/05/05 10:34:18 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/12 11:35:39 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	get_return_value(t_shell *shell)
+{
+	if (shell->parent_flag == 1)
+	{
+		if (waitpid(shell->pid_pipe, &shell->pipe_status, 0) == -1)
+			ft_error(shell);
+		shell->return_value = WEXITSTATUS(shell->pipe_status);
+	}
+	else if (shell->error_flag == 1)
+		shell->return_value = 1;
+	else
+	{
+		if (waitpid(shell->pid_exec, &shell->exec_status, 0) == -1)
+			ft_error(shell);
+		close(0);
+		shell->return_value = WEXITSTATUS(shell->exec_status);
+		if (shell->pid_pipe != 0)
+		{
+			while (waitpid(0, &shell->pipe_status, 0) != -1)
+			{
+			}
+		}
+	}
+	if (shell->child_flag == 1)
+		exit(shell->return_value);
+}
 
 void	ft_execution2(t_shell *shell)
 {
