@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 15:28:25 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/05/06 12:21:01 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/21 15:09:21 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,6 @@ int		ft_iscntrl(char c)
 	if (((int)c >= 0 && (int)c <= 31) || (int)c == 127)
 		return (1);
 	return (0);
-}
-
-void	ft_lstclear_env(t_list **lst)
-{
-	t_list	*t;
-
-	if (!lst)
-		return ;
-	while ((*lst))
-	{
-		t = *lst;
-		*lst = (*lst)->next;
-		free(t);
-	}
 }
 
 void	disable_raw_mode(t_shell *shell)

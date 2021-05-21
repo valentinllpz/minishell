@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/05/12 11:36:06 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/21 18:41:59 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,21 @@ typedef struct		s_shell
 	t_list			*hist;
 	char			*saved_line;
 }					t_shell;
+
+//builtins.c
+int					is_builtin(t_shell *shell);
+int					is_builtin2(t_shell *shell);
+void				launch_builtin(t_shell *shell, int i);
+
+//builtin_cd.c
+void				builtin_cd_oldpwd2(t_shell *shell, char *path);
+void				builtin_cd_oldpwd(t_shell *shell);
+void				builtin_cd_home2(t_shell *shell, char *path);
+void				builtin_cd_home(t_shell *shell);
+void				builtin_cd(t_shell *shell);
+
+//builtin_cd.c
+void				builtin_cd_norm(t_shell *shell);
 
 //execute1.c
 void				ft_exec_cmd(t_node *node, t_shell *shell);
@@ -217,7 +232,6 @@ void				skip_to_next_valid_quote(char *s, int *i);
 void	ft_incr_pos_x(t_shell *shell);
 int		ft_putchar(int c);
 int		ft_iscntrl(char c);
-void	ft_lstclear_env(t_list **lst);
 void	disable_raw_mode(t_shell *shell);
 
 // UTILS2.c
@@ -228,10 +242,14 @@ void	ft_error(t_shell *shell);
 char	*ft_get_history(t_shell *shell);
 
 // UTILS3.c
+int		env_exists(t_list *env, char *var, int len);
+char	*get_value_from_env(t_list *env, char *var, int len);
 void	free_charptr(char **ptr);
 char	*getenv_path(char *s, int len, t_list *env);
 int		ft_check_path(t_shell *shell);
 
+//UTILS4.C
+void	change_value_from_env(t_list *env, char *value, char *var, int len);
 
 // MAIN ???
 

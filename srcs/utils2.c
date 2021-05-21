@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 14:58:56 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/05/06 12:15:35 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/21 15:10:02 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	free_global_struct(t_shell *shell) // A MODIFIER, COMPLETER
 	char	*buf;
 
 	if (shell->env != NULL)
-		ft_lstclear_env(&shell->env);
+		ft_lstclear(&shell->env, free);
 	if (shell->line != NULL)
 	{
 		free(shell->line);

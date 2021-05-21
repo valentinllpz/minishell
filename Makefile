@@ -6,7 +6,7 @@
 #    By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/04/30 15:58:30 by ade-garr         ###   ########.fr        #
+#    Updated: 2021/05/21 18:37:04 by ade-garr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS		= 	srcs/lexer.c\
 				srcs/utils1.c\
 				srcs/utils2.c\
 				srcs/utils3.c\
+				srcs/utils4.c\
 				srcs/print_lexer_parser.c\
 				srcs/free_ast.c\
 				srcs/expansion.c\
@@ -33,6 +34,9 @@ SRCS		= 	srcs/lexer.c\
 				srcs/terminal.c\
 				srcs/safer_libft.c\
 				srcs/quotes.c\
+				srcs/builtins.c\
+				srcs/builtin_cd.c\
+				srcs/builtin_cd2.c\
 				srcs/main.c
 
 CC			= 	gcc

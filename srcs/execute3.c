@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:47:23 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/05/12 11:35:39 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/19 12:39:40 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,13 @@ void	get_return_value(t_shell *shell)
 		shell->return_value = 1;
 	else
 	{
-		if (waitpid(shell->pid_exec, &shell->exec_status, 0) == -1)
-			ft_error(shell);
+		if (shell->pid_exec != 0)
+		{
+			if (waitpid(shell->pid_exec, &shell->exec_status, 0) == -1)
+				ft_error(shell);
+			shell->return_value = WEXITSTATUS(shell->exec_status);
+		}
 		close(0);
-		shell->return_value = WEXITSTATUS(shell->exec_status);
 		if (shell->pid_pipe != 0)
 		{
 			while (waitpid(0, &shell->pipe_status, 0) != -1)

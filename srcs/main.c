@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:40:41 by user42            #+#    #+#             */
-/*   Updated: 2021/05/06 12:23:45 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/21 15:07:12 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,20 @@ void	get_list_env(char **env, t_shell *shell)
 {
 	int		i;
 	t_list	*tmp;
+	char	*tmp_char;
 
 	i = 0;
 	while (env[i] != NULL)
 	{
-		tmp = ft_lstnew(env[i]);
-		if (tmp == NULL)
+		tmp_char = ft_strdup(env[i]);
+		if (tmp_char == NULL)
 			ft_error(shell);
+		tmp = ft_lstnew(tmp_char);
+		if (tmp == NULL)
+		{
+			free(tmp_char);
+			ft_error(shell);
+		}
 		ft_lstadd_back(&shell->env, tmp);
 		i++;
 	}

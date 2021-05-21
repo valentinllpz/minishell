@@ -6,11 +6,39 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 10:06:54 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/05/05 10:11:52 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/19 13:12:54 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int		env_exists(t_list *env, char *var, int len)
+{
+	while (env != NULL)
+	{
+		if (ft_strncmp(var, (char *)env->content, len) == 0)
+		{
+			if (((char *)env->content)[len] == '=')
+				return (1);
+		}
+		env = env->next;
+	}
+	return (0);
+}
+
+char	*get_value_from_env(t_list *env, char *var, int len)
+{
+	while (env != NULL)
+	{
+		if (ft_strncmp(var, (char *)env->content, len) == 0)
+		{
+			if (((char *)env->content)[len] == '=')
+				return ((char *)env->content + len + 1);
+		}
+		env = env->next;
+	}
+	return (NULL);
+}
 
 void	free_charptr(char **ptr)
 {
