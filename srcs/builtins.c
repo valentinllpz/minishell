@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 15:30:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/05/21 18:43:30 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/21 19:40:23 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	launch_builtin(t_shell *shell, int i)
 		builtin_cd(shell);
 	if (i == 3)
 		builtin_pwd(shell);
-	// if (i == 4)
-	// 	builtin_export(shell);
+	if (i == 4)
+		builtin_export(shell);
 	// if (i == 5)
 	// 	builtin_unset(shell);
 	// if (i == 6)

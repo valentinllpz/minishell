@@ -6,7 +6,7 @@
 #    By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/05/21 18:37:04 by ade-garr         ###   ########.fr        #
+#    Updated: 2021/05/21 18:46:06 by ade-garr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS		= 	srcs/lexer.c\
 				srcs/builtins.c\
 				srcs/builtin_cd.c\
 				srcs/builtin_cd2.c\
+				srcs/builtin_pwd.c\
 				srcs/main.c
 
 CC			= 	gcc

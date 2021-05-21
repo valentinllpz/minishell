@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/05/21 18:41:59 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/21 19:22:54 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,11 @@ void				builtin_cd_home(t_shell *shell);
 void				builtin_cd(t_shell *shell);
 
 //builtin_cd.c
+void				builtin_cd_norm2(t_shell *shell);
 void				builtin_cd_norm(t_shell *shell);
+
+//builtin_pwd.c
+void				builtin_pwd(t_shell *shell);
 
 //execute1.c
 void				ft_exec_cmd(t_node *node, t_shell *shell);
