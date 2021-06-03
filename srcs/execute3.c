@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:47:23 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/05/19 12:39:40 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/26 15:55:49 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ void	get_return_value(t_shell *shell)
 		if (shell->pid_pipe != 0)
 		{
 			while (waitpid(0, &shell->pipe_status, 0) != -1)
-			{
-			}
+				;
 		}
 	}
 	if (shell->child_flag == 1)

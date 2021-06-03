@@ -6,11 +6,33 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 15:28:25 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/05/21 15:09:21 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/26 15:11:00 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+char	**ft_list_env_to_char(t_list *lst)
+{
+	char	**char_tab;
+	int		i;
+
+	i = 0;
+	char_tab = malloc(sizeof(char *) * (ft_lstsize_env(lst) + 1));
+	if (char_tab == NULL)
+		return (NULL);
+	while (lst != NULL)
+	{
+		if (is_defined((char *)lst->content) == 1)
+		{
+			char_tab[i] = ((char *)lst->content);
+			i++;
+		}
+		lst = lst->next;
+	}
+	char_tab[i] = NULL;
+	return (char_tab);
+}
 
 void	ft_incr_pos_x(t_shell *shell)
 {

@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:40:33 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/05/14 15:33:03 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/26 15:57:20 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	ft_execution(t_shell *shell)
 	expansion_in_exec_lst(((t_cmd *)shell->tmp_cmd->content)->
 	exec_lst, shell->env);
 	free(shell->envp);
-	shell->envp = ft_list_to_char(shell->env);
+	shell->envp = ft_list_env_to_char(shell->env);
 	if (shell->envp == NULL)
 		ft_error(shell);
 	free(shell->exec);

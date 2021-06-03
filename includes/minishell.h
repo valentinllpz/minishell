@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/05/21 19:22:54 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/01 09:34:34 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,12 @@ void				builtin_cd_home2(t_shell *shell, char *path);
 void				builtin_cd_home(t_shell *shell);
 void				builtin_cd(t_shell *shell);
 
-//builtin_cd.c
+//builtin_cd2.c
 void				builtin_cd_norm2(t_shell *shell);
 void				builtin_cd_norm(t_shell *shell);
+
+//builtin_export.c
+void				builtin_export(t_shell *shell);
 
 //builtin_pwd.c
 void				builtin_pwd(t_shell *shell);
@@ -233,6 +236,7 @@ char				*join_three_str(char *s1, char *s2, char *s3);
 void				skip_to_next_valid_quote(char *s, int *i);
 
 // UTILS1.c
+char	**ft_list_env_to_char(t_list *lst);
 void	ft_incr_pos_x(t_shell *shell);
 int		ft_putchar(int c);
 int		ft_iscntrl(char c);
@@ -253,6 +257,9 @@ char	*getenv_path(char *s, int len, t_list *env);
 int		ft_check_path(t_shell *shell);
 
 //UTILS4.C
+int		is_defined(char *s);
+int		ft_lstsize_env(t_list *lst);
+void	change_value_from_env2(t_list *env, char *value, int len);
 void	change_value_from_env(t_list *env, char *value, char *var, int len);
 
 // MAIN ???

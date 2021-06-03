@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 18:15:22 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/05/21 18:39:25 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/26 15:57:13 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ void	builtin_cd_oldpwd(t_shell *shell)
 {
 	char	*path;
 
-	if (env_exists(shell->env, "OLDPWD", 6) == 0)
+	path = get_value_from_env(shell->env, "OLDPWD", 6);
+	if (path == NULL)
 	{
 		write(1, "cd: OLDPWD not set", 18);
 		shell->return_value = 1;
 	}
 	else
 	{
-		path = get_value_from_env(shell->env, "OLDPWD", 6);
 		if (path[0] == '\0')
 		{
 			write(1, "\n", 1);

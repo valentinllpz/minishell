@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 10:06:54 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/05/19 13:12:54 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/05/26 15:49:14 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int		env_exists(t_list *env, char *var, int len)
 	{
 		if (ft_strncmp(var, (char *)env->content, len) == 0)
 		{
-			if (((char *)env->content)[len] == '=')
+			if (((char *)env->content)[len] == '=' ||
+			((char *)env->content)[len] == '\0')
 				return (1);
 		}
 		env = env->next;
