@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 16:09:42 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/04 19:50:39 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/04 19:57:45 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,13 @@ void	builtin_export3(t_shell *shell, int len, int i)
 
 	if (env_exists(shell->env, shell->exec[i], len) == 1)
 	{
-		str = ft_strdup(shell->exec[i]);
-		if (str == NULL)
-			ft_error(shell);
-		change_variable_in_env(shell->env, str, len);
+		if (is_defined(shell->exec[i]) == 1)
+		{
+			str = ft_strdup(shell->exec[i]);
+			if (str == NULL)
+				ft_error(shell);
+			change_variable_in_env(shell->env, str, len);
+		}
 	}
 	else
 	{
