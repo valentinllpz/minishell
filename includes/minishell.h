@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/01 09:34:34 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/04 19:48:29 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,10 @@ void				builtin_cd_norm2(t_shell *shell);
 void				builtin_cd_norm(t_shell *shell);
 
 //builtin_export.c
+int					ft_check_var(char *str);
+void				write_var(char *str);
+void				builtin_export3(t_shell *shell, int len, int i);
+void				builtin_export2(t_shell *shell);
 void				builtin_export(t_shell *shell);
 
 //builtin_pwd.c
@@ -257,10 +261,15 @@ char	*getenv_path(char *s, int len, t_list *env);
 int		ft_check_path(t_shell *shell);
 
 //UTILS4.C
+void	ft_sort_tab(char **tb);
 int		is_defined(char *s);
 int		ft_lstsize_env(t_list *lst);
 void	change_value_from_env2(t_list *env, char *value, int len);
 void	change_value_from_env(t_list *env, char *value, char *var, int len);
+
+//UTILS5.c
+void	change_variable_in_env(t_list *env, char *str, int len);
+int		get_len_var(char *s);
 
 // MAIN ???
 

@@ -6,7 +6,7 @@
 #    By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/06/01 09:34:01 by ade-garr         ###   ########.fr        #
+#    Updated: 2021/06/04 19:14:39 by ade-garr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS		= 	srcs/lexer.c\
 				srcs/utils2.c\
 				srcs/utils3.c\
 				srcs/utils4.c\
+				srcs/utils5.c\
 				srcs/print_lexer_parser.c\
 				srcs/free_ast.c\
 				srcs/expansion.c\
