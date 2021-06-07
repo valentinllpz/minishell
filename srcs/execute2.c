@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:40:33 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/07 17:47:45 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/07 18:33:15 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,8 @@ void	launch_execution(t_node *node, t_shell *shell)
 
 void	ft_execution(t_shell *shell)
 {
-	printf("|before: %s|\n", ((t_cmd *)shell->tmp_cmd->content)->exec_lst->content);
 	expansion_in_exec_lst(((t_cmd *)shell->tmp_cmd->content)->
 	exec_lst, shell->env);
-	printf("|after: %s|\n", ((t_cmd *)shell->tmp_cmd->content)->exec_lst->content);
 	free(shell->envp);
 	shell->envp = ft_list_env_to_char(shell->env);
 	if (shell->envp == NULL)
