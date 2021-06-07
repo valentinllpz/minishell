@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 15:30:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/07 13:47:29 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/07 15:08:16 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ int		is_builtin(t_shell *shell)
 	ft_strlcpy(cd, "cd", 3);
 	ft_strlcpy(pwd, "pwd", 4);
 	ft_strlcpy(export, "export", 7);
-	if (ft_strncmp(shell->exec[0], echo, 10) == 0)
+	if (ft_strncmp(shell->exec[0], echo, 5) == 0)
 		return (1);
-	if (ft_strncmp(shell->exec[0], cd, 10) == 0)
+	if (ft_strncmp(shell->exec[0], cd, 3) == 0)
 		return (2);
-	if (ft_strncmp(shell->exec[0], pwd, 10) == 0)
+	if (ft_strncmp(shell->exec[0], pwd, 4) == 0)
 		return (3);
-	if (ft_strncmp(shell->exec[0], export, 10) == 0)
+	if (ft_strncmp(shell->exec[0], export, 7) == 0)
 		return (4);
 	return (is_builtin2(shell));
 }
@@ -43,11 +43,11 @@ int		is_builtin2(t_shell *shell)
 	ft_strlcpy(unset, "unset", 6);
 	ft_strlcpy(env, "env", 4);
 	ft_strlcpy(exit, "exit", 5);
-	if (ft_strncmp(shell->exec[0], unset, 10) == 0)
+	if (ft_strncmp(shell->exec[0], unset, 6) == 0)
 		return (5);
-	if (ft_strncmp(shell->exec[0], env, 10) == 0)
+	if (ft_strncmp(shell->exec[0], env, 4) == 0)
 		return (6);
-	if (ft_strncmp(shell->exec[0], exit, 10) == 0)
+	if (ft_strncmp(shell->exec[0], exit, 5) == 0)
 		return (7);
 	return (0);
 }
