@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 15:30:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/07 15:18:07 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/07 15:27:19 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int		is_builtin(t_shell *shell)
 	char export[7];
 
 	ft_strlcpy(echo, "echo", 5);
+	SUXE DES BITES
 	ft_strlcpy(cd, "cd", 3);
 	ft_strlcpy(pwd, "pwd", 4);
 	ft_strlcpy(export, "export", 7);
