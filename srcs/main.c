@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:40:41 by user42            #+#    #+#             */
-/*   Updated: 2021/05/21 15:07:12 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/07 14:24:46 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ t_shell	*init_shell(void)
 	shell->pid_exec = 0;
 	shell->error_flag = 0;
 	shell->envp = NULL;
+	shell->exec = NULL;
+	shell->path = NULL;
 	shell->exec_status = 0;
 	shell->pipe_status = 0;
 	if (tcgetattr(STDIN_FILENO, &shell->term->orig_termios) == -1)

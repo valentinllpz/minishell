@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/04 20:06:59 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/07 11:43:25 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,9 @@ void				builtin_export(t_shell *shell);
 void				builtin_pwd(t_shell *shell);
 
 //builtin_unset.c
-
+void				unset_var(t_shell *shell, int i);
+int					ft_check_var_all(char *str);
+void				builtin_unset(t_shell *shell);
 
 //execute1.c
 void				ft_exec_cmd(t_node *node, t_shell *shell);

@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 16:09:42 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/04 19:57:45 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/07 11:23:00 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,10 @@ void	builtin_export2(t_shell *shell)
 {
 	int		i;
 	int		len;
+	int		flag;
 
 	i = 1;
+	flag = 0;
 	while (shell->exec[i] != NULL)
 	{
 		len = get_len_var(shell->exec[i]);
@@ -92,11 +94,16 @@ void	builtin_export2(t_shell *shell)
 			write(1, "export: \'", 9);
 			write(1, shell->exec[i], ft_strlen(shell->exec[i]));
 			write(1, "\': not a valid identifier\n", 26);
+			flag = 1;
 		}
 		else
 			builtin_export3(shell, len, i);
 		i++;
 	}
+	if (flag == 1)
+		shell->return_value = 1;
+	else
+		shell->return_value = 0;
 }
 
 void	builtin_export(t_shell *shell)
@@ -117,6 +124,7 @@ void	builtin_export(t_shell *shell)
 			i++;
 		}
 		free(tmp);
+		shell->return_value = 0;
 	}
 	else
 		builtin_export2(shell);
