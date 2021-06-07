@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 15:30:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/07 15:35:41 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/07 16:29:31 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int		is_builtin2(t_shell *shell)
 
 void	launch_builtin(t_shell *shell, int i)
 {
-	// if (i == 1)
-	// 	builtin_echo(shell); // à voir avec fonction val
+	if (i == 1)
+	 	builtin_echo(shell); // à voir avec fonction val
 	if (i == 2)
 		builtin_cd(shell);
 	if (i == 3)
