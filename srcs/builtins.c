@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 15:30:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/07 15:08:16 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/07 15:14:53 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		is_builtin(t_shell *shell)
 	ft_strlcpy(cd, "cd", 3);
 	ft_strlcpy(pwd, "pwd", 4);
 	ft_strlcpy(export, "export", 7);
-	if (ft_strncmp(shell->exec[0], echo, 5) == 0)
+	if (ft_strncmp(shell->exec[0], echo, 10) == 0)
 		return (1);
 	if (ft_strncmp(shell->exec[0], cd, 3) == 0)
 		return (2);
