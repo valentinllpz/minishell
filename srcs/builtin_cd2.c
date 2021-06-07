@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 18:36:54 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/05/21 19:21:13 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/07 16:34:27 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	builtin_cd_norm(t_shell *shell)
 	if (ret == -1)
 	{
 		path = strerror(errno);
-		write(1, "cd: ", 4);
-		write(1, path, ft_strlen_safe(path));
-		write(1, "\n", 1);
+		write(2, "cd: ", 4);
+		write(2, path, ft_strlen_safe(path));
+		write(2, "\n", 1);
 		shell->return_value = 1;
 	}
 	if (ret == 0)

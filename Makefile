@@ -6,7 +6,7 @@
 #    By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/06/07 14:25:01 by ade-garr         ###   ########.fr        #
+#    Updated: 2021/06/07 17:04:10 by ade-garr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,8 @@ SRCS		= 	srcs/lexer.c\
 				srcs/builtin_cd.c\
 				srcs/builtin_cd2.c\
 				srcs/builtin_export.c\
+				srcs/builtin_exit.c\
+				srcs/builtin_env.c\
 				srcs/builtin_pwd.c\
 				srcs/builtin_unset.c\
 				srcs/main.c
