@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/07 18:46:17 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/08 18:38:47 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,8 @@ void				builtin_export2(t_shell *shell);
 void				builtin_export(t_shell *shell);
 
 //builtin_exit.c
-long				get_k_value(char *s);
+int					check_k(unsigned long long k, int neg);
+long long			get_k_value(char *s);
 int					check_arg_exit(char *s);
 void    			builtin_exit(t_shell *shell);
 
