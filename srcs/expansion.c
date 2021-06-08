@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 17:33:39 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/30 15:59:25 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/07 18:18:47 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	replace_elem(t_token **content, t_list *elem, t_list *prev)
 void	expansion_in_exec_lst(t_list *exec_lst, t_list *env)
 {
 	t_list		*prev;
-	char		*tmp;
 
 	prev = NULL;
 	while (exec_lst)
@@ -63,8 +62,7 @@ void	expansion_in_exec_lst(t_list *exec_lst, t_list *env)
 			else
 				replace_elem(ft_lexer(exec_lst->content), exec_lst, prev);
 		}
-		tmp = ((char *)exec_lst->content);
-		quotes_removal(&tmp);
+		quotes_removal((char **)(&(exec_lst->content)));
 		prev = exec_lst;
 		exec_lst = exec_lst->next;
 	}

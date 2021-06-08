@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/06/08 18:38:47 by ade-garr         ###   ########.fr       */
+=======
+/*   Updated: 2021/06/07 16:28:58 by vlugand-         ###   ########.fr       */
+>>>>>>> d2d83d98b3c18b3c454b2495aa27a3842a262d71
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +115,10 @@ typedef struct		s_shell
 int					is_builtin(t_shell *shell);
 int					is_builtin2(t_shell *shell);
 void				launch_builtin(t_shell *shell, int i);
+
+//builtin_echo.c
+int					check_echo_flag(char *arg1);
+void				builtin_echo(t_shell *shell);
 
 //builtin_cd.c
 void				builtin_cd_oldpwd2(t_shell *shell, char *path);

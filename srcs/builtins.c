@@ -6,11 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 15:30:31 by ade-garr          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/06/07 15:35:41 by vlugand-         ###   ########.fr       */
-=======
-/*   Updated: 2021/06/07 18:45:50 by ade-garr         ###   ########.fr       */
->>>>>>> alex
+/*   Updated: 2021/06/08 19:00:35 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +23,7 @@ int		is_builtin(t_shell *shell)
 	ft_strlcpy(cd, "cd", 3);
 	ft_strlcpy(pwd, "pwd", 4);
 	ft_strlcpy(export, "export", 7);
-	if (ft_strncmp(shell->exec[0], echo, 5) == 0) // lol
+	if (ft_strncmp(shell->exec[0], echo, 5) == 0)
 		return (1);
 	if (ft_strncmp(shell->exec[0], cd, 3) == 0)
 		return (2);
@@ -58,8 +54,8 @@ int		is_builtin2(t_shell *shell)
 
 void	launch_builtin(t_shell *shell, int i)
 {
-	// if (i == 1)
-	// 	builtin_echo(shell); // à voir avec fonction val
+	if (i == 1)
+		builtin_echo(shell);
 	if (i == 2)
 		builtin_cd(shell);
 	if (i == 3)
