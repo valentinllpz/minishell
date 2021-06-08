@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 18:15:22 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/05/26 15:57:13 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/07 16:27:21 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	builtin_cd_oldpwd2(t_shell *shell, char *path)
 	ret = chdir(path);
 	if (ret == -1)
 	{
-		write(1, "cd: ", 4);
-		write(1, strerror(errno), ft_strlen_safe(strerror(errno)));
-		write(1, "\n", 1);
+		write(2, "cd: ", 4);
+		write(2, strerror(errno), ft_strlen_safe(strerror(errno)));
+		write(2, "\n", 1);
 		shell->return_value = 1;
 	}
 	if (ret == 0)
@@ -48,7 +48,7 @@ void	builtin_cd_oldpwd(t_shell *shell)
 	path = get_value_from_env(shell->env, "OLDPWD", 6);
 	if (path == NULL)
 	{
-		write(1, "cd: OLDPWD not set", 18);
+		write(2, "cd: OLDPWD not set", 18);
 		shell->return_value = 1;
 	}
 	else
@@ -72,9 +72,9 @@ void	builtin_cd_home2(t_shell *shell, char *path)
 	ret = chdir(path);
 	if (ret == -1)
 	{
-		write(1, "cd: ", 4);
-		write(1, strerror(errno), ft_strlen_safe(strerror(errno)));
-		write(1, "\n", 1);
+		write(2, "cd: ", 4);
+		write(2, strerror(errno), ft_strlen_safe(strerror(errno)));
+		write(2, "\n", 1);
 		shell->return_value = 1;
 	}
 	if (ret == 0)
@@ -95,7 +95,7 @@ void	builtin_cd_home(t_shell *shell)
 	path = get_value_from_env(shell->env, "HOME", 4);
 	if (path == NULL)
 	{
-		write(1, "cd: HOME not set\n", 17);
+		write(2, "cd: HOME not set\n", 17);
 		shell->return_value = 1;
 	}
 	else if (path[0] == '\0')
@@ -110,7 +110,7 @@ void	builtin_cd(t_shell *shell)
 		builtin_cd_home(shell);
 	else if (shell->exec[2] != NULL)
 	{
-		write(1, "cd: too many arguments\n", 23);
+		write(2, "cd: too many arguments\n", 23);
 		shell->return_value = 1;
 	}
 	else if (ft_strncmp(shell->exec[1], "-", 2) == 0)

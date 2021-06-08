@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 15:30:31 by ade-garr          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/06/07 15:35:41 by vlugand-         ###   ########.fr       */
+=======
+/*   Updated: 2021/06/07 18:45:50 by ade-garr         ###   ########.fr       */
+>>>>>>> alex
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +66,10 @@ void	launch_builtin(t_shell *shell, int i)
 		builtin_pwd(shell);
 	if (i == 4)
 		builtin_export(shell);
-	// if (i == 5)
-	// 	builtin_unset(shell);
-	// if (i == 6)
-	// 	builtin_env(shell);
-	// if (i == 7)
-	// 	builtin_exit(shell);
+	if (i == 5)
+		builtin_unset(shell);
+	if (i == 6)
+		builtin_env(shell);
+	if (i == 7)
+		builtin_exit(shell);
 }
