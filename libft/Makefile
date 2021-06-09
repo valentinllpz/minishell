@@ -6,7 +6,7 @@
 #    By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/10 17:59:36 by vlugand-          #+#    #+#              #
-#    Updated: 2019/11/18 00:33:16 by vlugand-         ###   ########.fr        #
+#    Updated: 2021/06/08 15:25:07 by vlugand-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS	= 	ft_memset.c\
 			ft_putstr_fd.c\
 			ft_putendl_fd.c\
 			ft_putnbr_fd.c\
+			get_next_line.c\
 
 SRCS_BONUS = 	ft_lstnew.c\
 				ft_lstadd_front.c\

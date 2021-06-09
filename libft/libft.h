@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 22:40:55 by vlugand-          #+#    #+#             */
-/*   Updated: 2019/11/17 23:52:32 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/08 15:20:39 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 typedef struct	s_list
 {
@@ -58,6 +59,10 @@ void			ft_putchar_fd(char c, int fd);
 void			ft_putstr_fd(char *s, int fd);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
+int				get_next_line(int fd, char **line);
+char			*join_and_free(char *s1, char *s2);
+int				find_index(const char *s, int c);
+int				get_line(char *str, char **line, int i);
 
 t_list			*ft_lstnew(void *content);
 void			ft_lstadd_front(t_list **alst, t_list *new);
