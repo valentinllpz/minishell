@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/06/08 18:38:47 by ade-garr         ###   ########.fr       */
-=======
-/*   Updated: 2021/06/07 16:28:58 by vlugand-         ###   ########.fr       */
->>>>>>> d2d83d98b3c18b3c454b2495aa27a3842a262d71
+/*   Updated: 2021/06/09 16:40:19 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +107,8 @@ typedef struct		s_shell
 	char			*saved_line;
 }					t_shell;
 
+int					g_sig;
+
 //builtins.c
 int					is_builtin(t_shell *shell);
 int					is_builtin2(t_shell *shell);
@@ -142,6 +140,7 @@ void				builtin_export(t_shell *shell);
 int					check_k(unsigned long long k, int neg);
 long long			get_k_value(char *s);
 int					check_arg_exit(char *s);
+void				builtin_exit2(t_shell *shell);
 void    			builtin_exit(t_shell *shell);
 
 //builtin_env.c
@@ -246,6 +245,9 @@ void	ft_do_redirections(t_shell *shell);
 int         ft_isprint_safe(int c);
 size_t		ft_strlen_safe(const char *s);
 char		*ft_strdup_safe(const char *src);
+
+// SIGNAL.C
+void	handler_int(int sig);
 
 // TERMINAL.C
 void	param_termcap3(t_shell *shell);

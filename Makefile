@@ -6,7 +6,7 @@
 #    By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/06/08 19:00:44 by ade-garr         ###   ########.fr        #
+#    Updated: 2021/06/09 16:37:00 by ade-garr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS		= 	srcs/lexer.c\
 				srcs/redirections.c\
 				srcs/terminal.c\
 				srcs/safer_libft.c\
+				srcs/signal.c\
 				srcs/quotes.c\
 				srcs/builtins.c\
 				srcs/builtin_cd.c\
