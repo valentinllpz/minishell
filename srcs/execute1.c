@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:30:22 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/04 17:41:56 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/09 15:26:32 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,23 +71,20 @@ void	ft_process_cmd(t_shell *shell)
 
 void	ft_exec_cmd(t_node *node, t_shell *shell)
 {
-	int oldstdout;
-	int oldstdin;
-
 	shell->tmp_cmd = node->cmd_lst;
-	oldstdout = dup(1);
-	if (oldstdout == -1)
+	shell->tmp_stdout = dup(1);
+	if (shell->tmp_stdout == -1)
 		ft_error(shell);
-	oldstdin = dup(0);
-	if (oldstdin == -1)
+	shell->tmp_stdin = dup(0);
+	if (shell->tmp_stdin == -1)
 		ft_error(shell);
 	ft_process_cmd(shell);
-	if (dup2(oldstdout, 1) == -1)
+	if (dup2(shell->tmp_stdout, 1) == -1)
 		ft_error(shell);
-	if (dup2(oldstdin, 0) == -1)
+	if (dup2(shell->tmp_stdin, 0) == -1)
 		ft_error(shell);
-	if (close(oldstdout) == -1)
+	if (close(shell->tmp_stdout) == -1)
 		ft_error(shell);
-	if (close(oldstdin) == -1)
+	if (close(shell->tmp_stdin) == -1)
 		ft_error(shell);
 }

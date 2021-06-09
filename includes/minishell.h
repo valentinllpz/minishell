@@ -6,11 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/06/08 18:38:47 by ade-garr         ###   ########.fr       */
-=======
-/*   Updated: 2021/06/07 16:28:58 by vlugand-         ###   ########.fr       */
->>>>>>> d2d83d98b3c18b3c454b2495aa27a3842a262d71
+/*   Updated: 2021/06/09 16:50:31 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +89,7 @@ typedef struct		s_shell
 	char			**exec; // initialiser à NULL, free uniquement le char **, pointeurs char * = pointeur de la ll exec_lst
 	char			*path; // initialiser à NULL, free à chaque boucle et remettre à NULL
 	t_list			*tmp_cmd; // à changer ?
-	t_list			*tmp_dir; // à changer ?
+	t_list			*tmp_rdir; // à changer ?
 	t_node			*ast;
 	char			*line;
 	int				exec_status; //à garder ?
@@ -109,6 +105,8 @@ typedef struct		s_shell
 	int				nb_hist; // = position dans la liste chainée d'historique
 	t_list			*hist;
 	char			*saved_line;
+	int				tmp_stdin;
+	int				tmp_stdout;
 }					t_shell;
 
 //builtins.c
@@ -241,6 +239,10 @@ void	ft_redirect_from(t_shell *shell);
 void	ft_redirect_to_append(t_shell *shell);
 void	ft_redirect_to(t_shell *shell);
 void	ft_do_redirections(t_shell *shell);
+
+// HEREDOC.C
+
+void	ft_heredoc(t_shell *shell, char *file);
 
 // SAFER LIBFT
 int         ft_isprint_safe(int c);

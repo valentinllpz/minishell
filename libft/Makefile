@@ -6,7 +6,7 @@
 #    By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/10 17:59:36 by vlugand-          #+#    #+#              #
-#    Updated: 2021/06/08 15:25:07 by vlugand-         ###   ########.fr        #
+#    Updated: 2021/06/09 12:29:00 by vlugand-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS	= 	ft_memset.c\
 			ft_tolower.c\
 			ft_strchr.c\
 			ft_strrchr.c\
+			ft_strcmp.c\
 			ft_strncmp.c\
 			ft_strlcpy.c\
 			ft_strlcat.c\

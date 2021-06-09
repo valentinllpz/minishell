@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 15:57:58 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/30 16:00:11 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/09 18:02:39 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ char	*expand_content(char *s, t_list *env)
 			i++;
 		}
 		if (s[i] == '$' && !is_escaped(s, i))
+		{
 			s = replace_var(s, i, env);
+			printf("s1 = |%s|\n", s);
+		}
 		else
 			i++;
 	}

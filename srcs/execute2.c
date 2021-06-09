@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:40:33 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/07 18:33:15 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/09 12:12:30 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,9 @@ void	ft_execution(t_shell *shell)
 	shell->exec = ft_list_to_char(((t_cmd *)shell->tmp_cmd->content)->exec_lst);
 	if (shell->exec == NULL)
 		ft_error(shell);
-	if (is_builtin(shell) > 0)
+	if (is_builtin(shell) > 0) // pas besoin, retravailler la fct builtin pour integrer launch builtin
 		launch_builtin(shell, is_builtin(shell));
-	else
+	else // deviendrait if !(isbuildtin) 
 	{
 		if (ft_check_path(shell) == 0)
 			ft_set_path(shell);

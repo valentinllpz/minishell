@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 16:05:54 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/07 16:41:53 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/09 16:46:39 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ int		check_echo_flag(char *arg1)
 void	builtin_echo(t_shell *shell)
 {
 	int		i;
-	int		nl;
-	
+	int		nl_flag;
+
 	i = 1;
-	nl = check_echo_flag(shell->exec[1]);
-	if (nl == 1)
+	nl_flag = check_echo_flag(shell->exec[i]);
+	while (shell->exec[i] && check_echo_flag(shell->exec[i]))
 		i++;
 	while (shell->exec[i])
 	{
@@ -44,7 +44,7 @@ void	builtin_echo(t_shell *shell)
 		write(1, " ", 1);
 		i++;
 	}
-	if (nl == 0)
+	if (nl_flag == 0)
 		write(1, "\n", 1);
 	shell->return_value = 0;
 }

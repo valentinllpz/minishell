@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 17:33:39 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/07 18:18:47 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/09 18:13:35 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	expansion_in_exec_lst(t_list *exec_lst, t_list *env)
 		{
 			if (!(exec_lst->content = expand_content(exec_lst->content, env)))
 			{
+//				write(1, "lol\n", 4); je devrais renvoyer un pointeur nul et non pas une chaine vide
 				prev->next = exec_lst->next;
 				free(exec_lst);
 			}

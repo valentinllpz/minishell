@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+         #
+#    By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/06/08 19:00:44 by ade-garr         ###   ########.fr        #
+#    Updated: 2021/06/09 19:07:06 by vlugand-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCS		= 	srcs/lexer.c\
 				srcs/builtin_pwd.c\
 				srcs/builtin_unset.c\
 				srcs/builtin_echo.c\
+				srcs/heredoc.c\
 				srcs/main.c
 
 CC			= 	gcc

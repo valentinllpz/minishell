@@ -6,13 +6,13 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 15:47:19 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/08 15:28:28 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/09 12:27:35 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*join_and_free(char *s1, char *s2)
+static char		*join_and_free(char *s1, char *s2)
 {
 	int		len1;
 	int		len2;
@@ -39,7 +39,7 @@ char		*join_and_free(char *s1, char *s2)
 	return (dst);
 }
 
-int		find_index(const char *s, int c)
+static int		find_index(const char *s, int c)
 {
 	int		i;
 
@@ -51,7 +51,7 @@ int		find_index(const char *s, int c)
 	return (i);
 }
 
-int		get_line(char *str, char **line, int i)
+static int		get_line(char *str, char **line, int i)
 {
 	int		len;
 
@@ -62,7 +62,7 @@ int		get_line(char *str, char **line, int i)
 	return (1);
 }
 
-int		get_next_line(int fd, char **line)
+int				get_next_line(int fd, char **line)
 {
 	char			buff[8];
 	static char		*str = NULL;

@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:40:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/07 17:57:15 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/09 16:59:45 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_node	*ft_launch_lexer(char *line)
 
 	if (!(lexer = ft_lexer(line)))
 		return (0);
-	// print_lexer(lexer, line); // print to debug
+	//print_lexer(lexer, line); // print to debug
 	if (!(ast = parser(lexer)))
 		return (0);
 	// print_parser(ast); // print to debug
@@ -77,6 +77,8 @@ t_shell	*init_shell(void)
 	if (tcgetattr(STDIN_FILENO, &shell->term->orig_termios) == -1)
 		ft_error(shell);
 	shell->term->flag_termios = 1;
+	shell->tmp_stdin = 0;
+	shell->tmp_stdout = 0;
 	return (shell);
 }
 
