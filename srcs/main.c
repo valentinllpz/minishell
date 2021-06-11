@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:40:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/09 16:59:45 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/10 19:11:23 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_node	*ft_launch_lexer(char *line)
 	//print_lexer(lexer, line); // print to debug
 	if (!(ast = parser(lexer)))
 		return (0);
-	// print_parser(ast); // print to debug
+	//print_parser(ast); // print to debug
 	//	free_ast(ast);
 	//	system("leaks minishell");// uncomment to test leaks on mac os
 	return (ast);

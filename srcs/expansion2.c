@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 15:57:58 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/09 18:02:39 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/11 14:02:04 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ char	*find_match_in_env(char *s, int *len, t_list *env)
 	i = 0;
 	while (s[i])
 	{
-		if ((s[i] == '\'' && !is_escaped(s, i))
-		|| (s[i] == '\"' && !is_escaped(s, i))
-		|| (s[i] == '$' && !is_escaped(s, i)))
+		if (!ft_isalpha(s[i]))
 			break ;
 		i++;
 	}
@@ -36,7 +34,7 @@ char	*find_match_in_env(char *s, int *len, t_list *env)
 	return (NULL);
 }
 
-char	*replace_var(char *s, int i, t_list *env)
+char	*replace_var(char *s, int i, t_list *env, int return_value)
 {
 	char	*match;
 	char	*dst;
@@ -47,13 +45,19 @@ char	*replace_var(char *s, int i, t_list *env)
 	s[i] = '\0';
 	if (match)
 		dst = join_three_str(s, match, s + i + len + 1);
+	else if (s[i + 1] == '\0' || s[i + 1] == ' ')
+		dst = join_three_str(s, "$", s + i + 1);
+	else if (s[i + 1] == '?' && return_value == 0)
+		dst = join_three_str(s, "0", s + i + 2);
+	else if (s[i + 1] == '?' && return_value == 1)
+		dst = join_three_str(s, "1", s + i + 2);
 	else
-		dst = join_three_str(s, "", s + i + len + 1);
+		dst = join_three_str(s, "", s + i + 1);
 	free(s);
 	return (dst);
 }
 
-char	*expand_content(char *s, t_list *env)
+char	*expand_content(char *s, t_list *env, int return_value)
 {
 	int		i;
 
@@ -67,8 +71,8 @@ char	*expand_content(char *s, t_list *env)
 		}
 		if (s[i] == '$' && !is_escaped(s, i))
 		{
-			s = replace_var(s, i, env);
-			printf("s1 = |%s|\n", s);
+			s = expand_content(replace_var(s, i, env, return_value), env, return_value);
+			break ;
 		}
 		else
 			i++;

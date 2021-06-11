@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/09 16:50:31 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/11 13:48:14 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,15 +175,15 @@ void				ft_do_first_pipe(t_shell *shell);
 
 //expansion.c
 int					check_dollar_sign(char *s);
-void				replace_elem(t_token **content, t_list *elem, t_list *prev);
-void				expansion_in_exec_lst(t_list *exec_lst, t_list *env);
+void				replace_elem(t_token **content, t_list *elem);
+void				expansion_in_exec_lst(t_list *exec_lst, t_list *env, int return_value);
 int					is_ambiguous_redirect(char *s);
-void				expansion_in_rdir_lst(t_list *rdir_lst, t_list *env);
+void				expansion_in_rdir_lst(t_list *rdir_lst, t_list *env, int return_value);
 
 //expansion2.c
 char				*find_match_in_env(char *s, int *len, t_list *env);
-char				*replace_var(char *s, int i, t_list *env);
-char				*expand_content(char *s, t_list *env);
+char				*replace_var(char *s, int i, t_list *env, int return_value);
+char				*expand_content(char *s, t_list *env, int return_value);
 
 // FREE_AST.C
 void				free_rdir(t_rdir *rdir);

@@ -6,7 +6,7 @@
 #    By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/06/09 19:07:06 by vlugand-         ###   ########.fr        #
+#    Updated: 2021/06/10 17:19:24 by vlugand-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ SRCS		= 	srcs/lexer.c\
 CC			= 	gcc
 OBJS		= 	${SRCS:.c=.o}
 OBJS_BONUS 	= 	${SRCS_BONUS:.c=.o}
-CFLAGS		= 	-Wall -Wextra -Werror
+CFLAGS		= 	-Wall -Wextra -Werror -fsanitize=address -g3
 LIBS		=	-L libft -lft
 RM			= 	rm -f
 

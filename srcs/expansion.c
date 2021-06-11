@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 17:33:39 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/09 18:13:35 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/11 13:38:35 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,45 +26,42 @@ int		check_dollar_sign(char *s)
 	return (0);
 }
 
-void	replace_elem(t_token **content, t_list *elem, t_list *prev)
+void		replace_elem(t_token **content, t_list *elem)
 {
 	int			i;
+	int			flag;
 	t_list		*lst;
 
 	i = 0;
+	flag = 0;
 	lst = NULL;
 	while (content[i])
 	{
-		ft_lstadd_back(&lst, ft_lstnew(ft_strdup(content[i]->s)));
+		if (flag == 0)
+		{
+			free(elem->content);
+			elem->content = ft_strdup(content[i]->s);
+			flag = 1;
+		}
+		else
+			ft_lstadd_back(&lst, ft_lstnew(ft_strdup(content[i]->s)));
 		i++;
 	}
 	ft_lstadd_back(&lst, elem->next);
+	elem->next = lst;
 	free_lexer(content);
-	free(elem->content);
-	free(elem);
-	prev->next = lst;
 }
 
-void	expansion_in_exec_lst(t_list *exec_lst, t_list *env)
+void	expansion_in_exec_lst(t_list *exec_lst, t_list *env, int return_value)
 {
-	t_list		*prev;
-
-	prev = NULL;
 	while (exec_lst)
 	{
 		if (check_dollar_sign(exec_lst->content))
 		{
-			if (!(exec_lst->content = expand_content(exec_lst->content, env)))
-			{
-//				write(1, "lol\n", 4); je devrais renvoyer un pointeur nul et non pas une chaine vide
-				prev->next = exec_lst->next;
-				free(exec_lst);
-			}
-			else
-				replace_elem(ft_lexer(exec_lst->content), exec_lst, prev);
+				exec_lst->content = expand_content(exec_lst->content, env, return_value);
+				replace_elem(ft_lexer(exec_lst->content), exec_lst);
 		}
 		quotes_removal((char **)(&(exec_lst->content)));
-		prev = exec_lst;
 		exec_lst = exec_lst->next;
 	}
 }
@@ -86,14 +83,14 @@ int		is_ambiguous_redirect(char *s)
 	return (0);
 }
 
-void	expansion_in_rdir_lst(t_list *rdir_lst, t_list *env)
+void	expansion_in_rdir_lst(t_list *rdir_lst, t_list *env, int return_value)
 {
 	while (rdir_lst)
 	{
 		if (check_dollar_sign(((t_rdir *)(rdir_lst->content))->file))
 		{
 			((t_rdir *)(rdir_lst->content))->file =
-			expand_content(((t_rdir *)(rdir_lst->content))->file, env);
+			expand_content(((t_rdir *)(rdir_lst->content))->file, env, return_value);
 			if (is_ambiguous_redirect(((t_rdir *)(rdir_lst->content))->file))
 				((t_rdir *)(rdir_lst->content))->flag = 0;
 		}
