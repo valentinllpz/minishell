@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 15:53:42 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/09 16:49:58 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/11 15:20:12 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_redirect_to(t_shell *shell)
 void	ft_do_redirections(t_shell *shell)
 {
 	shell->tmp_rdir = ((t_cmd *)shell->tmp_cmd->content)->rdir_lst;
-	expansion_in_rdir_lst(((t_cmd *)shell->tmp_cmd->content)->rdir_lst, shell->env);
+	expansion_in_rdir_lst(((t_cmd *)shell->tmp_cmd->content)->rdir_lst, shell->env, shell->return_value);
 	while (shell->tmp_rdir != NULL && shell->error_flag == 0)
 	{
 		if (((t_rdir *)shell->tmp_rdir->content)->flag == 0)
