@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/14 14:16:26 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/14 16:22:57 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,6 +300,7 @@ void	change_value_from_env2(t_list *env, char *value, int len);
 void	change_value_from_env(t_list *env, char *value, char *var, int len);
 
 //UTILS5.c
+void	add_shlvl(t_shell *shell);
 void	change_variable_in_env(t_list *env, char *str, int len);
 int		get_len_var(char *s);
 
