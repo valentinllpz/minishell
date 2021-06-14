@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 19:15:49 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/14 14:14:48 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/14 14:25:22 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,17 @@
 
 void	add_shlvl(t_shell *shell)
 {
+	char	*s;
+	int		i;
+
 	if env_exists(shell->env, "SHLVL", 5)
 	{
-		
+		s = get_value_from_env(shell->env, "SHLVL", 5);
+		if (s != NULL)
+		{
+			i = ft_atoi(s);
+			
+		}
 	}
 }
 
