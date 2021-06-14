@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:40:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/09 19:02:37 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/14 11:26:01 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ int		main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	shell = init_shell(); // a revoir selon parsing et code
-	signal(SIGINT, handler_int);
-	signal(SIGQUIT, handler_int);
+	signal(SIGINT, handler);
+	signal(SIGQUIT, handler);
 	get_list_env(env, shell);
 	param_termcap(shell);
 	ft_readline(shell);

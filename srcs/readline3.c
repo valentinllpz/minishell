@@ -6,11 +6,20 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 10:31:09 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/04/30 16:17:00 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/14 11:48:56 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_do_ctrl_c(t_shell *shell)
+{
+	write(1, "\nminishell$ ", 12);
+	free(shell->line);
+	shell->line = NULL;
+	shell->term->pos_x = 12;
+	shell->nb_hist = 0;
+}
 
 void	ft_process_arrow_down(t_shell *shell)
 {

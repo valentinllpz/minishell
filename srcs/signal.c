@@ -6,15 +6,14 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 16:34:55 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/09 19:15:36 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/14 11:35:49 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	handler_int(int sig)
+void	handler(int sig)
 {
-	(void)sig;
-	write(1, "\n", 1);
-	//fonction pour reset la ligne
+	if (sig == 2)
+		write(1, "\n", 1);
 }

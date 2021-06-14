@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 18:26:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/09 18:27:36 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/14 11:37:29 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void	ft_analyse_c(char c, t_shell *shell)
 		ft_analyse_escp(shell);
 	if (c == 4)
 		ft_do_ctrl_d(shell);
+	if (c == 3)
+		ft_do_ctrl_c(shell);
 	// A VIRER
 	if (c == 'q')
 	{

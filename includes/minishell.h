@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/09 16:40:19 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/14 11:47:25 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,7 @@ void	ft_process_arrow_up(t_shell *shell);
 void	ft_analyse_escp(t_shell *shell);
 
 // READLINE3.C
+void	ft_do_ctrl_c(t_shell *shell);
 void	ft_process_arrow_down(t_shell *shell);
 
 // REDIRECTIONS.C
@@ -247,7 +248,7 @@ size_t		ft_strlen_safe(const char *s);
 char		*ft_strdup_safe(const char *src);
 
 // SIGNAL.C
-void	handler_int(int sig);
+void	handler(int sig);
 
 // TERMINAL.C
 void	param_termcap3(t_shell *shell);
