@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/11 13:48:14 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/14 14:16:26 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ typedef struct		s_shell
 	int				tmp_stdout;
 }					t_shell;
 
+int					g_sig;
+
 //builtins.c
 int					is_builtin(t_shell *shell);
 int					is_builtin2(t_shell *shell);
@@ -140,6 +142,7 @@ void				builtin_export(t_shell *shell);
 int					check_k(unsigned long long k, int neg);
 long long			get_k_value(char *s);
 int					check_arg_exit(char *s);
+void				builtin_exit2(t_shell *shell);
 void    			builtin_exit(t_shell *shell);
 
 //builtin_env.c
@@ -232,6 +235,7 @@ void	ft_process_arrow_up(t_shell *shell);
 void	ft_analyse_escp(t_shell *shell);
 
 // READLINE3.C
+void	ft_do_ctrl_c(t_shell *shell);
 void	ft_process_arrow_down(t_shell *shell);
 
 // REDIRECTIONS.C
@@ -248,6 +252,9 @@ void	ft_heredoc(t_shell *shell, char *file);
 int         ft_isprint_safe(int c);
 size_t		ft_strlen_safe(const char *s);
 char		*ft_strdup_safe(const char *src);
+
+// SIGNAL.C
+void	handler(int sig);
 
 // TERMINAL.C
 void	param_termcap3(t_shell *shell);
