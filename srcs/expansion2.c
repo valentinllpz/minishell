@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 15:57:58 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/11 14:02:04 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/11 16:22:05 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*replace_var(char *s, int i, t_list *env, int return_value)
 		dst = join_three_str(s, match, s + i + len + 1);
 	else if (s[i + 1] == '\0' || s[i + 1] == ' ')
 		dst = join_three_str(s, "$", s + i + 1);
-	else if (s[i + 1] == '?' && return_value == 0)
+	else if (s[i + 1] == '?' && return_value == 0) // pas uniquement 0 ou 1 -> faire un itoa
 		dst = join_three_str(s, "0", s + i + 2);
 	else if (s[i + 1] == '?' && return_value == 1)
 		dst = join_three_str(s, "1", s + i + 2);
