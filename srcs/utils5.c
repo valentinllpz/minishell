@@ -6,11 +6,19 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 19:15:49 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/04 19:36:38 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/14 14:14:48 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	add_shlvl(t_shell *shell)
+{
+	if env_exists(shell->env, "SHLVL", 5)
+	{
+		
+	}
+}
 
 void	change_variable_in_env(t_list *env, char *str, int len)
 {

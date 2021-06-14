@@ -6,11 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:40:41 by user42            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/06/10 19:11:23 by vlugand-         ###   ########.fr       */
-=======
-/*   Updated: 2021/06/14 11:26:01 by ade-garr         ###   ########.fr       */
->>>>>>> alex
+/*   Updated: 2021/06/14 14:09:51 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +116,7 @@ int		main(int argc, char **argv, char **env)
 	signal(SIGINT, handler);
 	signal(SIGQUIT, handler);
 	get_list_env(env, shell);
+	add_shlvl(shell);
 	param_termcap(shell);
 	ft_readline(shell);
 	return (0);
