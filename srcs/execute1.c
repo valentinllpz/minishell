@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:30:22 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/09 15:26:32 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/15 15:26:00 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_process_cmd(t_shell *shell)
 	{
 		ft_do_pipes(shell);
 		ft_do_redirections(shell);
-		if (shell->error_flag == 0)
+		if (shell->error_flag == 0 && ((t_cmd *)shell->tmp_cmd->content)->exec_lst != NULL)
 			ft_execution(shell);
 	}
 	get_return_value(shell);

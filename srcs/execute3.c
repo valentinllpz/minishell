@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:47:23 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/14 11:30:08 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/15 15:23:50 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	get_return_value(t_shell *shell)
 		shell->return_value = 1;
 	else
 	{
+		if (((t_cmd *)shell->tmp_cmd->content)->exec_lst == NULL)
+			shell->return_value = 0;
 		if (shell->pid_exec != 0)
 		{
 			if (waitpid(shell->pid_exec, &shell->exec_status, 0) == -1)
@@ -45,7 +47,11 @@ void	get_return_value(t_shell *shell)
 		}
 	}
 	if (shell->child_flag == 1)
+	{
+		free(shell->path);
+		shell->path = NULL;
 		exit(shell->return_value);
+	}
 }
 
 void	ft_execution2(t_shell *shell)

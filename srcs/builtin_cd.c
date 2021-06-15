@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 18:15:22 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/07 16:27:21 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/15 15:31:23 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	builtin_cd_oldpwd(t_shell *shell)
 	path = get_value_from_env(shell->env, "OLDPWD", 6);
 	if (path == NULL)
 	{
-		write(2, "cd: OLDPWD not set", 18);
+		write(2, "cd: OLDPWD not set\n", 19);
 		shell->return_value = 1;
 	}
 	else
@@ -108,11 +108,6 @@ void	builtin_cd(t_shell *shell)
 {
 	if (shell->exec[1] == NULL)
 		builtin_cd_home(shell);
-	else if (shell->exec[2] != NULL)
-	{
-		write(2, "cd: too many arguments\n", 23);
-		shell->return_value = 1;
-	}
 	else if (ft_strncmp(shell->exec[1], "-", 2) == 0)
 		builtin_cd_oldpwd(shell);
 	else

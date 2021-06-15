@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 10:31:09 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/14 11:48:56 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/15 18:27:32 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_do_ctrl_c(t_shell *shell)
 	free(shell->line);
 	shell->line = NULL;
 	shell->term->pos_x = 12;
+	shell->term->delta = shell->term->pos_x - 1;
 	shell->nb_hist = 0;
 }
 

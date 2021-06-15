@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 15:28:25 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/05/26 15:11:00 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/15 18:30:00 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**ft_list_env_to_char(t_list *lst)
 
 void	ft_incr_pos_x(t_shell *shell)
 {
-	shell->term->pos_x = ((ft_strlen_safe(shell->line) + 11)
+	shell->term->pos_x = ((ft_strlen_safe(shell->line) + shell->term->delta)
 	% shell->term->nb_col) + 1;
 	if (shell->term->pos_x == 1)
 		shell->term->pos_x = shell->term->nb_col;

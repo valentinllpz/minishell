@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:40:33 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/11 13:32:23 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/15 16:04:39 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int		ft_set_path3(t_shell *shell, char *env_path, char **path_split)
 		free(tmp);
 		if (stat(shell->path, &buf) == 0 && S_ISREG(buf.st_mode) == 1)
 			return (0);
+		free(shell->path);
+		shell->path = NULL;
 		i++;
 	}
 	return (1);
