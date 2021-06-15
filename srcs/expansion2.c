@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 15:57:58 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/15 15:06:06 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/15 19:06:15 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*replace_var(char *s, int i, t_list *env, int return_value)
 
 	len = 0;
 	match = find_match_in_env(s + i + 1, &len, env);
-	outlier = exp_outliers(s, &len, return_value);
+	outlier = exp_outliers(s + i + 1, &len, return_value);
 	s[i] = '\0';
 	if (match)
 		dst = join_three_str(s, match, s + i + len + 1);
