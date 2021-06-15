@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 18:26:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/04 17:54:34 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/14 11:37:29 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void	ft_analyse_c(char c, t_shell *shell)
 		ft_analyse_escp(shell);
 	if (c == 4)
 		ft_do_ctrl_d(shell);
+	if (c == 3)
+		ft_do_ctrl_c(shell);
 	// A VIRER
 	if (c == 'q')
 	{
@@ -129,17 +131,26 @@ void	ft_readline(t_shell *shell)
 			if (read(STDIN_FILENO, &c, 1) == -1)
 				ft_error(shell);
 			ft_analyse_c(c, shell);
+			// if (c == 3)
+			// {
+			// 	write(1, "\n", 1);
+			// 	g_sig = 1;
+			// 	break;	
+			// }
 			if (c == 10)
+			{
 				if (shell->line != NULL && shell->line[0] != '\0')
-				{
 					ft_add_to_hist(shell);
-					break ;
-				}
+				break;
+			}
 		}
-		write(1, "\n", 1);
-		shell->ast = ft_launch_lexer(shell->line);
 		disable_raw_mode(shell);
-		launch_execution(shell->ast, shell);
+		// if (g_sig == 0)
+		// {
+			write(1, "\n", 1);
+			shell->ast = ft_launch_lexer(shell->line);
+			launch_execution(shell->ast, shell);
+		// }
 		// write(1, "\r", 1);
 		// A MODIFIER + voir si certaines variables ne doivent pas être reset (child_flag / pid_pipe..)
 		free_ast(shell->ast);

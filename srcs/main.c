@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/12 10:40:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/10 19:11:23 by vlugand-         ###   ########.fr       */
+/*   Created: 2021/03/12 10:40:41 by vlugand-          #+#    #+#             */
+/*   Updated: 2021/06/14 16:23:04 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_shell	*init_shell(void)
 	shell->path = NULL;
 	shell->exec_status = 0;
 	shell->pipe_status = 0;
+	g_sig = 0;
 	if (tcgetattr(STDIN_FILENO, &shell->term->orig_termios) == -1)
 		ft_error(shell);
 	shell->term->flag_termios = 1;
@@ -112,7 +113,10 @@ int		main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	shell = init_shell(); // a revoir selon parsing et code
+	signal(SIGINT, handler);
+	signal(SIGQUIT, handler);
 	get_list_env(env, shell);
+	add_shlvl(shell);
 	param_termcap(shell);
 	ft_readline(shell);
 	return (0);

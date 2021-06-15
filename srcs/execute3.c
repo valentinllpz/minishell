@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:47:23 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/05/26 15:55:49 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/14 11:30:08 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,14 @@ void	get_return_value(t_shell *shell)
 		{
 			if (waitpid(shell->pid_exec, &shell->exec_status, 0) == -1)
 				ft_error(shell);
-			shell->return_value = WEXITSTATUS(shell->exec_status);
+			if (WIFSIGNALED(shell->exec_status) == 1)
+			{
+				shell->return_value = 128 + WTERMSIG(shell->exec_status);
+				if (WTERMSIG(shell->exec_status) == 3)
+					write(1, "Quit: 3\n", 8);
+			}
+			else
+				shell->return_value = WEXITSTATUS(shell->exec_status);
 		}
 		close(0);
 		if (shell->pid_pipe != 0)
@@ -51,7 +58,9 @@ void	ft_execution2(t_shell *shell)
 		if (shell->pid_exec == -1)
 			ft_error(shell);
 		if (shell->pid_exec == 0)
-		{
+		{			
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			ret = execve(shell->path, shell->exec, shell->envp);
 			if (ret == -1)
 				ft_error(shell);
@@ -67,7 +76,11 @@ void	ft_do_first_pipe(t_shell *shell)
 		if (shell->pid_pipe == -1)
 			ft_error(shell);
 		if (shell->pid_pipe == 0)
+		{
+			signal(SIGINT, SIG_IGN);
+			signal(SIGQUIT, SIG_IGN);
 			shell->child_flag = 1;
+		}
 		else
 			shell->parent_flag = 1;
 	}
