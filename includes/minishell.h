@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/14 16:22:57 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/15 18:25:00 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <termios.h>
 # include <curses.h>
 # include <term.h>
+# include <signal.h>
 # include "../libft/libft.h"
 
 enum	type
@@ -79,7 +80,8 @@ typedef struct		s_term
 	char			*line_up;	//pas besoin de free
 	char			*end_line;
 	int				nb_col;
-	int				pos_x; // set à 3 // <- 
+	int				pos_x; // set à 12 // <-
+	int				delta;
 }					t_term;
 
 typedef struct		s_shell
@@ -300,6 +302,7 @@ void	change_value_from_env2(t_list *env, char *value, int len);
 void	change_value_from_env(t_list *env, char *value, char *var, int len);
 
 //UTILS5.c
+int		get_cursor_pos(t_shell *shell);
 void	add_shlvl(t_shell *shell);
 void	change_variable_in_env(t_list *env, char *str, int len);
 int		get_len_var(char *s);

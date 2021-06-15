@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 18:26:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/14 11:37:29 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/15 18:37:39 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ void	ft_analyse_del(t_shell *shell)
 {
 	if (ft_strlen_safe(shell->line) != 0)
 	{
-		if ((ft_strlen_safe(shell->line) + 11) % shell->term->nb_col == 0
+		if ((ft_strlen_safe(shell->line) + shell->term->delta) % shell->term->nb_col == 0
 		&& shell->term->pos_x == shell->term->nb_col)
 			tputs(shell->term->del_c, 1, ft_putchar);
-		else if ((ft_strlen_safe(shell->line) + 11) %
+		else if ((ft_strlen_safe(shell->line) + shell->term->delta) %
 		shell->term->nb_col == 0 && shell->term->pos_x == 1)
 		{
 			tputs(shell->term->line_up, 1, ft_putchar);
@@ -84,7 +84,7 @@ void	ft_analyse_del(t_shell *shell)
 			tputs(shell->term->del_c, 1, ft_putchar);
 		}
 		ft_del_char(shell);
-		shell->term->pos_x = ((ft_strlen_safe(shell->line) + 11)
+		shell->term->pos_x = ((ft_strlen_safe(shell->line) + shell->term->delta)
 		% shell->term->nb_col) + 1;
 	}
 }
@@ -105,14 +105,6 @@ void	ft_analyse_c(char c, t_shell *shell)
 		ft_do_ctrl_d(shell);
 	if (c == 3)
 		ft_do_ctrl_c(shell);
-	// A VIRER
-	if (c == 'q')
-	{
-		tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->term->orig_termios);
-		write(1, "\n", 1);
-		exit(1);
-	}
-	// A VIRER
 }
 
 void	ft_readline(t_shell *shell)
@@ -123,7 +115,8 @@ void	ft_readline(t_shell *shell)
 	{
 		enable_raw_mode(shell);
 		write(2, "minishell$ ", 11);
-		shell->term->pos_x = 12;
+		shell->term->pos_x = get_cursor_pos(shell);
+		shell->term->delta = shell->term->pos_x - 1;
 		shell->nb_hist = 0;
 		while (1)
 		{
@@ -131,27 +124,28 @@ void	ft_readline(t_shell *shell)
 			if (read(STDIN_FILENO, &c, 1) == -1)
 				ft_error(shell);
 			ft_analyse_c(c, shell);
-			// if (c == 3)
-			// {
-			// 	write(1, "\n", 1);
-			// 	g_sig = 1;
-			// 	break;	
-			// }
 			if (c == 10)
 			{
 				if (shell->line != NULL && shell->line[0] != '\0')
+				{
 					ft_add_to_hist(shell);
-				break;
+					break;
+				}
+				else
+				{
+						write(1, "\nminishell$ ", 12);
+						free(shell->line);
+						shell->line = NULL;
+						shell->term->pos_x = 12;
+						shell->term->delta = shell->term->pos_x - 1;
+						shell->nb_hist = 0;
+				}	
 			}
 		}
 		disable_raw_mode(shell);
-		// if (g_sig == 0)
-		// {
-			write(1, "\n", 1);
-			shell->ast = ft_launch_lexer(shell->line);
-			launch_execution(shell->ast, shell);
-		// }
-		// write(1, "\r", 1);
+		write(1, "\n", 1);
+		shell->ast = ft_launch_lexer(shell->line);
+		launch_execution(shell->ast, shell);
 		// A MODIFIER + voir si certaines variables ne doivent pas être reset (child_flag / pid_pipe..)
 		free_ast(shell->ast);
 		free(shell->path);

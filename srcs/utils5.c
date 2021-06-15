@@ -6,11 +6,29 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 19:15:49 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/14 16:20:36 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/15 18:25:57 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	get_cursor_pos(t_shell *shell)
+{
+	char	buf[100];
+	int		ret;
+	int		i;
+
+	i = 0;
+	if (write(1, "\033[6n", 4) != 4)
+		ft_error(shell);
+	ret = read(STDIN_FILENO, buf, 99);
+	buf[ret] = '\0';
+	while (buf[i] != ';')
+		i++;
+	i++;
+	ret = ft_atoi(buf + i);
+	return (ret);
+}
 
 void	add_shlvl(t_shell *shell)
 {

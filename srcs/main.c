@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 10:40:41 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/14 16:23:04 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/15 18:38:04 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_shell	*init_shell(void)
 	shell->child_flag = 0;
 	shell->term->flag_termios = 0;
 	shell->term->pos_x = 12;
+	shell->term->delta = 0;
 	shell->nb_hist = 0;
 	shell->hist = NULL;
 	shell->saved_line = NULL;
