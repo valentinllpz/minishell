@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 16:05:54 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/09 16:46:39 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/15 18:53:16 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	builtin_echo(t_shell *shell)
 	while (shell->exec[i])
 	{
 		ft_putstr_fd(shell->exec[i], 1);
-		write(1, " ", 1);
+		if (shell->exec[i + 1])
+			write(1, " ", 1);
 		i++;
 	}
 	if (nl_flag == 0)

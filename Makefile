@@ -6,7 +6,7 @@
 #    By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/06/10 17:19:24 by vlugand-         ###   ########.fr        #
+#    Updated: 2021/06/15 18:41:12 by vlugand-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRCS		= 	srcs/lexer.c\
 				srcs/builtin_unset.c\
 				srcs/builtin_echo.c\
 				srcs/heredoc.c\
+				srcs/backslash.c\
 				srcs/main.c
 
 CC			= 	gcc
@@ -55,6 +56,15 @@ LIBS		=	-L libft -lft
 RM			= 	rm -f
 
 all:		${NAME}
+			@echo ""
+			@echo "███    ███ ██ ███    ██ ██ ███████ ██   ██ ███████ ██      ██      "
+			@echo "████  ████ ██ ████   ██ ██ ██      ██   ██ ██      ██      ██      "
+			@echo "██ ████ ██ ██ ██ ██  ██ ██ ███████ ███████ █████   ██      ██      "
+			@echo "██  ██  ██ ██ ██  ██ ██ ██      ██ ██   ██ ██      ██      ██      "
+			@echo "██      ██ ██ ██   ████ ██ ███████ ██   ██ ███████ ███████ ███████  by ade-garr & vlugand-"
+			@echo ""
+	
+			
 
 .c.o:
 			${CC} ${CFLAGS} -c $< -o ${<:.c=.o}

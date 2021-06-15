@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/11 13:48:14 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/15 15:51:28 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,6 +263,7 @@ t_token				**free_lexer(t_token **lexer);
 int					is_special(char *s, int i);
 char				*join_three_str(char *s1, char *s2, char *s3);
 void				skip_to_next_valid_quote(char *s, int *i);
+char				*backslash_rm(char *s);
 
 // UTILS1.c
 char	**ft_list_env_to_char(t_list *lst);

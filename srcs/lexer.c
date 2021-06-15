@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:39:42 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/11 16:31:45 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/15 14:43:01 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int				word_count(char *s)
 		{
 			if (s[i] == '\'' || s[i] == '\"')
 				skip_to_next_valid_quote(s, &i);
-//			write(1, &(s[i]), 1);
 			i++;
 		}
 		if (s[i] && (is_special(s, i) == 1 || is_special(s, i) == 2))
