@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+         #
+#    By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/06/15 19:18:22 by ade-garr         ###   ########.fr        #
+#    Updated: 2021/06/16 18:33:09 by vlugand-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,6 @@ SRCS		= 	srcs/lexer.c\
 				srcs/terminal.c\
 				srcs/safer_libft.c\
 				srcs/signal.c\
-				srcs/quotes.c\
 				srcs/builtins.c\
 				srcs/builtin_cd.c\
 				srcs/builtin_cd2.c\
@@ -46,7 +45,7 @@ SRCS		= 	srcs/lexer.c\
 				srcs/builtin_unset.c\
 				srcs/builtin_echo.c\
 				srcs/heredoc.c\
-				srcs/backslash.c\
+				srcs/str_cleanup.c\
 				srcs/main.c
 
 CC			= 	gcc

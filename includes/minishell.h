@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/15 19:18:18 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/16 18:33:19 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,12 +216,12 @@ int			add_to_rdir_lst(t_token **lexer, int *i, t_cmd *cmd);
 int			add_to_exec_lst(t_token **lexer, t_cmd *cmd, int i);
 t_node		*build_node(t_token **lexer);
 t_node		*build_tree(t_token **lexer);
-
+/*
 // QUOTES.C
 
 char	*make_unquoted_str(char *s, int *i);
 void		quotes_removal(char **s);
-
+*/
 // READLINE1.C
 void	ft_del_char(t_shell *shell);
 void	ft_add_char(char c, t_shell *shell);
@@ -250,6 +250,10 @@ void	ft_do_redirections(t_shell *shell);
 
 void	ft_heredoc(t_shell *shell, char *file);
 
+// strcleanup.c
+
+char	*str_cleanup(char *s);
+
 // SAFER LIBFT
 int         ft_isprint_safe(int c);
 size_t		ft_strlen_safe(const char *s);
@@ -272,7 +276,6 @@ t_token				**free_lexer(t_token **lexer);
 int					is_special(char *s, int i);
 char				*join_three_str(char *s1, char *s2, char *s3);
 void				skip_to_next_valid_quote(char *s, int *i);
-char				*backslash_rm(char *s);
 
 // UTILS1.c
 char	**ft_list_env_to_char(t_list *lst);
