@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 16:09:42 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/07 16:35:42 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/17 17:08:05 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	builtin_export2(t_shell *shell)
 		len = get_len_var(shell->exec[i]);
 		if (ft_check_var(shell->exec[i]) == 1)
 		{
-			write(2, "export: \'", 9);
+			write(2, "minishell: export: \'", 20);
 			write(2, shell->exec[i], ft_strlen(shell->exec[i]));
 			write(2, "\': not a valid identifier\n", 26);
 			flag = 1;
