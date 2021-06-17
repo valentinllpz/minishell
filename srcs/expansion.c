@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 17:33:39 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/17 16:53:32 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/17 17:12:32 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	expansion_in_exec_lst(t_list *exec_lst, t_list *env, int return_value)
 		if (check_dollar_sign(exec_lst->content))
 		{
 				exec_lst->content = expand_content(exec_lst->content, env, return_value);
-				if (ft_strcmp(exec_lst->content, "") == 0)
+				if (ft_strcmp(exec_lst->content, "") != 0)
 					replace_elem(ft_lexer(exec_lst->content), exec_lst);
 				else
 				{
