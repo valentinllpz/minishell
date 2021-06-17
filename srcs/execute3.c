@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:47:23 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/15 15:23:50 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/17 17:06:36 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	get_return_value(t_shell *shell)
 	}
 	else if (shell->error_flag == 1)
 		shell->return_value = 1;
+	else if (shell->error_flag == 2)
+		shell->return_value = 127;
 	else
 	{
 		if (((t_cmd *)shell->tmp_cmd->content)->exec_lst == NULL)
@@ -56,7 +58,7 @@ void	get_return_value(t_shell *shell)
 
 void	ft_execution2(t_shell *shell)
 {
-	int	ret;
+	int		ret;
 
 	if (shell->error_flag == 0)
 	{
@@ -69,7 +71,29 @@ void	ft_execution2(t_shell *shell)
 			signal(SIGQUIT, SIG_DFL);
 			ret = execve(shell->path, shell->exec, shell->envp);
 			if (ret == -1)
-				ft_error(shell);
+			{
+				if (errno == 13)
+				{
+					write(2, "minishell: ", 11);
+					write(2, shell->path, ft_strlen(shell->path));
+					write(2, ": ", 2);
+					write(2, strerror(errno), ft_strlen(strerror(errno)));
+					write(2, "\n", 1);
+					exit(126);
+				}
+				else if (errno == 2)
+				{
+					write(2, "minishell: ", 11);
+					write(2, shell->path, ft_strlen(shell->path));
+					write(2, ": ", 2);
+					write(2, strerror(errno), ft_strlen(strerror(errno)));
+					write(2, "\n", 1);
+					exit(127);
+				}
+				else
+					exit(1);
+				//ft_error(shell); A VOIR SI A REMETTRE POUR LEAKS
+			}
 		}
 	}
 }
