@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 18:15:22 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/15 15:31:23 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/17 10:36:15 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	builtin_cd_oldpwd2(t_shell *shell, char *path)
 	ret = chdir(path);
 	if (ret == -1)
 	{
-		write(2, "cd: ", 4);
+		write(2, "minishell: cd: ", 15);
 		write(2, strerror(errno), ft_strlen_safe(strerror(errno)));
 		write(2, "\n", 1);
 		shell->return_value = 1;
@@ -48,7 +48,7 @@ void	builtin_cd_oldpwd(t_shell *shell)
 	path = get_value_from_env(shell->env, "OLDPWD", 6);
 	if (path == NULL)
 	{
-		write(2, "cd: OLDPWD not set\n", 19);
+		write(2, "minishell: cd: OLDPWD not set\n", 30);
 		shell->return_value = 1;
 	}
 	else
@@ -72,7 +72,7 @@ void	builtin_cd_home2(t_shell *shell, char *path)
 	ret = chdir(path);
 	if (ret == -1)
 	{
-		write(2, "cd: ", 4);
+		write(2, "minishell: cd: ", 15);
 		write(2, strerror(errno), ft_strlen_safe(strerror(errno)));
 		write(2, "\n", 1);
 		shell->return_value = 1;
@@ -95,7 +95,7 @@ void	builtin_cd_home(t_shell *shell)
 	path = get_value_from_env(shell->env, "HOME", 4);
 	if (path == NULL)
 	{
-		write(2, "cd: HOME not set\n", 17);
+		write(2, "minishell: cd: HOME not set\n", 28);
 		shell->return_value = 1;
 	}
 	else if (path[0] == '\0')

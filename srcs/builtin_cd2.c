@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 18:36:54 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/15 15:08:54 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/17 10:38:49 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	builtin_cd_norm2(t_shell *shell)
 	{
 		if (errno == 2)
 		{
-			write(2, "cd: error retrieving current directory: getcwd: ", 48);
+			write(2, "minishell: cd: error retrieving current directory: getcwd: ", 59);
 			write(2, "cannot access parent directories: ", 34);
 			write(2, "No such file or directory\n", 26);
 			shell->return_value = 1;
@@ -51,7 +51,7 @@ void	builtin_cd_norm(t_shell *shell)
 	if (ret == -1)
 	{
 		path = strerror(errno);
-		write(2, "cd: ", 4);
+		write(2, "minishell: cd: ", 15);
 		write(2, path, ft_strlen_safe(path));
 		write(2, "\n", 1);
 		shell->return_value = 1;
