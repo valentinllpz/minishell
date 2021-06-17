@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/17 17:21:01 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/17 18:46:31 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,7 +275,7 @@ void				skip_spaces(char *str, int *i);
 t_token				**free_lexer(t_token **lexer);
 int					is_special(char *s, int i);
 char				*join_three_str(char *s1, char *s2, char *s3);
-void				skip_to_next_valid_quote(char *s, int *i);
+int					get_next_valid_quote_index(char *s, int i);
 
 // UTILS1.c
 char	**ft_list_env_to_char(t_list *lst);

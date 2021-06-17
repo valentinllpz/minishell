@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 15:55:50 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/17 18:03:13 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/17 19:05:01 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,5 @@ char	*str_cleanup(char *s)
 	}
 	dst[j] = '\0';
 	free(s);
-//	printf("|%s|\n", dst);
 	return (dst);
 }
