@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 17:33:39 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/16 18:59:41 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/17 16:53:32 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,21 @@ void	expansion_in_exec_lst(t_list *exec_lst, t_list *env, int return_value)
 		if (check_dollar_sign(exec_lst->content))
 		{
 				exec_lst->content = expand_content(exec_lst->content, env, return_value);
-				replace_elem(ft_lexer(exec_lst->content), exec_lst);
+				if (ft_strcmp(exec_lst->content, "") == 0)
+					replace_elem(ft_lexer(exec_lst->content), exec_lst);
+				else
+				{
+					free(exec_lst->content);
+					exec_lst->content = NULL;
+				}
 		}
-		exec_lst->content = str_cleanup(exec_lst->content);
+		if (exec_lst->content)
+			exec_lst->content = str_cleanup(exec_lst->content);
 		exec_lst = exec_lst->next;
 	}
 }
 
-int		is_ambiguous_redirect(char *s)
+int		is_ambiguous_redirect(char *s) // call la fonction avant le expand content en cas d'ambiguous redirect pour afficher le token original et pas le remplacant 
 {
 	int			i;
 	t_token		**tmp;

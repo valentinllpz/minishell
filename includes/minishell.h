@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/16 18:33:19 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/17 16:50:45 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,7 +269,7 @@ void	param_termcap(t_shell *shell);
 void	enable_raw_mode(t_shell *shell);
 
 // UTILS.C
-int					is_space(char c);
+int					is_space(char *s, int i);
 int					is_escaped(char *s, int pos);
 void				skip_spaces(char *str, int *i);
 t_token				**free_lexer(t_token **lexer);

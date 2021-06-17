@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:39:42 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/15 14:43:01 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/17 15:07:40 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ int				word_count(char *s)
 	skip_spaces(s, &i);
 	while (s[i])
 	{
-		if (s[i] && !is_space(s[i]) && !is_special(s, i))
+		if (s[i] && !is_space(s, i) && !is_special(s, i))
 			wc++;
-		while (s[i] && !is_space(s[i]) && !is_special(s, i))
+		while (s[i] && !is_space(s, i) && !is_special(s, i))
 		{
 			if (s[i] == '\'' || s[i] == '\"')
 				skip_to_next_valid_quote(s, &i);
@@ -59,7 +59,7 @@ int				word_count(char *s)
 		if (s[i] && (is_special(s, i) == 1 || is_special(s, i) == 2))
 			wc++;
 		i += is_special(s, i);
-		while (s[i] && is_space(s[i]))
+		while (s[i] && is_space(s, i))
 			i++;
 	}
 	return (wc);
@@ -71,7 +71,7 @@ t_token			*build_token(char *s, int *i)
 	char		*dst;
 
 	len = *i;
-	while (s[*i] && !is_space(s[*i]) && !is_special(s, *i))
+	while (s[*i] && !is_space(s, *i) && !is_special(s, *i))
 	{
 		if (s[*i] == '\'' || s[*i] == '\"')
 			skip_to_next_valid_quote(s, i);

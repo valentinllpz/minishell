@@ -6,13 +6,13 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 15:55:50 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/16 19:28:28 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/17 14:50:26 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	bs_no_quotes(char *s, char *dst, int *i, int *j)
+void	rm_backslash_outside_quotes(char *s, char *dst, int *i, int *j)
 {
 	int		bs;
 
@@ -34,7 +34,7 @@ void	bs_no_quotes(char *s, char *dst, int *i, int *j)
 	}
 }
 
-void	bs_in_dquotes(char *s, char *dst, int *i, int *j)
+void	rm_backslash_in_dquotes(char *s, char *dst, int *i, int *j)
 {
 	int		bs;
 
@@ -46,7 +46,7 @@ void	bs_in_dquotes(char *s, char *dst, int *i, int *j)
 	}
 	if (bs > 0)
 	{
-		if (bs % 2 != 0 && (!(s[*i] == '$' || s[*i] == '`' || s[*i] == '~')))
+		if (bs % 2 != 0 && (!(s[*i] == '$' || s[*i] == '`' || s[*i] == '~' || s[*i] == '\"')))
 			bs = (bs / 2) + 1;
 		else
 			bs = (bs / 2);
@@ -59,64 +59,56 @@ void	bs_in_dquotes(char *s, char *dst, int *i, int *j)
 	}
 }
 
-char	*rm_backslash(char *s, char *dst, int flag)
+void	rm_quotes(char *s, char *dst, int *i, int *j)
 {
-	int		i;
-	int		j;
+	int		flag;
 
-	i = 0;
-	j = 0;
-	while (s[i])
+	flag = 0;
+	if (s[*i] == '\'')
+		flag = 1;
+	else if (s[*i] == '\"')
+		flag = 2;
+	(*i)++;
+	while (s[*i])
 	{
-		if (s[i] != '\\' || (s[i] == '\\' && flag == 1))
-		{
-			dst[j] = s[i];
-			j++;
-			i++;
-		}
-		else if (s[i] == '\\' && flag == 0)
-			bs_no_quotes(s, dst, &i, &j);
-		else if (s[i] == '\\' && flag == 2)
-			bs_in_dquotes(s, dst, &i, &j);
-	}
-	dst[j] = '\0';
-	return (dst);
-}
-
-char	*rm_quotes(char *s)
-{
-	int		i;
-
-	i = 1;
-	while (s[i])
-	{
-		if (s[i + 1])
-			s[i - 1] = s[i];
+		if ((s[*i] == '\'' && !is_escaped(s, *i) && flag == 1) || (s[*i] == '\"' && !is_escaped(s, *i) && flag == 2))
+			break ;
+		else if (s[*i] == '\\' && flag == 2)
+			rm_backslash_in_dquotes(s, dst, i, j);
 		else
-			s[i - 1] = '\0';
-		i++;
+		{
+			dst[*j] = s[*i];
+			(*i)++;
+			(*j)++;
+		}
 	}
-	return (s);	
 }
 
 char	*str_cleanup(char *s)
 {
 	int		i;
-	int		flag;
+	int		j;
 	char	*dst;
 
-	i = 0;
-	flag = 0;
-	if (s && s[0] == '\'')
-		flag = 1;
-	else if (s && s[0] == '\"')
-		flag = 2;
-	if (flag > 0)
-		rm_quotes(s);
 	dst = malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (!dst)
 		return (NULL);
-	dst = rm_backslash(s, dst, flag);
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (s[i] == '\\')
+			rm_backslash_outside_quotes(s, dst, &i, &j);
+		else if (s[i] == '\'' || s[i] == '\"')
+			rm_quotes(s, dst, &i, &j);
+		else
+		{
+			dst[j] = s[i];
+			i++;
+			j++;
+		}
+	}
+	dst[j] = '\0';
 	free(s);
 	return (dst);
 }

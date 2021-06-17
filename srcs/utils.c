@@ -6,15 +6,15 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:52:26 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/15 18:00:25 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/17 15:08:23 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		is_space(char c)
+int		is_space(char *s, int i)
 {
-	if ((c > 8 && c < 14) || c == ' ')
+	if (((s[i] > 8 && s[i] < 14) || s[i] == ' ') && !is_escaped(s, i))
 		return (1);
 	return (0);
 }
@@ -44,69 +44,7 @@ int		is_escaped(char *s, int pos)
 		return (1);
 	return (0);
 }
-/*
-char	*backslash_rm(char *s)
-{
-	int		i;
-	int		len;
-	int		bs;
-	char	*dst;
 
-	i = 0;
-	len = 0;
-	bs = 0;
-	while (s[i])
-	{
-		bs = 0;
-		if (s[i] != '\\')
-		{
-			i++;
-			len++;
-		}
-		while (s[i] == '\\')
-		{
-			bs++;
-			i++;
-		}
-		if (bs > 0)
-			len += bs / 2;
-	}
-	dst = malloc(sizeof(char) * (len + 1));
-	if (!dst)
-		return (NULL);
-	i = 0;
-	len = 0;
-	bs = 0;
-	while (s[i])
-	{
-		bs = 0;
-		if (s[i] != '\\')
-		{
-			dst[len] = s[i];
-			len++;
-			i++;
-		}
-		while (s[i] == '\\')
-		{
-			bs++;
-			i++;
-		}
-		if (bs > 0)
-		{
-			bs = bs / 2;
-			while (bs > 0)
-			{
-				dst[len] = '\\';
-				bs--;
-				len++;
-			}
-		}
-	}
-	dst[len] = '\0';
-	free(s);
-	return (dst);
-}
-*/
 int		is_special(char *s, int i)
 {
 	if (s[i] == '\0')
