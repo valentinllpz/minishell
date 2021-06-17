@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:40:33 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/17 17:31:45 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/17 18:32:36 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,4 @@ void	ft_execution(t_shell *shell)
 			ft_execution2(shell);
 		}
 	}
-	
 }

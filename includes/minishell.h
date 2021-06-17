@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/17 17:21:01 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/17 18:32:53 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,7 +295,6 @@ char	*ft_get_history(t_shell *shell);
 int		env_exists(t_list *env, char *var, int len);
 char	*get_value_from_env(t_list *env, char *var, int len);
 void	free_charptr(char **ptr);
-char	*getenv_path(char *s, int len, t_list *env);
 int		ft_check_path(t_shell *shell);
 
 //UTILS4.C
