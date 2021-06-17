@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:40:33 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/17 16:47:42 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/17 17:31:45 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_set_path2(t_shell *shell, char *env_path)
 {
 	char	**path_split;
 
-	env_path = ft_strdup(env_path + 5);
+	env_path = ft_strdup(env_path);
 	if (env_path == NULL)
 		ft_error(shell);
 	path_split = ft_split(env_path, ':');
@@ -55,9 +55,10 @@ void	ft_set_path2(t_shell *shell, char *env_path)
 	}
 	if (ft_set_path3(shell, env_path, path_split) == 1)
 	{
+		write(2, "minishell: ", 11);
 		write(2, shell->exec[0], ft_strlen_safe(shell->exec[0]));
 		write(2, ": command not found\n", 20);
-		shell->error_flag = 1;
+		shell->error_flag = 2;
 	}
 	free(env_path);
 	free_charptr(path_split);
@@ -67,12 +68,12 @@ void	ft_set_path(t_shell *shell)
 {
 	char	*env_path;
 
-	env_path = getenv_path("PATH=", 5, shell->env);
-	if (env_path == NULL)
+	env_path = get_value_from_env(shell->env, "PATH", 4);
+	if (env_path == NULL || env_path[0] == '\0')
 	{
-		write(2, shell->exec[0], ft_strlen_safe(shell->exec[0]));
-		write(2, ": command not found\n", 20);
-		shell->error_flag = 1;
+		shell->path = ft_strdup(shell->exec[0]);
+		if (shell->path == NULL)
+			ft_error(shell);
 	}
 	else
 		ft_set_path2(shell, env_path);
@@ -112,18 +113,22 @@ void	ft_execution(t_shell *shell)
 	shell->exec = ft_list_to_char(((t_cmd *)shell->tmp_cmd->content)->exec_lst);
 	if (shell->exec == NULL)
 		ft_error(shell);
-	if (is_builtin(shell) > 0) // pas besoin, retravailler la fct builtin pour integrer launch builtin
-		launch_builtin(shell, is_builtin(shell));
-	else // deviendrait if !(isbuildtin) 
+	if (shell->exec[0] != NULL)
 	{
-		if (ft_check_path(shell) == 0)
-			ft_set_path(shell);
-		else
+		if (is_builtin(shell) > 0) // pas besoin, retravailler la fct builtin pour integrer launch builtin
+			launch_builtin(shell, is_builtin(shell));
+		else // deviendrait if !(isbuildtin) 
 		{
-			shell->path = ft_strdup(shell->exec[0]);
-			if (shell->path == NULL)
-				ft_error(shell);
+			if (ft_check_path(shell) == 0)
+				ft_set_path(shell);
+			else
+			{
+				shell->path = ft_strdup(shell->exec[0]);
+				if (shell->path == NULL)
+					ft_error(shell);
+			}
+			ft_execution2(shell);
 		}
-		ft_execution2(shell);
 	}
+	
 }

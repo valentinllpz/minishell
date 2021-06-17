@@ -6,11 +6,25 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 19:15:49 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/15 18:25:57 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/17 17:22:52 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	ft_lstsize_exec(t_list *lst)
+{
+	int		size;
+
+	size = 0;
+	while (lst)
+	{
+		if (lst->content != NULL)
+			size++;
+		lst = lst->next;
+	}
+	return (size);
+}
 
 int	get_cursor_pos(t_shell *shell)
 {
