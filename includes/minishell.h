@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/17 16:50:45 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/17 17:21:01 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,6 +306,7 @@ void	change_value_from_env2(t_list *env, char *value, int len);
 void	change_value_from_env(t_list *env, char *value, char *var, int len);
 
 //UTILS5.c
+int		ft_lstsize_exec(t_list *lst);
 int		get_cursor_pos(t_shell *shell);
 void	add_shlvl(t_shell *shell);
 void	change_variable_in_env(t_list *env, char *str, int len);

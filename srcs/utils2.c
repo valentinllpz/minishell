@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 14:58:56 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/07 17:15:04 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/17 17:29:48 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,16 @@ char	**ft_list_to_char(t_list *lst)
 	int		i;
 
 	i = 0;
-	char_tab = malloc(sizeof(char *) * (ft_lstsize(lst) + 1));
+	char_tab = malloc(sizeof(char *) * (ft_lstsize_exec(lst) + 1));
 	if (char_tab == NULL)
 		return (NULL);
 	while (lst != NULL)
 	{
-		char_tab[i] = ((char *)lst->content);
-		i++;
+		if (lst->content != NULL)
+		{
+			char_tab[i] = ((char *)lst->content);
+			i++;		
+		}
 		lst = lst->next;
 	}
 	char_tab[i] = NULL;

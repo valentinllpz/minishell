@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:47:23 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/17 17:06:36 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/17 17:36:25 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	get_return_value(t_shell *shell)
 		shell->return_value = 127;
 	else
 	{
-		if (((t_cmd *)shell->tmp_cmd->content)->exec_lst == NULL)
+		if (((t_cmd *)shell->tmp_cmd->content)->exec_lst == NULL || shell->exec[0] == NULL)
 			shell->return_value = 0;
 		if (shell->pid_exec != 0)
 		{
