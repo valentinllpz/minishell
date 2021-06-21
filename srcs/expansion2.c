@@ -6,13 +6,13 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 15:57:58 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/17 21:07:58 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/21 16:32:11 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*exp_outliers(char *s, int *len, int return_value)
+char	*dollar_question_mark(char *s, int *len, int return_value)
 {
 	if (s)
 	{
@@ -25,41 +25,41 @@ char	*exp_outliers(char *s, int *len, int return_value)
 	return (NULL);
 }
 
-char	*match_to_str(char *s) // faire une ft get match len pour la norme // ne marche pas vrmt car on est entre ""
+char	*preserve_literal_value(char *match)
 {
 	int		i;
 	int		j;
 	char	*dst;
-	
-	i = 0;
-	j = 0;
-	while (s[i])
-	{
-		if (s[i] == '\'' || s[i] == '\"' || s[i] == '\\')
-			j++;
-		i++;
-	}
-	dst = malloc(sizeof(char) * (i + j + 1));
+
+	dst = malloc(sizeof(char) * (ft_strlen(match) + 30));
 	if (!dst)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (s[i])
+	while (match[i])
 	{
-		if (s[i] == '\'' || s[i] == '\"' || s[i] == '\\')
+		while (match[i] && is_space(match, i))
 		{
-			dst[j] = '\\';
+			dst[j] = match[i];
+			i++;
 			j++;
 		}
-		dst[j] = s[i];
-		i++;
+		dst[j] = '\'';
+		j++;
+		while (match[i] && !is_space(match, i))
+		{
+			dst[j] = match[i];
+			i++;
+			j++;
+		}
+		dst[j] = '\'';
 		j++;
 	}
 	dst[j] = '\0';
 	return (dst);
 }
 
-char	*find_match_in_env(char *s, int *len, t_list *env)
+char	*find_match_in_env(char *s, int *len, t_list *env, int dq_flag)
 {
 	while (s[*len])
 	{
@@ -71,22 +71,44 @@ char	*find_match_in_env(char *s, int *len, t_list *env)
 	{
 		if (*len > 0 && ft_strncmp(s, (char *)(env->content), *len) == 0
 		&& ((char *)(env->content))[*len] == '=')
-			return (match_to_str((char *)(env->content) + *len + 1));
+		{
+			if (dq_flag == 1)
+				return (preserve_literal_value((char *)(env->content) + *len + 1));
+			return (ft_strdup((char *)(env->content) + *len + 1));
+		}
 		env = env->next;
 	}
 	return (NULL);
 }
+/*
+int		env_var_is_enclosed(char *s, int i)
+{
+	int		dq_flag;
 
+	dq_flag = 0;
+	while (i >= 0)
+	{
+		if (s[i] == '\"')
+			dq_flag++;
+		i--;
+	}
+	if (dq_flag % 2 != 0)
+		return (1);
+	return (0);
+}
+*/
 char	*replace_var(char *s, int i, t_list *env, int return_value)
 {
 	char	*match;
 	char	*outlier;
 	char	*dst;
 	int		len;
+	int		dq_flag = 1;
 
 	len = 0;
-	match = find_match_in_env(s + i + 1, &len, env);
-	outlier = exp_outliers(s + i + 1, &len, return_value);
+	//dq_flag = env_var_is_enclosed(s, i);
+	match = find_match_in_env(s + i + 1, &len, env, dq_flag);
+	outlier = dollar_question_mark(s + i + 1, &len, return_value);
 	s[i] = '\0';
 	if (match)
 	{
@@ -101,6 +123,7 @@ char	*replace_var(char *s, int i, t_list *env, int return_value)
 	else
 		dst = join_three_str(s, "", s + i + len + 1);
 	free(s);
+	printf("dq flag = %s\n", dst);
 	return (dst);
 }
 
