@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 10:38:41 by user42            #+#    #+#             */
-/*   Updated: 2021/06/21 15:18:52 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/22 19:06:32 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,10 @@ void				expansion_in_rdir_lst(t_list *rdir_lst, t_list *env, int return_value);
 char				*find_match_in_env(char *s, int *len, t_list *env, int dq_flag);
 char				*replace_var(char *s, int i, t_list *env, int return_value);
 char				*expand_content(char *s, t_list *env, int return_value);
+
+//expansion3.c
+char	*add_dquotes_to_str(char *s);
+char	*preserve_literal_value(char *match, int dq_flag);
 
 // FREE_AST.C
 void				free_rdir(t_rdir *rdir);
