@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 15:55:50 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/17 18:03:13 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/22 18:01:50 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ void	rm_quotes(char *s, char *dst, int *i, int *j)
 	while (s[*i])
 	{
 		if ((s[*i] == '\'' && !is_escaped(s, *i) && flag == 1) || (s[*i] == '\"' && !is_escaped(s, *i) && flag == 2))
+		{
+			(*i)++;
 			break ;
+		}
 		else if (s[*i] == '\\' && flag == 2)
 			rm_backslash_in_dquotes(s, dst, i, j);
 		else
@@ -110,6 +113,5 @@ char	*str_cleanup(char *s)
 	}
 	dst[j] = '\0';
 	free(s);
-//	printf("|%s|\n", dst);
 	return (dst);
 }

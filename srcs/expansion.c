@@ -6,13 +6,13 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 17:33:39 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/17 18:06:07 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/22 18:49:33 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		check_dollar_sign(char *s)
+int	check_dollar_sign(char *s)
 {
 	int		i;
 
@@ -26,11 +26,11 @@ int		check_dollar_sign(char *s)
 	return (0);
 }
 
-void		replace_elem(t_token **content, t_list *elem)
+void	replace_elem(t_token **content, t_list *elem)
 {
-	int			i;
-	int			flag;
-	t_list		*lst;
+	int		i;
+	int		flag;
+	t_list	*lst;
 
 	i = 0;
 	flag = 0;
@@ -52,20 +52,21 @@ void		replace_elem(t_token **content, t_list *elem)
 	free_lexer(content);
 }
 
-void	expansion_in_exec_lst(t_list *exec_lst, t_list *env, int return_value)
+void	expansion_in_exec_lst(t_list *exec_lst, t_list *env, int ret)
 {
 	while (exec_lst)
 	{
 		if (check_dollar_sign(exec_lst->content))
 		{
-				exec_lst->content = expand_content(exec_lst->content, env, return_value);
-				if (ft_strcmp(exec_lst->content, "") != 0)
-					replace_elem(ft_lexer(exec_lst->content), exec_lst);
-				else
-				{
-					free(exec_lst->content);
-					exec_lst->content = NULL;
-				}
+			exec_lst->content
+				= expand_content(exec_lst->content, env, ret);
+			if (ft_strcmp(exec_lst->content, "") != 0)
+				replace_elem(ft_lexer(exec_lst->content), exec_lst);
+			else
+			{
+				free(exec_lst->content);
+				exec_lst->content = NULL;
+			}
 		}
 		if (exec_lst->content)
 			exec_lst->content = str_cleanup(exec_lst->content);
@@ -73,7 +74,7 @@ void	expansion_in_exec_lst(t_list *exec_lst, t_list *env, int return_value)
 	}
 }
 
-int		is_ambiguous_redirect(char *s) // call la fonction avant le expand content en cas d'ambiguous redirect pour afficher le token original et pas le remplacant 
+int	is_ambiguous_redirect(char *s) // //faire un dup du token original ou call la fonction avant le expand content en cas d'ambiguous redirect pour afficher le token original et pas le remplacant 
 {
 	int			i;
 	t_token		**tmp;
@@ -90,18 +91,19 @@ int		is_ambiguous_redirect(char *s) // call la fonction avant le expand content 
 	return (0);
 }
 
-void	expansion_in_rdir_lst(t_list *rdir_lst, t_list *env, int return_value)
+void	expansion_in_rdir_lst(t_list *rdir_lst, t_list *env, int ret)
 {
 	while (rdir_lst)
 	{
 		if (check_dollar_sign(((t_rdir *)(rdir_lst->content))->file))
 		{
-			((t_rdir *)(rdir_lst->content))->file =
-			expand_content(((t_rdir *)(rdir_lst->content))->file, env, return_value);
+			((t_rdir *)(rdir_lst->content))->file = expand_content
+				(((t_rdir *)(rdir_lst->content))->file, env, ret);
 			if (is_ambiguous_redirect(((t_rdir *)(rdir_lst->content))->file))
 				((t_rdir *)(rdir_lst->content))->flag = 0;
 		}
-		((t_rdir *)(rdir_lst->content))->file = str_cleanup(((t_rdir *)(rdir_lst->content))->file);
+		((t_rdir *)(rdir_lst->content))->file
+			= str_cleanup(((t_rdir *)(rdir_lst->content))->file);
 		rdir_lst = rdir_lst->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:52:26 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/17 15:08:23 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/22 18:57:51 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,28 +65,32 @@ void	skip_spaces(char *s, int *i)
 		(*i)++;
 }
 
-void	skip_to_next_valid_quote(char *s, int *i)
+int		get_next_valid_quote_index(char *s, int i)
 {
-	if (s[*i] == '\'' && !is_escaped(s, *i))
+	int		start;
+
+	start = i;
+	if (s[i] == '\'' && !is_escaped(s, i))
 	{
-		(*i)++;
-		while (s[*i])
+		i++;
+		while (s[i])
 		{
-			if (s[*i] == '\'' && !is_escaped(s, *i))
-				break ;
-			(*i)++;
+			if (s[i] == '\'' && !is_escaped(s, i))
+				return (i);
+			i++;
 		}
 	}
-	else if (s[*i] == '\"' && !is_escaped(s, *i))
+	else if (s[i] == '\"' && !is_escaped(s, i))
 	{
-		(*i)++;
-		while (s[*i])
+		i++;
+		while (s[i])
 		{
-			if (s[*i] == '\"' && !is_escaped(s, *i))
-				break ;
-			(*i)++;
+			if (s[i] == '\"' && !is_escaped(s, i))
+				return (i);
+			i++;
 		}
 	}
+	return (start);
 }
 
 t_token	**free_lexer(t_token **lexer)
@@ -130,28 +134,3 @@ char	*join_three_str(char *s1, char *s2, char *s3)
 	ft_strlcpy(dst + len1 + len2, s3, len3 + 1);
 	return (dst);
 }
-
-/*
-int		which_operator(char *s, int i)
-{
-	if (s[i] == '\0')
-		return (0);
-	if (s[i] == '&' && s[i + 1] == '&')
-		return (AND);
-	else if (s[i] == '|' && s[i + 1] == '|')
-		return (OR);
-	else if (s[i] == ';')
-		return (SEMICOLON);
-	else if (s[i] == '|')
-		return (PIPE);
-	else if (s[i] == '>')
-		return (RIGHT);
-	else if (s[i] == '<')
-		return (LEFT);
-	else if (s[i] == '>' && s[i + 1] == '>')
-		return (DRIGHT);
-	else if (s[i] == '<' && s[i + 1] == '<')
-		return (DLEFT);
-	else
-		return (0);
-}*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 18:26:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/15 18:37:39 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/22 18:31:45 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void	ft_readline(t_shell *shell)
 		}
 		disable_raw_mode(shell);
 		write(1, "\n", 1);
-		shell->ast = ft_launch_lexer(shell->line);
+		shell->ast = ft_launch_lexer(shell->line); // verifier d'abord la valeur de retour de la fonction // $? = 258
 		launch_execution(shell->ast, shell);
 		// A MODIFIER + voir si certaines variables ne doivent pas être reset (child_flag / pid_pipe..)
 		free_ast(shell->ast);

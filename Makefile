@@ -6,7 +6,7 @@
 #    By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/06/17 15:32:48 by vlugand-         ###   ########.fr        #
+#    Updated: 2021/06/22 19:03:13 by vlugand-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS		= 	srcs/lexer.c\
 				srcs/free_ast.c\
 				srcs/expansion.c\
 				srcs/expansion2.c\
+				srcs/expansion3.c\
 				srcs/execute1.c\
 				srcs/execute2.c\
 				srcs/execute3.c\
