@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 15:53:42 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/11 15:20:12 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/23 10:47:37 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@ void	ft_redirect_from(t_shell *shell)
 	fd = open(((t_rdir *)shell->tmp_rdir->content)->file, O_RDWR);
 	if (fd == -1)
 	{
+		write(2, "minishell: ", 11);
+		ft_putstr_fd(((t_rdir *)shell->tmp_rdir->content)->file, 2);
+		write(2, ": ", 2);
 		buf = strerror(errno);
 		write(2, buf, ft_strlen_safe(buf));
-		write(2, "\r\n", 2);
+		write(2, "\n", 1);
 		shell->error_flag = 1;
 	}
 	else
@@ -37,29 +40,54 @@ void	ft_redirect_from(t_shell *shell)
 
 void	ft_redirect_to_append(t_shell *shell)
 {
-	int	fd;
+	int		fd;
+	char	*buf;
 
 	fd = open(((t_rdir *)shell->tmp_rdir->content)->file, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
-		ft_error(shell);
-	if (dup2(fd, STDOUT_FILENO) == -1)
-		ft_error(shell);
-	if (close(fd) == -1)
-		ft_error(shell);
+	{
+		write(2, "minishell: ", 11);
+		ft_putstr_fd(((t_rdir *)shell->tmp_rdir->content)->file, 2);
+		write(2, ": ", 2);
+		buf = strerror(errno);
+		write(2, buf, ft_strlen_safe(buf));
+		write(2, "\n", 1);
+		shell->error_flag = 1;
+	}
+	else
+	{
+		if (dup2(fd, STDOUT_FILENO) == -1)
+			ft_error(shell);
+		if (close(fd) == -1)
+			ft_error(shell);
+	}
 	shell->tmp_rdir = shell->tmp_rdir->next;
+
 }
 
 void	ft_redirect_to(t_shell *shell)
 {
-	int	fd;
-	
+	int		fd;
+	char	*buf;
+
 	fd = open(((t_rdir *)shell->tmp_rdir->content)->file, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
-		ft_error(shell);
-	if (dup2(fd, STDOUT_FILENO) == -1)
-		ft_error(shell);
-	if (close(fd) == -1)
-		ft_error(shell);
+	{
+		write(2, "minishell: ", 11);
+		ft_putstr_fd(((t_rdir *)shell->tmp_rdir->content)->file, 2);
+		write(2, ": ", 2);
+		buf = strerror(errno);
+		write(2, buf, ft_strlen_safe(buf));
+		write(2, "\n", 1);
+		shell->error_flag = 1;
+	}
+	else 
+	{
+		if (dup2(fd, STDOUT_FILENO) == -1)
+			ft_error(shell);
+		if (close(fd) == -1)
+			ft_error(shell);
+	}
 	shell->tmp_rdir = shell->tmp_rdir->next;
 }
 
@@ -73,7 +101,7 @@ void	ft_do_redirections(t_shell *shell)
 		{
 			write(2, "minishell: ", 11);
 			ft_putstr_fd(((t_rdir *)shell->tmp_rdir->content)->file, 2);
-			write(2, ": ambigous redirect\r\n", 21);
+			write(2, ": ambigous redirect\n", 20);
 			shell->error_flag = 1;
 		}
 		else if (((t_rdir *)shell->tmp_rdir->content)->flag == 1)
