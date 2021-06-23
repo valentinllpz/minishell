@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 17:02:48 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/17 18:25:57 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:21:06 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,36 +81,52 @@ void	builtin_exit2(t_shell *shell)
 
 	if (shell->exec[2] != NULL)
 	{
-		write(1, "exit\n", 5);
-		write(2, "exit: too many arguments\n", 25);
+		if (shell->child_flag == 0)
+			write(1, "exit\n", 5);
+		write(2, "minishell: exit: too many arguments\n", 36);
 		shell->return_value = 1;
 	}
 	else
 	{
 		k = get_k_value(shell->exec[1]);
 		k = k % 256;
-		write(1, "exit\n", 5);
-		free_global_struct(shell);
-		exit((int)k);
+		shell->return_value = (int)k;
+		if (shell->child_flag == 0)
+		{
+			write(1, "exit\n", 5);
+			free_global_struct(shell);
+			exit((int)k);
+		}
 	}
 }
 
 void	builtin_exit(t_shell *shell)
 {
+	int	ret;
+
 	if (shell->exec[1] == NULL)
 	{
-		write(1, "exit\n", 5);
-		free_global_struct(shell);
-		exit(0);
+		if (shell->child_flag == 0)
+		{
+			ret = shell->return_value;
+			write(1, "exit\n", 5);
+			free_global_struct(shell);
+			exit(ret);
+		}
 	}
-	if (check_arg_exit(shell->exec[1]) == 1)
+	else if (check_arg_exit(shell->exec[1]) == 1)
 	{
-		write(1, "exit\n", 5);
-		write(2, "exit: ", 6);
+		if (shell->child_flag == 0)
+			write(1, "exit\n", 5);
+		write(2, "minishell: exit: ", 17);
 		write(2, shell->exec[1], ft_strlen_safe(shell->exec[1]));
 		write(2, ": numeric argument required\n", 29);
-		free_global_struct(shell);
-		exit(255);
+		shell->return_value = 255;
+		if (shell->child_flag == 0)
+		{
+			free_global_struct(shell);
+			exit(255);
+		}
 	}
 	else
 		builtin_exit2(shell);

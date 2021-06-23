@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 19:52:27 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/23 13:38:18 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:55:28 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	builtin_unset(t_shell *shell)
 	{
 		if (ft_check_var_all(shell->exec[i]) == 1)
 		{
-			write(2, "unset: \'", 8);
+			write(2, "minishell: unset: \'", 19);
 			write(2, shell->exec[i], ft_strlen(shell->exec[i]));
 			write(2, "\': not a valid identifier\n", 26);
 			flag = 1;
