@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 10:38:41 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/22 19:21:30 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/23 15:49:54 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct		s_term
 	char			*del_line;	//pas besoin de free, à voir si à garder ou non
 	char			*left_c;	//pas besoin de free
 	char			*line_up;	//pas besoin de free
-	char			*end_line;
+	char			*end_line;	//pas besoin de free
 	int				nb_col;
 	int				pos_x; // set à 12 // <-
 	int				delta;
@@ -90,15 +90,15 @@ typedef struct		s_shell
 	char			**envp; // initialiser à NULL, free uniquement le char **, pointeurs char * = pointeur de la ll env
 	char			**exec; // initialiser à NULL, free uniquement le char **, pointeurs char * = pointeur de la ll exec_lst
 	char			*path; // initialiser à NULL, free à chaque boucle et remettre à NULL
-	t_list			*tmp_cmd; // à changer ?
-	t_list			*tmp_rdir; // à changer ?
+	t_list			*tmp_cmd; // pas besoin de free car ce sont des pointeurs qui se baladent sur l arbre ?
+	t_list			*tmp_rdir; // pas besoin de free car ce sont des pointeurs qui se baladent sur l arbre ?
 	t_node			*ast;
 	char			*line;
 	int				exec_status; //à garder ?
 	int				pipe_status; //à garder ?
 	pid_t			pid_pipe;
 	pid_t			pid_exec;
-	int				pipefd[2];
+	int				pipefd[2]; // doit etre free ??
 	int				error_flag; // set à 0
 	int				parent_flag;
 	int				child_flag; // à voir si à garder
@@ -110,8 +110,6 @@ typedef struct		s_shell
 	int				tmp_stdin;
 	int				tmp_stdout;
 }					t_shell;
-
-int					g_sig;
 
 //builtins.c
 int					is_builtin(t_shell *shell);
@@ -316,8 +314,6 @@ void	change_variable_in_env(t_list *env, char *str, int len);
 int		get_len_var(char *s);
 
 // MAIN ???
-
-t_node	*ft_launch_lexer(char *line);
 void	ft_exit(t_shell *shell);
 t_shell	*init_shell(void);
 void	get_list_env(char **env, t_shell *shell);

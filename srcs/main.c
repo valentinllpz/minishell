@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 10:40:41 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/23 11:13:37 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/23 16:06:58 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-t_node	*ft_launch_lexer(char *line)
-{
-	t_token		**lexer;
-	t_node		*ast;
-
-	if (!(lexer = ft_lexer(line)))
-		return (0);
-	//print_lexer(lexer, line); // print to debug
-	if (!(ast = parser(lexer)))
-		return (0);
-	//print_parser(ast); // print to debug
-	//	free_ast(ast);
-	//	system("leaks minishell");// uncomment to test leaks on mac os
-	return (ast);
-}
 
 void	ft_exit(t_shell *shell)	// a revoir selon parsing et code
 {
@@ -56,6 +40,7 @@ t_shell	*init_shell(void) // calloc
 		write(2, "\n", 1);
 		exit(1);
 	}
+	shell->ast = NULL;
 	shell->env = NULL;
 	shell->line = NULL;
 	shell->tmp_cmd = NULL;
@@ -75,7 +60,6 @@ t_shell	*init_shell(void) // calloc
 	shell->path = NULL;
 	shell->exec_status = 0;
 	shell->pipe_status = 0;
-	g_sig = 0;
 	if (tcgetattr(STDIN_FILENO, &shell->term->orig_termios) == -1)
 		ft_error(shell);
 	shell->term->flag_termios = 1;

@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 14:58:56 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/17 17:29:48 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/23 16:06:02 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,28 @@ void	free_global_struct(t_shell *shell) // A MODIFIER, COMPLETER
 
 	if (shell->env != NULL)
 		ft_lstclear(&shell->env, free);
+	if (shell->envp != NULL)
+	{
+		free(shell->envp);
+		shell->envp = NULL;
+	}
+	if (shell->exec != NULL)
+	{
+		free(shell->exec);
+		shell->exec = NULL;
+	}
+	if (shell->path != NULL)
+	{
+		free(shell->path);
+		shell->path = NULL;
+	}
+	free_ast(shell->ast);
 	if (shell->line != NULL)
 	{
 		free(shell->line);
 		shell->line = NULL;
 	}
-	/// FREE CMD ET DIR
-	if (shell->term->flag_termios == 1)
+	if (shell->term != NULL && shell->term->flag_termios == 1)
 	{
 		if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->term->orig_termios)
 		== -1)
@@ -56,6 +71,18 @@ void	free_global_struct(t_shell *shell) // A MODIFIER, COMPLETER
 			write(2, "\n", 1);
 		}
 	}
+	if (shell->term != NULL)
+	{
+		free(shell->term);
+		shell->term = NULL;
+	}
+	if (shell->saved_line != NULL)
+	{
+		free(shell->saved_line);
+		shell->saved_line = NULL;
+	}
+	if (shell->hist != NULL)
+		ft_lstclear(&shell->hist, free);
 	free(shell);
 }
 
