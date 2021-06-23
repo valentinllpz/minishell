@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 10:40:41 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/15 18:38:04 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/23 11:13:37 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_exit(t_shell *shell)	// a revoir selon parsing et code
 	exit(1);
 }
 
-t_shell	*init_shell(void)
+t_shell	*init_shell(void) // calloc
 {
 	t_shell	*shell;
 	char	*buf;

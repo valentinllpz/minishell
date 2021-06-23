@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 17:33:39 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/22 18:49:33 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/23 13:33:18 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,22 @@ int	is_ambiguous_redirect(char *s) // //faire un dup du token original ou call l
 
 void	expansion_in_rdir_lst(t_list *rdir_lst, t_list *env, int ret)
 {
+	char	*tmp;
+
 	while (rdir_lst)
 	{
 		if (check_dollar_sign(((t_rdir *)(rdir_lst->content))->file))
 		{
+			tmp = ft_strdup(((t_rdir *)(rdir_lst->content))->file);
 			((t_rdir *)(rdir_lst->content))->file = expand_content
 				(((t_rdir *)(rdir_lst->content))->file, env, ret);
 			if (is_ambiguous_redirect(((t_rdir *)(rdir_lst->content))->file))
+			{
 				((t_rdir *)(rdir_lst->content))->flag = 0;
+				if (((t_rdir *)(rdir_lst->content))->file)
+					free(((t_rdir *)(rdir_lst->content))->file);
+				((t_rdir *)(rdir_lst->content))->file = tmp;
+			}
 		}
 		((t_rdir *)(rdir_lst->content))->file
 			= str_cleanup(((t_rdir *)(rdir_lst->content))->file);

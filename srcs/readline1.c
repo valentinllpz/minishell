@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 18:26:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/22 18:31:45 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/23 13:28:43 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,11 @@ void	ft_readline(t_shell *shell)
 		}
 		disable_raw_mode(shell);
 		write(1, "\n", 1);
-		shell->ast = ft_launch_lexer(shell->line); // verifier d'abord la valeur de retour de la fonction // $? = 258
-		launch_execution(shell->ast, shell);
+		shell->ast = parser(ft_lexer(shell->line)); // verifier d'abord la valeur de retour de la fonction // $? = 258
+		if (shell->ast)
+			launch_execution(shell->ast, shell);
+		else
+			shell->return_value = 2;
 		// A MODIFIER + voir si certaines variables ne doivent pas être reset (child_flag / pid_pipe..)
 		free_ast(shell->ast);
 		free(shell->path);
