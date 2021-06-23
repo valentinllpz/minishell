@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 18:15:22 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/17 10:36:15 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:34:11 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,11 @@ void	builtin_cd(t_shell *shell)
 {
 	if (shell->exec[1] == NULL)
 		builtin_cd_home(shell);
+	else if (shell->exec[2] != NULL)
+	{
+		write(2, "minishell: cd: too many arguments\n", 34);
+		shell->return_value = 1;
+	}
 	else if (ft_strncmp(shell->exec[1], "-", 2) == 0)
 		builtin_cd_oldpwd(shell);
 	else

@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 17:02:48 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/23 13:44:44 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:21:06 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,6 @@ void	builtin_exit(t_shell *shell)
 			free_global_struct(shell);
 			exit(ret);
 		}
-		else
-			shell->return_value = 0;
 	}
 	else if (check_arg_exit(shell->exec[1]) == 1)
 	{
