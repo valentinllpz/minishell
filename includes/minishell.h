@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 10:38:41 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/22 19:21:30 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/23 15:33:58 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,7 @@ typedef struct		s_shell
 int					g_sig;
 
 //builtins.c
-int					is_builtin(t_shell *shell);
-int					is_builtin2(t_shell *shell);
-void				launch_builtin(t_shell *shell, int i);
+void				launch_builtin(t_shell *shell);
 
 //builtin_echo.c
 int					check_echo_flag(char *arg1);

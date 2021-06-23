@@ -3,48 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 15:30:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/17 17:28:49 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/23 15:39:29 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		is_builtin(t_shell *shell)
+static void	launch_bin(t_shell *shell)
 {
-	if (ft_strncmp(shell->exec[0], "echo", 5) == 0) // mettre strcmp;
-		return (1);
-	else if (ft_strncmp(shell->exec[0], "cd", 3) == 0)
-		return (2);
-	else if (ft_strncmp(shell->exec[0], "pwd", 4) == 0)
-		return (3);
-	else if (ft_strncmp(shell->exec[0], "export", 7) == 0)
-		return (4);
-	else if (ft_strncmp(shell->exec[0], "unset", 6) == 0)
-		return (5);
-	else if (ft_strncmp(shell->exec[0], "env", 4) == 0)
-		return (6);
-	else if (ft_strncmp(shell->exec[0], "exit", 5) == 0)
-		return (7);
-	return (0);
+	if (ft_check_path(shell) == 0)
+		ft_set_path(shell);
+	else
+	{
+		shell->path = ft_strdup(shell->exec[0]);
+		if (shell->path == NULL)
+			ft_error(shell);
+	}
+	ft_execution2(shell);
 }
 
-void	launch_builtin(t_shell *shell, int i) // fusionner avec is builtin
+void	launch_builtin(t_shell *shell)
 {
-	if (i == 1)
+	if (ft_strncmp(shell->exec[0], "echo", 5) == 0)
 		builtin_echo(shell);
-	else if (i == 2)
+	else if (ft_strncmp(shell->exec[0], "cd", 3) == 0)
 		builtin_cd(shell);
-	else if (i == 3)
+	else if (ft_strncmp(shell->exec[0], "pwd", 4) == 0)
 		builtin_pwd(shell);
-	else if (i == 4)
+	else if (ft_strncmp(shell->exec[0], "export", 7) == 0)
 		builtin_export(shell);
-	else if (i == 5)
+	else if (ft_strncmp(shell->exec[0], "unset", 6) == 0)
 		builtin_unset(shell);
-	else if (i == 6)
+	else if (ft_strncmp(shell->exec[0], "env", 4) == 0)
 		builtin_env(shell);
-	else if (i == 7)
+	else if (ft_strncmp(shell->exec[0], "exit", 5) == 0)
 		builtin_exit(shell);
+	else
+		launch_bin(shell);
 }

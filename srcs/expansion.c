@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 17:33:39 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/23 13:33:18 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/23 15:41:10 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	expansion_in_exec_lst(t_list *exec_lst, t_list *env, int ret)
 	}
 }
 
-int	is_ambiguous_redirect(char *s) // //faire un dup du token original ou call la fonction avant le expand content en cas d'ambiguous redirect pour afficher le token original et pas le remplacant 
+int	is_ambiguous_redirect(char *s)
 {
 	int			i;
 	t_token		**tmp;

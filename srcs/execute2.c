@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:40:33 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/17 18:32:36 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/23 15:33:08 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,20 +114,5 @@ void	ft_execution(t_shell *shell)
 	if (shell->exec == NULL)
 		ft_error(shell);
 	if (shell->exec[0] != NULL)
-	{
-		if (is_builtin(shell) > 0) // pas besoin, retravailler la fct builtin pour integrer launch builtin
-			launch_builtin(shell, is_builtin(shell));
-		else // deviendrait if !(isbuildtin) 
-		{
-			if (ft_check_path(shell) == 0)
-				ft_set_path(shell);
-			else
-			{
-				shell->path = ft_strdup(shell->exec[0]);
-				if (shell->path == NULL)
-					ft_error(shell);
-			}
-			ft_execution2(shell);
-		}
-	}
+		launch_builtin(shell);
 }
