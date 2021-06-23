@@ -6,13 +6,13 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 11:45:54 by vlugand-          #+#    #+#             */
-/*   Updated: 2019/11/18 00:32:16 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:15:37 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 
-size_t		ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 

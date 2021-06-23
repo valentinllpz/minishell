@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 18:09:11 by vlugand-          #+#    #+#             */
-/*   Updated: 2019/11/18 00:31:48 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:16:19 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ char	*ft_strrchr(const char *s, int c)
 		i--;
 	if (s[i] != (char)c)
 		return (NULL);
-	return ((char*)s + i);
+	return ((char *)s + i);
 }

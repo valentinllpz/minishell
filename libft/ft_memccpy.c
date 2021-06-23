@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 18:34:33 by vlugand-          #+#    #+#             */
-/*   Updated: 2019/11/12 10:31:53 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:09:25 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 	unsigned char	*b;
 
 	i = 0;
-	a = (unsigned char*)dst;
-	b = (unsigned char*)src;
+	a = (unsigned char *)dst;
+	b = (unsigned char *)src;
 	while (i < n)
 	{
 		a[i] = b[i];

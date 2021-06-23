@@ -6,13 +6,13 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:30:31 by vlugand-          #+#    #+#             */
-/*   Updated: 2019/11/15 18:07:24 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:15:07 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char		*ft_append(char *dst, char const *s, size_t *len)
+static char	*ft_append(char *dst, char const *s, size_t *len)
 {
 	size_t		i;
 
@@ -26,7 +26,7 @@ static char		*ft_append(char *dst, char const *s, size_t *len)
 	return (dst);
 }
 
-char			*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t		len;
 	char		*dst;
@@ -34,7 +34,8 @@ char			*ft_strjoin(char const *s1, char const *s2)
 	if (!s1 || !s2)
 		return (NULL);
 	len = ft_strlen(s1) + ft_strlen(s2);
-	if (!(dst = (char*)malloc(sizeof(char) * len + 1)))
+	dst = (char *)malloc(sizeof(char) * len + 1);
+	if (!dst)
 		return (NULL);
 	len = 0;
 	ft_append(dst, s1, &len);

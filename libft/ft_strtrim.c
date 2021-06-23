@@ -6,13 +6,13 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:45:20 by vlugand-          #+#    #+#             */
-/*   Updated: 2019/11/15 13:33:24 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:29:59 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_is_sep(char c, char const *set)
+static int	ft_is_sep(char c, char const *set)
 {
 	int		i;
 
@@ -26,7 +26,7 @@ static int		ft_is_sep(char c, char const *set)
 	return (0);
 }
 
-static int		ft_strtrim_len(char const *s1, char const *set)
+static int	ft_strtrim_len(char const *s1, char const *set)
 {
 	int		i;
 	int		sep;
@@ -51,7 +51,7 @@ static int		ft_strtrim_len(char const *s1, char const *set)
 	return (total - sep);
 }
 
-char			*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	int		i;
 	int		j;
@@ -63,7 +63,8 @@ char			*ft_strtrim(char const *s1, char const *set)
 	len = ft_strtrim_len(s1, set);
 	if (len <= 0)
 		return (ft_strdup(""));
-	if (!(dst = (char*)malloc(sizeof(char) * len + 1)))
+	dst = (char *)malloc(sizeof(char) * len + 1);
+	if (!dst)
 		return (NULL);
 	i = 0;
 	j = 0;
