@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 18:04:17 by vlugand-          #+#    #+#             */
-/*   Updated: 2019/11/18 00:32:45 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:03:51 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_bzero(void *s, size_t n)
 	i = 0;
 	while (i < n)
 	{
-		*((unsigned char*)s + i) = 0;
+		*((unsigned char *)s + i) = 0;
 		i++;
 	}
 }

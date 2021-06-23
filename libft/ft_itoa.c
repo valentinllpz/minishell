@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 14:34:47 by vlugand-          #+#    #+#             */
-/*   Updated: 2019/11/15 13:35:26 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:07:16 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static size_t	ft_intlen(int n)
 	return (len);
 }
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	int		i;
 	char	*itoa;
@@ -40,7 +40,8 @@ char			*ft_itoa(int n)
 	if (n == 0)
 		return (ft_strdup("0"));
 	i = ft_intlen(n);
-	if (!(itoa = (char*)malloc((i + 1) * sizeof(char))))
+	itoa = (char *)malloc((i + 1) * sizeof(char));
+	if (!itoa)
 		return (NULL);
 	if (n < 0)
 	{

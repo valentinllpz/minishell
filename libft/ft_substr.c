@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:40:48 by vlugand-          #+#    #+#             */
-/*   Updated: 2019/11/18 14:34:59 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:30:39 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size = ft_strlen(s + start);
 	if (len > size)
 		len = size;
-	if (!(dst = (char *)malloc(sizeof(char) * len + 1)))
+	dst = (char *)malloc(sizeof(char) * len + 1);
+	if (!dst)
 		return (NULL);
 	i = 0;
 	while (i < len)
