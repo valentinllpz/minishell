@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 11:25:59 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/05/06 12:11:13 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:44:56 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	param_termcap3(t_shell *shell)
 	shell->term->end_line = tgetstr("ch", NULL);
 	if (shell->term->end_line == NULL)
 	{
-		write(2, "end_line tgetstr failed\n", 24);
+		write(2, "minishell: end_line tgetstr failed\n", 35);
 		ft_exit(shell);
 	}
 }
@@ -27,25 +27,25 @@ void	param_termcap2(t_shell *shell)
 	shell->term->del_line = tgetstr("dl", NULL);
 	if (shell->term->del_line == NULL)
 	{
-		write(2, "del_line tgetstr failed\n", 24);
+		write(2, "minishell: del_line tgetstr failed\n", 35);
 		ft_exit(shell);
 	}
 	shell->term->left_c = tgetstr("le", NULL);
 	if (shell->term->left_c == NULL)
 	{
-		write(2, "left_c tgetstr failed\n", 22);
+		write(2, "minishell: left_c tgetstr failed\n", 33);
 		ft_exit(shell);
 	}
 	shell->term->nb_col = tgetnum("co");
 	if (shell->term->nb_col == -1)
 	{
-		write(2, "nb_col tgetnum failed\n", 22);
+		write(2, "minishell: nb_col tgetnum failed\n", 33);
 		ft_exit(shell);
 	}
 	shell->term->line_up = tgetstr("up", NULL);
 	if (shell->term->line_up == NULL)
 	{
-		write(2, "line_up tgetstr failed\n", 23);
+		write(2, "minishell: line_up tgetstr failed\n", 34);
 		ft_exit(shell);
 	}
 	param_termcap3(shell);
@@ -59,19 +59,19 @@ void	param_termcap(t_shell *shell)
 	env = getenv("TERM");
 	if (env == NULL)
 	{
-		write(2, "getenv returned NULL pointer\n", 29);
+		write(2, "minishell: getenv returned NULL pointer\n", 40);
 		ft_exit(shell);
 	}
 	ret = tgetent(NULL, env);
 	if (ret != 1)
 	{
-		write(2, "tgetent failed\n", 15);
+		write(2, "minishell: tgetent failed\n", 26);
 		ft_exit(shell);
 	}
 	shell->term->del_c = tgetstr("dc", NULL);
 	if (shell->term->del_c == NULL)
 	{
-		write(2, "del_c tgetstr failed\n", 21);
+		write(2, "minishell: del_c tgetstr failed\n", 32);
 		ft_exit(shell);
 	}
 	param_termcap2(shell);
