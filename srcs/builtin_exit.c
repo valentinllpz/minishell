@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 17:02:48 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/23 10:02:15 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/23 13:44:44 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,19 @@ void	builtin_exit2(t_shell *shell)
 
 void	builtin_exit(t_shell *shell)
 {
+	int	ret;
+
 	if (shell->exec[1] == NULL)
 	{
-		shell->return_value = 0;
 		if (shell->child_flag == 0)
 		{
+			ret = shell->return_value;
 			write(1, "exit\n", 5);
 			free_global_struct(shell);
-			exit(0);
+			exit(ret);
 		}
+		else
+			shell->return_value = 0;
 	}
 	else if (check_arg_exit(shell->exec[1]) == 1)
 	{
