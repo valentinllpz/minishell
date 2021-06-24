@@ -6,17 +6,18 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:39:42 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/17 18:47:38 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/24 11:43:41 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_token			*new_token(char *s)
+t_token	*new_token(char *s)
 {
 	t_token		*token;
 
-	if (!(token = ft_calloc(sizeof(t_token), 1)))
+	token = ft_calloc(sizeof(t_token), 1);
+	if (!token)
 		return (NULL);
 	token->s = s;
 	if (s[0] == '&' && s[1] == '&')
@@ -38,7 +39,7 @@ t_token			*new_token(char *s)
 	return (token);
 }
 
-int				word_count(char *s)
+int	word_count(char *s)
 {
 	int			i;
 	int			wc;
@@ -52,7 +53,7 @@ int				word_count(char *s)
 			wc++;
 		while (s[i] && !is_space(s, i) && !is_special(s, i))
 		{
-			if (s[i] == '\'' || s[i] == '\"')
+			if ((s[i] == '\'' || s[i] == '\"') && !is_escaped(s, i))
 				i = get_next_valid_quote_index(s, i);
 			i++;
 		}
@@ -65,7 +66,7 @@ int				word_count(char *s)
 	return (wc);
 }
 
-t_token			*build_token(char *s, int *i)
+t_token	*build_token(char *s, int *i)
 {
 	int			len;
 	char		*dst;
@@ -73,7 +74,7 @@ t_token			*build_token(char *s, int *i)
 	len = *i;
 	while (s[*i] && !is_space(s, *i) && !is_special(s, *i))
 	{
-		if (s[*i] == '\'' || s[*i] == '\"')
+		if ((s[*i] == '\'' || s[*i] == '\"') && !is_escaped(s, *i))
 			*i = get_next_valid_quote_index(s, *i);
 		(*i)++;
 	}
@@ -83,27 +84,35 @@ t_token			*build_token(char *s, int *i)
 		len = is_special(s, *i);
 		*i += len;
 	}
-	if (!(dst = malloc((len + 1) * sizeof(char))))
+	dst = malloc((len + 1) * sizeof(char));
+	if (!dst)
 		return (NULL);
 	ft_strlcpy(dst, s + (*i - len), (len + 1));
 	return (new_token(dst));
 }
 
-t_token			**ft_lexer(char *s)
+t_token	**ft_lexer(char *s)
 {
 	int			i;
 	int			j;
 	t_token		**lexer;
 
+	if (!s)
+		return (NULL);
+	lexer = malloc((1 + word_count(s)) * sizeof(t_token *));
+	if (!lexer)
+		return (NULL);
 	i = 0;
 	j = 0;
-	if (!s || !(lexer = malloc((1 + word_count(s)) * sizeof(t_token *))))
-		return (NULL);
 	skip_spaces(s, &i);
 	while (s[i])
 	{
-		if (!(lexer[j] = build_token(s, &i)))
-			return (free_lexer(lexer));
+		lexer[j] = build_token(s, &i);
+		if (!(lexer[j]))
+		{
+			free_lexer(lexer);
+			return (NULL);
+		}
 		skip_spaces(s, &i);
 		j++;
 	}

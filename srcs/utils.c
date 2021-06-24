@@ -6,20 +6,20 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 14:52:26 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/22 18:57:51 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/24 12:15:47 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		is_space(char *s, int i)
+int	is_space(char *s, int i)
 {
 	if (((s[i] > 8 && s[i] < 14) || s[i] == ' ') && !is_escaped(s, i))
 		return (1);
 	return (0);
 }
 
-int		is_escaped(char *s, int pos)
+int	is_escaped(char *s, int pos)
 {
 	int		bs_flag;
 	int		i;
@@ -45,15 +45,17 @@ int		is_escaped(char *s, int pos)
 	return (0);
 }
 
-int		is_special(char *s, int i)
+int	is_special(char *s, int i)
 {
 	if (s[i] == '\0')
 		return (0);
-	if (((s[i] == '>' && s[i + 1] == '>') || (s[i] == '<' && s[i + 1] == '<') || (s[i] == '&' && s[i + 1] == '&')
-	|| (s[i] == '|' && s[i + 1] == '|')) && !is_escaped(s, i))
+	if (((s[i] == '>' && s[i + 1] == '>') || (s[i] == '<' && s[i + 1] == '<')
+			|| (s[i] == '&' && s[i + 1] == '&')
+			|| (s[i] == '|' && s[i + 1] == '|'))
+		&& !is_escaped(s, i))
 		return (2);
 	else if ((s[i] == ';' || s[i] == '|' || s[i] == '>' || s[i] == '<')
-	&& !is_escaped(s, i))
+		&& !is_escaped(s, i))
 		return (1);
 	else
 		return (0);
@@ -65,7 +67,7 @@ void	skip_spaces(char *s, int *i)
 		(*i)++;
 }
 
-int		get_next_valid_quote_index(char *s, int i)
+int	get_next_valid_quote_index(char *s, int i)
 {
 	int		start;
 
@@ -93,19 +95,21 @@ int		get_next_valid_quote_index(char *s, int i)
 	return (start);
 }
 
-t_token	**free_lexer(t_token **lexer)
+void	free_lexer(t_token **lexer)
 {
 	int			i;
 
 	i = 0;
+	if (!lexer)
+		return ;
 	while (lexer[i])
 	{
-		free(lexer[i]->s);
+		if (lexer[i]->s)
+			free(lexer[i]->s);
 		free(lexer[i]);
 		i++;
 	}
 	free(lexer);
-	return (NULL);
 }
 
 char	*join_three_str(char *s1, char *s2, char *s3)
@@ -127,7 +131,8 @@ char	*join_three_str(char *s1, char *s2, char *s3)
 		len3 = ft_strlen(s3);
 	else
 		len3 = 0;
-	if (!(dst = malloc((len1 + len2 + len3 + 1) * sizeof(char))))
+	dst = malloc((len1 + len2 + len3 + 1) * sizeof(char));
+	if (!dst)
 		return (NULL);
 	ft_strlcpy(dst, s1, len1 + 1);
 	ft_strlcpy(dst + len1, s2, len2 + 1);

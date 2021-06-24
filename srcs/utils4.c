@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 15:40:05 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/04 14:12:50 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/24 12:23:22 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_sort_tab(char **tb)
 	i = 0;
 	while (tb[i + 1] != NULL)
 	{
-		if (ft_strncmp(tb[i], tb[i + 1], 1000) > 0)
+		if (ft_strncmp(tb[i], tb[i + 1], 1000) > 0) // utiliser strcmp
 		{
 			tmp = tb[i];
 			tb[i] = tb[i + 1];

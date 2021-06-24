@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 15:55:50 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/22 18:01:50 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/24 11:44:22 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	rm_backslash_in_dquotes(char *s, char *dst, int *i, int *j)
 	}
 	if (bs > 0)
 	{
-		if (bs % 2 != 0 && (!(s[*i] == '$' || s[*i] == '`' || s[*i] == '~' || s[*i] == '\"')))
+		if (bs % 2 != 0 && (!(s[*i] == '$' || s[*i] == '`'
+					|| s[*i] == '~' || s[*i] == '\"')))
 			bs = (bs / 2) + 1;
 		else
 			bs = (bs / 2);
@@ -71,7 +72,8 @@ void	rm_quotes(char *s, char *dst, int *i, int *j)
 	(*i)++;
 	while (s[*i])
 	{
-		if ((s[*i] == '\'' && !is_escaped(s, *i) && flag == 1) || (s[*i] == '\"' && !is_escaped(s, *i) && flag == 2))
+		if ((s[*i] == '\'' && !is_escaped(s, *i) && flag == 1)
+			|| (s[*i] == '\"' && !is_escaped(s, *i) && flag == 2))
 		{
 			(*i)++;
 			break ;
@@ -102,7 +104,7 @@ char	*str_cleanup(char *s)
 	{
 		if (s[i] == '\\')
 			rm_backslash_outside_quotes(s, dst, &i, &j);
-		else if ((s[i] == '\'' && !is_escaped(s, i)) || (s[i] == '\"' && !is_escaped(s, i)))
+		else if ((s[i] == '\'' || s[i] == '\"') && !is_escaped(s, i))
 			rm_quotes(s, dst, &i, &j);
 		else
 		{

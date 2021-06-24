@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 10:38:41 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/23 15:33:58 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/24 10:50:52 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,7 +274,7 @@ void	enable_raw_mode(t_shell *shell);
 int					is_space(char *s, int i);
 int					is_escaped(char *s, int pos);
 void				skip_spaces(char *str, int *i);
-t_token				**free_lexer(t_token **lexer);
+void				free_lexer(t_token **lexer);
 int					is_special(char *s, int i);
 char				*join_three_str(char *s1, char *s2, char *s3);
 int					get_next_valid_quote_index(char *s, int i);

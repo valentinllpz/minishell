@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 19:07:48 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/23 14:48:23 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/24 10:34:05 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	**ft_split(char const *s, char c)
 	while (s[i])
 	{
 		split[j] = ft_make_str(s + i, c);
-		if (!split[j])
+		if (!(split[j]))
 			return (ft_freeall(split));
 		while (s[i] && s[i] != c)
 			i++;

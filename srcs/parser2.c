@@ -3,30 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   parser2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:20:30 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/30 16:08:21 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/24 11:58:35 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int			add_to_cmd_lst(t_cmd **cmd, t_list **cmd_lst, int pipe_flag)
+int	add_to_cmd_lst(t_cmd **cmd, t_list **cmd_lst, int pipe_flag)
 {
 	(*cmd)->pipe_flag = pipe_flag;
 	ft_lstadd_back(cmd_lst, ft_lstnew(*cmd));
-	if (pipe_flag && (!(*cmd = ft_calloc(sizeof(t_cmd), 1)) || !(*cmd_lst)))// prev. pointer was saved in the list content
+	*cmd = ft_calloc(sizeof(t_cmd), 1);
+	if (pipe_flag && (!(*cmd) || !(*cmd_lst)))
 		return (0);
 	return (1);
 }
 
-int			add_to_rdir_lst(t_token **lexer, int *i, t_cmd *cmd)
+int	add_to_rdir_lst(t_token **lexer, int *i, t_cmd *cmd)
 {
 	t_rdir		*rdir;
 
-	rdir = NULL;
-	if (!(rdir = ft_calloc(sizeof(t_rdir), 1)))// prev. pointer was saved in the list content
+	rdir = ft_calloc(sizeof(t_rdir), 1);
+	if (!rdir)
 		return (0);
 	if (lexer[*i]->type == RIGHT)
 		rdir->flag = 1;
@@ -44,7 +45,7 @@ int			add_to_rdir_lst(t_token **lexer, int *i, t_cmd *cmd)
 	return (1);
 }
 
-int			add_to_exec_lst(t_token **lexer, t_cmd *cmd, int i)
+int	add_to_exec_lst(t_token **lexer, t_cmd *cmd, int i)
 {
 	ft_lstadd_back(&(cmd->exec_lst), ft_lstnew(ft_strdup(lexer[i]->s)));
 	if (!cmd->exec_lst)
@@ -52,28 +53,28 @@ int			add_to_exec_lst(t_token **lexer, t_cmd *cmd, int i)
 	return (1);
 }
 
-t_node		*build_node(t_token **lexer)
+t_node	*build_node(t_token **lexer)
 {
 	int			i;
 	int			ret;
 	t_list		*cmd_lst;
 	t_cmd		*cmd;
 
-	i = 0;
-	cmd_lst = NULL;
-	if (!(cmd = ft_calloc(sizeof(t_cmd), 1)))
+	cmd = ft_calloc(sizeof(t_cmd), 1);
+	if (!cmd)
 		return (NULL);
-	while (lexer[i])
+	cmd_lst = NULL;
+	i = -1;
+	while (lexer[++i])
 	{
 		if (lexer[i]->type == PIPE)
 			ret = add_to_cmd_lst(&cmd, &cmd_lst, 1);
 		else if (lexer[i]->type > 4 && lexer[i]->type < 9)
 			ret = add_to_rdir_lst(lexer, &i, cmd);
 		else
-			ret = add_to_exec_lst(lexer, cmd, i);// STRDUP car plus facile pour free derriere vu qu'on ne va plus utiliser lexer mais tjr les pointeurs qu'il contient
+			ret = add_to_exec_lst(lexer, cmd, i);
 		if (!ret)
 			return (NULL);
-		i++;
 	}
 	ret = add_to_cmd_lst(&cmd, &cmd_lst, 0);
 	if (!ret)
@@ -81,7 +82,7 @@ t_node		*build_node(t_token **lexer)
 	return (ft_new_node(CMD, cmd_lst));
 }
 
-t_node		*build_tree(t_token **lexer)
+t_node	*build_tree(t_token **lexer)
 {
 	int			i;
 	t_node		*node;
@@ -89,12 +90,12 @@ t_node		*build_tree(t_token **lexer)
 
 	node = NULL;
 	i = find_separator(lexer);
-	if (lexer[i] == NULL)// if no sep is found then we have a simple cmd. 1 node = 1 cmd or 1 sep
+	if (lexer[i] == NULL)
 		node = build_node(lexer);
 	else if (lexer[i]->type > 0 && lexer[i]->type < 4)
 	{
 		node = ft_new_node(lexer[i]->type, NULL);
-		tmp = lexer[i];// we send the left part and treat it as a CMD
+		tmp = lexer[i];
 		lexer[i] = NULL;
 		node->left = build_node(lexer);
 		lexer[i] = tmp;
