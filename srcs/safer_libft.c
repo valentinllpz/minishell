@@ -6,13 +6,13 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 17:33:39 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/04/30 16:18:48 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/24 20:43:17 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_isprint_safe(int c)
+int	ft_isprint_safe(int c)
 {
 	if (c >= 32 && c <= 126)
 		return (1);
@@ -37,7 +37,8 @@ char	*ft_strdup_safe(const char *src)
 	int		i;
 
 	i = 0;
-	if (!(dst = malloc(sizeof(char) * (ft_strlen_safe(src) + 1))))
+	dst = malloc(sizeof(char) * (ft_strlen_safe(src) + 1));
+	if (dst == NULL)
 		return (NULL);
 	if (src != NULL)
 	{

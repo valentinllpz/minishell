@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 18:45:56 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/23 14:40:59 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/24 20:07:05 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	builtin_pwd(t_shell *shell)
 	{
 		if (errno == 2)
 		{
-			write(2, "minishell: pwd: error retrieving current directory: getcwd: ", 60);
-			write(2, "cannot access parent directories: ", 34);
+			write(2, "minishell: pwd: error retrieving current directory:", 51);
+			write(2, " getcwd: cannot access parent directories: ", 43);
 			write(2, "No such file or directory\n", 26);
 			shell->return_value = 1;
 		}

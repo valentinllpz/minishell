@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   builtin_exit2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/07 16:40:47 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/24 20:01:12 by ade-garr         ###   ########.fr       */
+/*   Created: 2021/06/24 21:07:10 by ade-garr          #+#    #+#             */
+/*   Updated: 2021/06/24 21:10:56 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	builtin_env(t_shell *shell)
+void	builtin_exit3(t_shell *shell)
 {
-	t_list	*tmp;
-
-	tmp = shell->env;
-	while (tmp != NULL)
+	if (shell->child_flag == 0)
+		write(1, "exit\n", 5);
+	write(2, "minishell: exit: ", 17);
+	write(2, shell->exec[1], ft_strlen_safe(shell->exec[1]));
+	write(2, ": numeric argument required\n", 29);
+	shell->return_value = 255;
+	if (shell->child_flag == 0)
 	{
-		if (is_defined((char *)tmp->content) == 1)
-		{
-			ft_putstr_fd((char *)tmp->content, 1);
-			write(1, "\n", 1);
-		}
-		tmp = tmp->next;
+		free_global_struct(shell);
+		exit(255);
 	}
-	shell->return_value = 0;
 }

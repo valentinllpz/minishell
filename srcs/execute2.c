@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:40:33 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/23 15:33:08 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/24 20:11:45 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_set_path3(t_shell *shell, char *env_path, char **path_split)
+int	ft_set_path3(t_shell *shell, char *env_path, char **path_split)
 {
 	int			i;
 	char		*tmp;
@@ -103,7 +103,7 @@ void	launch_execution(t_node *node, t_shell *shell)
 
 void	ft_execution(t_shell *shell)
 {
-	expansion_in_exec_lst(((t_cmd *)shell->tmp_cmd->content)->
+	expansion_in_exec_lst(((t_cmd *)shell->tmp_cmd->content)->\
 	exec_lst, shell->env, shell->return_value);
 	free(shell->envp);
 	shell->envp = ft_list_env_to_char(shell->env);

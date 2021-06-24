@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 17:02:48 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/23 14:21:06 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/24 21:09:59 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,19 +115,7 @@ void	builtin_exit(t_shell *shell)
 		}
 	}
 	else if (check_arg_exit(shell->exec[1]) == 1)
-	{
-		if (shell->child_flag == 0)
-			write(1, "exit\n", 5);
-		write(2, "minishell: exit: ", 17);
-		write(2, shell->exec[1], ft_strlen_safe(shell->exec[1]));
-		write(2, ": numeric argument required\n", 29);
-		shell->return_value = 255;
-		if (shell->child_flag == 0)
-		{
-			free_global_struct(shell);
-			exit(255);
-		}
-	}
+		builtin_exit3(shell);
 	else
 		builtin_exit2(shell);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+         #
+#    By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/06/24 10:36:13 by vlugand-         ###   ########.fr        #
+#    Updated: 2021/06/24 21:09:02 by ade-garr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS		= 	srcs/lexer.c\
 				srcs/builtin_cd2.c\
 				srcs/builtin_export.c\
 				srcs/builtin_exit.c\
+				srcs/builtin_exit2.c\
 				srcs/builtin_env.c\
 				srcs/builtin_pwd.c\
 				srcs/builtin_unset.c\

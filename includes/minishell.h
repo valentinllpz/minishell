@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 10:38:41 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/24 16:00:15 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/24 21:10:50 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void				builtin_cd_home(t_shell *shell);
 void				builtin_cd(t_shell *shell);
 
 //builtin_cd2.c
+void				builtin_cd_norm3(t_shell *shell, char *path);
 void				builtin_cd_norm2(t_shell *shell);
 void				builtin_cd_norm(t_shell *shell);
 
@@ -142,6 +143,9 @@ long long			get_k_value(char *s);
 int					check_arg_exit(char *s);
 void				builtin_exit2(t_shell *shell);
 void    			builtin_exit(t_shell *shell);
+
+//builtin_exit2.c
+void				builtin_exit3(t_shell *shell);
 
 //builtin_env.c
 void				builtin_env(t_shell *shell);
@@ -170,7 +174,9 @@ void				launch_execution(t_node *node, t_shell *shell);
 void				ft_execution(t_shell *shell);
 
 //execute3.c
+void				get_return_value2(t_shell *shell);
 void				get_return_value(t_shell *shell);
+void				ft_execution2_errno(t_shell *shell);
 void				ft_execution2(t_shell *shell);
 void				ft_do_first_pipe(t_shell *shell);
 
@@ -237,6 +243,8 @@ void	ft_process_arrow_up(t_shell *shell);
 void	ft_analyse_escp(t_shell *shell);
 
 // READLINE3.C
+void	ft_readline_loop2(t_shell *shell);
+void	ft_readline_loop(t_shell *shell);
 void	ft_do_ctrl_c(t_shell *shell);
 void	ft_process_arrow_down(t_shell *shell);
 
@@ -292,6 +300,7 @@ void	ft_error(t_shell *shell);
 char	*ft_get_history(t_shell *shell);
 
 // UTILS3.c
+void	free_global_struct2(t_shell *shell);
 int		env_exists(t_list *env, char *var, int len);
 char	*get_value_from_env(t_list *env, char *var, int len);
 void	free_charptr(char **ptr);

@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 15:53:42 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/23 10:47:37 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/24 20:41:34 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	ft_redirect_to_append(t_shell *shell)
 	int		fd;
 	char	*buf;
 
-	fd = open(((t_rdir *)shell->tmp_rdir->content)->file, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	fd = open(((t_rdir *)shell->tmp_rdir->content)->file, \
+	O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
 	{
 		write(2, "minishell: ", 11);
@@ -62,7 +63,6 @@ void	ft_redirect_to_append(t_shell *shell)
 			ft_error(shell);
 	}
 	shell->tmp_rdir = shell->tmp_rdir->next;
-
 }
 
 void	ft_redirect_to(t_shell *shell)
@@ -70,7 +70,8 @@ void	ft_redirect_to(t_shell *shell)
 	int		fd;
 	char	*buf;
 
-	fd = open(((t_rdir *)shell->tmp_rdir->content)->file, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	fd = open(((t_rdir *)shell->tmp_rdir->content)->file, \
+	O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
 	{
 		write(2, "minishell: ", 11);
@@ -81,7 +82,7 @@ void	ft_redirect_to(t_shell *shell)
 		write(2, "\n", 1);
 		shell->error_flag = 1;
 	}
-	else 
+	else
 	{
 		if (dup2(fd, STDOUT_FILENO) == -1)
 			ft_error(shell);
@@ -94,7 +95,8 @@ void	ft_redirect_to(t_shell *shell)
 void	ft_do_redirections(t_shell *shell)
 {
 	shell->tmp_rdir = ((t_cmd *)shell->tmp_cmd->content)->rdir_lst;
-	expansion_in_rdir_lst(((t_cmd *)shell->tmp_cmd->content)->rdir_lst, shell->env, shell->return_value);
+	expansion_in_rdir_lst(((t_cmd *)shell->tmp_cmd->content)->rdir_lst, \
+	shell->env, shell->return_value);
 	while (shell->tmp_rdir != NULL && shell->error_flag == 0)
 	{
 		if (((t_rdir *)shell->tmp_rdir->content)->flag == 0)

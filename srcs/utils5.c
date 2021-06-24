@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 19:15:49 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/17 17:22:52 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/24 20:56:48 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	add_shlvl(t_shell *shell)
 
 void	change_variable_in_env(t_list *env, char *str, int len)
 {
-	char *tmp;
+	char	*tmp;
 
 	while (env != NULL)
 	{
@@ -92,5 +92,5 @@ int	get_len_var(char *s)
 	i = 0;
 	while (s != NULL && s[i] != '\0' && s[i] != '=')
 		i++;
-	return(i);
+	return (i);
 }

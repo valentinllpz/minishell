@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:30:22 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/17 18:32:34 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/24 20:08:46 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_do_dup_child(t_shell *shell)
 
 void	ft_do_pipes(t_shell *shell)
 {
-	int i;
+	int	i;
 
 	if (((t_cmd *)shell->tmp_cmd->content)->pipe_flag == 1)
 	{
@@ -63,7 +63,8 @@ void	ft_process_cmd(t_shell *shell)
 	{
 		ft_do_pipes(shell);
 		ft_do_redirections(shell);
-		if (shell->error_flag == 0 && ((t_cmd *)shell->tmp_cmd->content)->exec_lst != NULL)
+		if (shell->error_flag == 0 && \
+		((t_cmd *)shell->tmp_cmd->content)->exec_lst != NULL)
 			ft_execution(shell);
 	}
 	get_return_value(shell);

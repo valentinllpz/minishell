@@ -6,13 +6,13 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 10:40:41 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/23 16:06:58 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/24 20:25:48 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_exit(t_shell *shell)	// a revoir selon parsing et code
+void	ft_exit(t_shell *shell)
 {
 	free_global_struct(shell);
 	exit(1);
@@ -91,13 +91,13 @@ void	get_list_env(char **env, t_shell *shell)
 	}
 }
 
-int		main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	t_shell	*shell;
 
 	(void)argc;
 	(void)argv;
-	shell = init_shell(); // a revoir selon parsing et code
+	shell = init_shell();
 	signal(SIGINT, handler);
 	signal(SIGQUIT, handler);
 	get_list_env(env, shell);

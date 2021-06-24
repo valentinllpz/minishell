@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 15:40:05 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/24 12:23:22 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/24 20:55:53 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_sort_tab(char **tb)
 	i = 0;
 	while (tb[i + 1] != NULL)
 	{
-		if (ft_strncmp(tb[i], tb[i + 1], 1000) > 0) // utiliser strcmp
+		if (ft_strcmp(tb[i], tb[i + 1]) > 0)
 		{
 			tmp = tb[i];
 			tb[i] = tb[i + 1];
@@ -31,7 +31,7 @@ void	ft_sort_tab(char **tb)
 	}
 }
 
-int		is_defined(char *s)
+int	is_defined(char *s)
 {
 	int	i;
 
@@ -45,9 +45,9 @@ int		is_defined(char *s)
 	return (0);
 }
 
-int		ft_lstsize_env(t_list *lst)
+int	ft_lstsize_env(t_list *lst)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (lst)

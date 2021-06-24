@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 11:25:59 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/23 14:44:56 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/24 20:44:12 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,10 @@ void	param_termcap(t_shell *shell)
 
 void	enable_raw_mode(t_shell *shell)
 {
-	struct termios raw;
+	struct termios	raw;
 
 	raw = shell->term->orig_termios;
-	// raw.c_iflag &= ~(ICRNL);
 	raw.c_iflag &= ~(BRKINT | INPCK | ISTRIP | IXON);
-	//raw.c_oflag &= ~(OPOST);
 	raw.c_cflag |= (CS8);
 	raw.c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
 	raw.c_cc[VMIN] = 0;

@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 18:15:22 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/23 14:34:11 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/24 19:31:07 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	builtin_cd_oldpwd2(t_shell *shell, char *path)
 		tmp_path = ft_strdup(path);
 		if (tmp_path == NULL)
 			ft_error(shell);
-		change_value_from_env(shell->env,
+		change_value_from_env(shell->env, \
 		get_value_from_env(shell->env, "PWD", 3), "OLDPWD", 6);
 		if (env_exists(shell->env, "PWD", 3) == 1)
 			change_value_from_env(shell->env, tmp_path, "PWD", 3);
@@ -57,7 +57,7 @@ void	builtin_cd_oldpwd(t_shell *shell)
 		{
 			write(1, "\n", 1);
 			shell->return_value = 0;
-			change_value_from_env(shell->env,
+			change_value_from_env(shell->env, \
 			get_value_from_env(shell->env, "PWD", 3), "OLDPWD", 6);
 		}
 		else
@@ -80,7 +80,7 @@ void	builtin_cd_home2(t_shell *shell, char *path)
 	if (ret == 0)
 	{
 		if (env_exists(shell->env, "OLDPWD", 6) == 1)
-			change_value_from_env(shell->env,
+			change_value_from_env(shell->env, \
 			get_value_from_env(shell->env, "PWD", 3), "OLDPWD", 6);
 		if (env_exists(shell->env, "PWD", 3) == 1)
 			change_value_from_env(shell->env, path, "PWD", 3);
