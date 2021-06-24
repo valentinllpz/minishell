@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:26:58 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/24 11:11:48 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/24 14:17:21 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_node	*ft_new_node(enum type type, t_list *cmd_lst)
 {
 	t_node		*node;
 
-	node = ft_calloc(sizeof(t_node), 1);
+	node = ft_calloc(1, sizeof(t_node));
 	if (!node)
 		return (NULL);
 	node->type = type;

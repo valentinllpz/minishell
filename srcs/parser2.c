@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:20:30 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/24 11:58:35 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/24 14:18:22 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	add_to_cmd_lst(t_cmd **cmd, t_list **cmd_lst, int pipe_flag)
 {
 	(*cmd)->pipe_flag = pipe_flag;
 	ft_lstadd_back(cmd_lst, ft_lstnew(*cmd));
-	*cmd = ft_calloc(sizeof(t_cmd), 1);
+	*cmd = ft_calloc(1, sizeof(t_cmd));
 	if (pipe_flag && (!(*cmd) || !(*cmd_lst)))
 		return (0);
 	return (1);
@@ -26,7 +26,7 @@ int	add_to_rdir_lst(t_token **lexer, int *i, t_cmd *cmd)
 {
 	t_rdir		*rdir;
 
-	rdir = ft_calloc(sizeof(t_rdir), 1);
+	rdir = ft_calloc(1, sizeof(t_rdir));
 	if (!rdir)
 		return (0);
 	if (lexer[*i]->type == RIGHT)
@@ -60,7 +60,7 @@ t_node	*build_node(t_token **lexer)
 	t_list		*cmd_lst;
 	t_cmd		*cmd;
 
-	cmd = ft_calloc(sizeof(t_cmd), 1);
+	cmd = ft_calloc(1, sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
 	cmd_lst = NULL;
