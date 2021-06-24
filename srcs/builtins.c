@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 15:30:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/23 15:39:29 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/24 21:40:09 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ static void	launch_bin(t_shell *shell)
 
 void	launch_builtin(t_shell *shell)
 {
-	if (ft_strncmp(shell->exec[0], "echo", 5) == 0)
+	if (ft_strcmp(shell->exec[0], "echo") == 0)
 		builtin_echo(shell);
-	else if (ft_strncmp(shell->exec[0], "cd", 3) == 0)
+	else if (ft_strcmp(shell->exec[0], "cd") == 0)
 		builtin_cd(shell);
-	else if (ft_strncmp(shell->exec[0], "pwd", 4) == 0)
+	else if (ft_strcmp(shell->exec[0], "pwd") == 0)
 		builtin_pwd(shell);
-	else if (ft_strncmp(shell->exec[0], "export", 7) == 0)
+	else if (ft_strcmp(shell->exec[0], "export") == 0)
 		builtin_export(shell);
-	else if (ft_strncmp(shell->exec[0], "unset", 6) == 0)
+	else if (ft_strcmp(shell->exec[0], "unset") == 0)
 		builtin_unset(shell);
-	else if (ft_strncmp(shell->exec[0], "env", 4) == 0)
+	else if (ft_strcmp(shell->exec[0], "env") == 0)
 		builtin_env(shell);
-	else if (ft_strncmp(shell->exec[0], "exit", 5) == 0)
+	else if (ft_strcmp(shell->exec[0], "exit") == 0)
 		builtin_exit(shell);
 	else
 		launch_bin(shell);
