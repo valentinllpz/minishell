@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 18:26:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/23 16:05:04 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/24 16:33:00 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ void	ft_readline(t_shell *shell)
 			shell->return_value = 2;
 		// A MODIFIER + voir si certaines variables ne doivent pas être reset (child_flag / pid_pipe..)
 		free_ast(shell->ast);
+		shell->ast = NULL;
 		if (shell->saved_line != NULL)
 		{
 			free(shell->saved_line);

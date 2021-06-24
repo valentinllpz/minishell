@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:20:30 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/24 14:18:22 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/24 17:06:00 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,14 @@ int	add_to_cmd_lst(t_cmd **cmd, t_list **cmd_lst, int pipe_flag)
 {
 	(*cmd)->pipe_flag = pipe_flag;
 	ft_lstadd_back(cmd_lst, ft_lstnew(*cmd));
-	*cmd = ft_calloc(1, sizeof(t_cmd));
-	if (pipe_flag && (!(*cmd) || !(*cmd_lst)))
+	if (!(*cmd_lst))
 		return (0);
+	if (pipe_flag)
+	{
+		*cmd = ft_calloc(1, sizeof(t_cmd));
+		if (!(*cmd))
+			return (0);
+	}
 	return (1);
 }
 
