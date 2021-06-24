@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 18:26:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/23 13:28:43 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/23 16:05:04 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,8 @@ void	ft_readline(t_shell *shell)
 				}
 				else
 				{
-						write(1, "\nminishell$ ", 12);
+						write(1, "\n", 1);
+						write(2, "minishell$ ", 11);
 						free(shell->line);
 						shell->line = NULL;
 						shell->term->pos_x = 12;
@@ -151,16 +152,13 @@ void	ft_readline(t_shell *shell)
 			shell->return_value = 2;
 		// A MODIFIER + voir si certaines variables ne doivent pas être reset (child_flag / pid_pipe..)
 		free_ast(shell->ast);
-		free(shell->path);
-		shell->path = NULL;
+		if (shell->saved_line != NULL)
+		{
+			free(shell->saved_line);
+			shell->saved_line = NULL;
+		}
 		free(shell->line);
 		shell->line = NULL;
-		shell->exec_status = 0;
-		shell->pipe_status = 0;
-		shell->pid_pipe = 0;
-		shell->pid_exec = 0;
-		shell->error_flag = 0;
-		shell->child_flag = 0;
 		// A MODIFIER
 	}
 }

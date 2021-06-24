@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 10:31:09 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/15 18:27:32 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/23 16:05:44 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ft_process_arrow_down(t_shell *shell)
 			ft_unwrite_line(shell);
 			free(shell->line);
 			shell->line = shell->saved_line;
+			shell->saved_line = NULL;
 			ft_write_line(shell);
 		}
 		else
