@@ -6,13 +6,13 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 15:30:31 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/24 21:40:09 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/25 15:11:09 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	launch_bin(t_shell *shell)
+void	launch_bin(t_shell *shell)
 {
 	if (ft_check_path(shell) == 0)
 		ft_set_path(shell);

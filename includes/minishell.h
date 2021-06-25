@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 10:38:41 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/24 21:10:50 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/25 14:52:27 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,9 +245,9 @@ void	ft_analyse_escp(t_shell *shell);
 // READLINE3.C
 void	ft_readline_loop2(t_shell *shell);
 void	ft_readline_loop(t_shell *shell);
-void	ft_do_ctrl_c(t_shell *shell);
-void	ft_process_arrow_down(t_shell *shell);
 
+void	ft_process_arrow_down(t_shell *shell);
+char	*ft_get_history(t_shell *shell);
 // REDIRECTIONS.C
 void	ft_redirect_from(t_shell *shell);
 void	ft_redirect_to_append(t_shell *shell);
@@ -269,6 +269,8 @@ char		*ft_strdup_safe(const char *src);
 
 // SIGNAL.C
 void	handler(int sig);
+void	ft_do_ctrl_c(t_shell *shell);
+void	ft_do_ctrl_d(t_shell *shell);
 
 // TERMINAL.C
 void	param_termcap3(t_shell *shell);
@@ -276,52 +278,56 @@ void	param_termcap2(t_shell *shell);
 void	param_termcap(t_shell *shell);
 void	enable_raw_mode(t_shell *shell);
 
-// UTILS.C
+//UTILS_COND.C
 int					is_space(char *s, int i);
 int					is_escaped(char *s, int pos);
-void				skip_spaces(char *str, int *i);
-void				free_lexer(t_token **lexer);
 int					is_special(char *s, int i);
-char				*join_three_str(char *s1, char *s2, char *s3);
-int					get_next_valid_quote_index(char *s, int i);
-
-// UTILS1.c
-char	**ft_list_env_to_char(t_list *lst);
-void	ft_incr_pos_x(t_shell *shell);
-int		ft_putchar(int c);
 int		ft_iscntrl(char c);
-void	disable_raw_mode(t_shell *shell);
+int		is_defined(char *s);
 
-// UTILS2.c
-char	**ft_list_to_char(t_list *lst);
+//UTILS_FREE.C
+void	free_lexer(t_token **lexer);
+void	free_charptr(char **ptr);
 void	free_global_struct(t_shell *shell);
-void	ft_do_ctrl_d(t_shell *shell);
-void	ft_error(t_shell *shell);
-char	*ft_get_history(t_shell *shell);
-
-// UTILS3.c
 void	free_global_struct2(t_shell *shell);
+void	ft_exit(t_shell *shell);
+
+// UTILS_ENV1.C
+char	**ft_list_env_to_char(t_list *lst);
 int		env_exists(t_list *env, char *var, int len);
 char	*get_value_from_env(t_list *env, char *var, int len);
-void	free_charptr(char **ptr);
 int		ft_check_path(t_shell *shell);
-
-//UTILS4.C
-void	ft_sort_tab(char **tb);
-int		is_defined(char *s);
 int		ft_lstsize_env(t_list *lst);
-void	change_value_from_env2(t_list *env, char *value, int len);
-void	change_value_from_env(t_list *env, char *value, char *var, int len);
 
-//UTILS5.c
-int		ft_lstsize_exec(t_list *lst);
-int		get_cursor_pos(t_shell *shell);
-void	add_shlvl(t_shell *shell);
+//UTILS_ENV2.C
+void	change_value_from_env(t_list *env, char *value, char *var, int len);
+void	change_value_from_env2(t_list *env, char *value, int len);
+void	ft_sort_tab(char **tb);
 void	change_variable_in_env(t_list *env, char *str, int len);
 int		get_len_var(char *s);
 
+//UTILS_PARSING
+void				skip_spaces(char *str, int *i);
+char				*join_three_str(char *s1, char *s2, char *s3);
+int					get_next_valid_quote_index(char *s, int i);
+
+
+// UTILS_TERM.C
+void	ft_incr_pos_x(t_shell *shell);
+int		ft_putchar(int c);
+void	disable_raw_mode(t_shell *shell);
+int		get_cursor_pos(t_shell *shell);
+
+
+//UTILS_MISC.c
+int		ft_lstsize_exec(t_list *lst);
+char	**ft_list_to_char(t_list *lst);
+void	add_shlvl(t_shell *shell);
+void	ft_error(t_shell *shell);
+
+
 // MAIN ???
-void	ft_exit(t_shell *shell);
+
 t_shell	*init_shell(void);
 void	get_list_env(char **env, t_shell *shell);
 

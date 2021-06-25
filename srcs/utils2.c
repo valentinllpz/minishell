@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 14:58:56 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/24 20:49:15 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/25 14:54:42 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,6 @@ void	free_global_struct(t_shell *shell)
 	free_global_struct2(shell);
 }
 
-void	ft_do_ctrl_d(t_shell *shell)
-{
-	int	ret;
-
-	if (ft_strlen_safe(shell->line) == 0)
-	{
-		ret = shell->return_value;
-		free_global_struct(shell);
-		write(1, "exit\n", 5);
-		exit(ret);
-	}
-}
-
 void	ft_error(t_shell *shell)
 {
 	char	*buf;
@@ -83,19 +70,4 @@ void	ft_error(t_shell *shell)
 	write(2, buf, ft_strlen_safe(buf));
 	write(2, "\n", 1);
 	ft_exit(shell);
-}
-
-char	*ft_get_history(t_shell *shell)
-{
-	t_list	*tmp_lst;
-	int		i;
-
-	i = shell->nb_hist;
-	tmp_lst = shell->hist;
-	while (ft_lstsize(shell->hist) - i > 0)
-	{
-		tmp_lst = tmp_lst->next;
-		i++;
-	}
-	return ((char *)tmp_lst->content);
 }

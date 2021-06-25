@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 15:53:42 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/24 20:41:34 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/25 14:00:03 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,10 @@ void	ft_do_redirections(t_shell *shell)
 		}
 		else if (((t_rdir *)shell->tmp_rdir->content)->flag == 1)
 			ft_redirect_to(shell);
-		else if (((t_rdir *)shell->tmp_rdir->content)->flag == 3)
-			ft_redirect_to_append(shell);
 		else if (((t_rdir *)shell->tmp_rdir->content)->flag == 2)
 			ft_redirect_from(shell);
+		else if (((t_rdir *)shell->tmp_rdir->content)->flag == 3)
+			ft_redirect_to_append(shell);
 		else if (((t_rdir *)shell->tmp_rdir->content)->flag == 4)
 			ft_heredoc(shell, ((t_rdir *)shell->tmp_rdir->content)->file);
 	}

@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 10:31:09 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/24 20:39:50 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/25 14:54:55 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,6 @@ void	ft_readline_loop(t_shell *shell)
 	}
 }
 
-void	ft_do_ctrl_c(t_shell *shell)
-{
-	write(1, "\nminishell$ ", 12);
-	free(shell->line);
-	shell->line = NULL;
-	shell->term->pos_x = 12;
-	shell->term->delta = shell->term->pos_x - 1;
-	shell->nb_hist = 0;
-}
-
 void	ft_process_arrow_down(t_shell *shell)
 {
 	if (shell->nb_hist != 0)
@@ -80,4 +70,19 @@ void	ft_process_arrow_down(t_shell *shell)
 			ft_write_line(shell);
 		}
 	}
+}
+
+char	*ft_get_history(t_shell *shell)
+{
+	t_list	*tmp_lst;
+	int		i;
+
+	i = shell->nb_hist;
+	tmp_lst = shell->hist;
+	while (ft_lstsize(shell->hist) - i > 0)
+	{
+		tmp_lst = tmp_lst->next;
+		i++;
+	}
+	return ((char *)tmp_lst->content);
 }

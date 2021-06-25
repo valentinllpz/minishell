@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 10:40:41 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/24 20:25:48 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/25 12:27:07 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,31 +23,33 @@ t_shell	*init_shell(void) // calloc
 	t_shell	*shell;
 	char	*buf;
 
-	shell = malloc(sizeof(t_shell) * 1);
+	shell = ft_calloc(1, sizeof(t_shell));
 	if (shell == NULL)
 	{
+		write(2, "minishell: ", 11);
 		buf = strerror(errno);
 		write(2, buf, ft_strlen_safe(buf));
 		write(2, "\n", 1);
 		exit(1);
 	}
-	shell->term = malloc(sizeof(t_term) * 1);
+	shell->term = ft_calloc(1, sizeof(t_term));
 	if (shell->term == NULL)
 	{
 		free(shell);
+		write(2, "minishell: ", 11);
 		buf = strerror(errno);
 		write(2, buf, ft_strlen_safe(buf));
 		write(2, "\n", 1);
 		exit(1);
 	}
-	shell->ast = NULL;
+/*	shell->ast = NULL;
 	shell->env = NULL;
 	shell->line = NULL;
 	shell->tmp_cmd = NULL;
 	shell->child_flag = 0;
 	shell->term->flag_termios = 0;
-	shell->term->pos_x = 12;
-	shell->term->delta = 0;
+*/	shell->term->pos_x = 12;
+/*	shell->term->delta = 0;
 	shell->nb_hist = 0;
 	shell->hist = NULL;
 	shell->saved_line = NULL;
@@ -60,12 +62,12 @@ t_shell	*init_shell(void) // calloc
 	shell->path = NULL;
 	shell->exec_status = 0;
 	shell->pipe_status = 0;
-	if (tcgetattr(STDIN_FILENO, &shell->term->orig_termios) == -1)
+*/	if (tcgetattr(STDIN_FILENO, &shell->term->orig_termios) == -1)
 		ft_error(shell);
 	shell->term->flag_termios = 1;
-	shell->tmp_stdin = 0;
+/*	shell->tmp_stdin = 0;
 	shell->tmp_stdout = 0;
-	return (shell);
+*/	return (shell);
 }
 
 void	get_list_env(char **env, t_shell *shell)
