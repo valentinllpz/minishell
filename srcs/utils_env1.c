@@ -1,44 +1,60 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils3.c                                           :+:      :+:    :+:   */
+/*   utils_env1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/26 10:06:54 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/24 20:50:30 by ade-garr         ###   ########.fr       */
+/*   Created: 2021/06/25 16:58:29 by vlugand-          #+#    #+#             */
+/*   Updated: 2021/06/25 17:52:27 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	free_global_struct2(t_shell *shell)
+void	get_list_env(char **env, t_shell *shell)
 {
-	char	*buf;
+	int		i;
+	t_list	*tmp;
+	char	*tmp_char;
 
-	if (shell->term != NULL && shell->term->flag_termios == 1)
+	i = 0;
+	while (env[i] != NULL)
 	{
-		if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &shell->term->orig_termios) \
-		== -1)
+		tmp_char = ft_strdup(env[i]);
+		if (tmp_char == NULL)
+			ft_error(shell);
+		tmp = ft_lstnew(tmp_char);
+		if (tmp == NULL)
 		{
-			buf = strerror(errno);
-			write(2, buf, ft_strlen_safe(buf));
-			write(2, "\n", 1);
+			free(tmp_char);
+			ft_error(shell);
 		}
+		ft_lstadd_back(&shell->env, tmp);
+		i++;
 	}
-	if (shell->term != NULL)
+}
+
+char	**ft_list_env_to_char(t_list *lst)
+{
+	char	**char_tab;
+	int		i;
+
+	i = 0;
+	char_tab = malloc(sizeof(char *) * (ft_lstsize_env(lst) + 1));
+	if (char_tab == NULL)
+		return (NULL);
+	while (lst != NULL)
 	{
-		free(shell->term);
-		shell->term = NULL;
+		if (is_defined((char *)lst->content) == 1)
+		{
+			char_tab[i] = ((char *)lst->content);
+			i++;
+		}
+		lst = lst->next;
 	}
-	if (shell->saved_line != NULL)
-	{
-		free(shell->saved_line);
-		shell->saved_line = NULL;
-	}
-	if (shell->hist != NULL)
-		ft_lstclear(&shell->hist, free);
-	free(shell);
+	char_tab[i] = NULL;
+	return (char_tab);
 }
 
 int	env_exists(t_list *env, char *var, int len)
@@ -70,37 +86,16 @@ char	*get_value_from_env(t_list *env, char *var, int len)
 	return (NULL);
 }
 
-void	free_charptr(char **ptr)
+int	ft_lstsize_env(t_list *lst)
 {
 	int	i;
 
 	i = 0;
-	if (ptr != NULL)
+	while (lst)
 	{
-		while (ptr[i] != NULL)
-		{
-			free(ptr[i]);
+		if (is_defined((char *)lst->content) == 1)
 			i++;
-		}
-		free(ptr);
+		lst = lst->next;
 	}
-}
-
-int	ft_check_path(t_shell *shell)
-{
-	char	*buf;
-	int		i;
-
-	i = 0;
-	buf = shell->exec[0];
-	if (buf != NULL)
-	{
-		while (buf[i] != '\0')
-		{
-			if (buf[i] == '/')
-				return (1);
-			i++;
-		}
-	}
-	return (0);
+	return (i);
 }

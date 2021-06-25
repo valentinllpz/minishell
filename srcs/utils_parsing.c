@@ -1,65 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/23 14:52:26 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/24 12:15:47 by vlugand-         ###   ########.fr       */
+/*   Created: 2021/06/25 17:18:40 by vlugand-          #+#    #+#             */
+/*   Updated: 2021/06/25 17:19:05 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	is_space(char *s, int i)
-{
-	if (((s[i] > 8 && s[i] < 14) || s[i] == ' ') && !is_escaped(s, i))
-		return (1);
-	return (0);
-}
-
-int	is_escaped(char *s, int pos)
-{
-	int		bs_flag;
-	int		i;
-
-	if (pos == 0)
-		return (0);
-	i = 0;
-	bs_flag = 0;
-	while (i <= pos)
-	{
-		bs_flag = 0;
-		while (s[i] == '\\')
-		{
-			bs_flag++;
-			i++;
-		}
-		i++;
-	}
-	if (bs_flag == 0)
-		return (0);
-	else if (bs_flag % 2 > 0)
-		return (1);
-	return (0);
-}
-
-int	is_special(char *s, int i)
-{
-	if (s[i] == '\0')
-		return (0);
-	if (((s[i] == '>' && s[i + 1] == '>') || (s[i] == '<' && s[i + 1] == '<')
-			|| (s[i] == '&' && s[i + 1] == '&')
-			|| (s[i] == '|' && s[i + 1] == '|'))
-		&& !is_escaped(s, i))
-		return (2);
-	else if ((s[i] == ';' || s[i] == '|' || s[i] == '>' || s[i] == '<')
-		&& !is_escaped(s, i))
-		return (1);
-	else
-		return (0);
-}
 
 void	skip_spaces(char *s, int *i)
 {
@@ -93,23 +44,6 @@ int	get_next_valid_quote_index(char *s, int i)
 		}
 	}
 	return (start);
-}
-
-void	free_lexer(t_token **lexer)
-{
-	int			i;
-
-	i = 0;
-	if (!lexer)
-		return ;
-	while (lexer[i])
-	{
-		if (lexer[i]->s)
-			free(lexer[i]->s);
-		free(lexer[i]);
-		i++;
-	}
-	free(lexer);
 }
 
 char	*join_three_str(char *s1, char *s2, char *s3)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+         #
+#    By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/06/24 21:09:02 by ade-garr         ###   ########.fr        #
+#    Updated: 2021/06/25 19:22:17 by vlugand-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,15 @@ NAME 		=	minishell
 SRCS		= 	srcs/lexer.c\
 				srcs/parser1.c\
 				srcs/parser2.c\
-				srcs/utils.c\
-				srcs/utils1.c\
-				srcs/utils2.c\
-				srcs/utils3.c\
-				srcs/utils4.c\
-				srcs/utils5.c\
-				srcs/print_lexer_parser.c\
-				srcs/free_ast.c\
+				srcs/utils_cond.c\
+				srcs/utils_env1.c\
+				srcs/utils_env2.c\
+				srcs/utils_misc.c\
+				srcs/utils_parsing.c\
+				srcs/utils_safe.c\
+				srcs/utils_termcaps.c\
+				srcs/free1.c\
+				srcs/free2.c\
 				srcs/expansion1.c\
 				srcs/expansion2.c\
 				srcs/expansion3.c\
@@ -33,14 +34,13 @@ SRCS		= 	srcs/lexer.c\
 				srcs/readline2.c\
 				srcs/readline3.c\
 				srcs/redirections.c\
-				srcs/terminal.c\
-				srcs/safer_libft.c\
+				srcs/termcaps.c\
 				srcs/signal.c\
 				srcs/builtins.c\
 				srcs/builtin_cd.c\
 				srcs/builtin_cd2.c\
 				srcs/builtin_export.c\
-				srcs/builtin_exit.c\
+				srcs/builtin_exit1.c\
 				srcs/builtin_exit2.c\
 				srcs/builtin_env.c\
 				srcs/builtin_pwd.c\
@@ -48,6 +48,7 @@ SRCS		= 	srcs/lexer.c\
 				srcs/builtin_echo.c\
 				srcs/heredoc.c\
 				srcs/str_cleanup.c\
+				srcs/init.c\
 				srcs/main.c
 
 CC			= 	gcc

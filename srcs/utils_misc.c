@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils5.c                                           :+:      :+:    :+:   */
+/*   utils_misc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/04 19:15:49 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/24 21:40:51 by ade-garr         ###   ########.fr       */
+/*   Created: 2021/03/27 14:58:56 by ade-garr          #+#    #+#             */
+/*   Updated: 2021/06/25 17:49:40 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,36 @@ int	ft_lstsize_exec(t_list *lst)
 	return (size);
 }
 
-int	get_cursor_pos(t_shell *shell)
+char	**ft_list_to_char(t_list *lst)
 {
-	char	buf[100];
-	int		ret;
+	char	**char_tab;
 	int		i;
 
 	i = 0;
-	if (write(1, "\033[6n", 4) != 4)
-		ft_error(shell);
-	ret = read(STDIN_FILENO, buf, 99);
-	buf[ret] = '\0';
-	while (buf[i] != ';')
-		i++;
-	i++;
-	ret = ft_atoi(buf + i);
-	return (ret);
+	char_tab = malloc(sizeof(char *) * (ft_lstsize_exec(lst) + 1));
+	if (char_tab == NULL)
+		return (NULL);
+	while (lst != NULL)
+	{
+		if (lst->content != NULL)
+		{
+			char_tab[i] = ((char *)lst->content);
+			i++;
+		}
+		lst = lst->next;
+	}
+	char_tab[i] = NULL;
+	return (char_tab);
+}
+
+void	ft_error(t_shell *shell)
+{
+	char	*buf;
+
+	buf = strerror(errno);
+	write(2, buf, ft_strlen_safe(buf));
+	write(2, "\n", 1);
+	ft_exit(shell);
 }
 
 void	add_shlvl(t_shell *shell)
@@ -65,32 +79,21 @@ void	add_shlvl(t_shell *shell)
 	}
 }
 
-void	change_variable_in_env(t_list *env, char *str, int len)
+void	ft_sort_tab(char **tb)
 {
+	int		i;
 	char	*tmp;
 
-	while (env != NULL)
-	{
-		if (ft_strncmp(str, (char *)env->content, len) == 0)
-		{
-			if (((char *)env->content)[len] == '=' ||
-			((char *)env->content)[len] == '\0')
-			{
-				tmp = (char *)env->content;
-				env->content = str;
-				free(tmp);
-			}
-		}
-		env = env->next;
-	}
-}
-
-int	get_len_var(char *s)
-{
-	int	i;
-
 	i = 0;
-	while (s != NULL && s[i] != '\0' && s[i] != '=')
+	while (tb[i + 1] != NULL)
+	{
+		if (ft_strcmp(tb[i], tb[i + 1]) > 0)
+		{
+			tmp = tb[i];
+			tb[i] = tb[i + 1];
+			tb[i + 1] = tmp;
+			i = -1;
+		}
 		i++;
-	return (i);
+	}
 }

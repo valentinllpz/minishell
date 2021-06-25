@@ -1,63 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils4.c                                           :+:      :+:    :+:   */
+/*   utils_env2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/18 15:40:05 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/24 20:55:53 by ade-garr         ###   ########.fr       */
+/*   Created: 2021/06/25 17:06:19 by vlugand-          #+#    #+#             */
+/*   Updated: 2021/06/25 17:51:11 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	ft_sort_tab(char **tb)
-{
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	while (tb[i + 1] != NULL)
-	{
-		if (ft_strcmp(tb[i], tb[i + 1]) > 0)
-		{
-			tmp = tb[i];
-			tb[i] = tb[i + 1];
-			tb[i + 1] = tmp;
-			i = -1;
-		}
-		i++;
-	}
-}
-
-int	is_defined(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s != NULL && s[i] != '\0')
-	{
-		if (s[i] == '=')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	ft_lstsize_env(t_list *lst)
-{
-	int	i;
-
-	i = 0;
-	while (lst)
-	{
-		if (is_defined((char *)lst->content) == 1)
-			i++;
-		lst = lst->next;
-	}
-	return (i);
-}
 
 void	change_value_from_env2(t_list *env, char *value, int len)
 {
@@ -89,4 +42,53 @@ void	change_value_from_env(t_list *env, char *value, char *var, int len)
 		}
 		env = env->next;
 	}
+}
+
+void	change_variable_in_env(t_list *env, char *str, int len)
+{
+	char	*tmp;
+
+	while (env != NULL)
+	{
+		if (ft_strncmp(str, (char *)env->content, len) == 0)
+		{
+			if (((char *)env->content)[len] == '=' ||
+			((char *)env->content)[len] == '\0')
+			{
+				tmp = (char *)env->content;
+				env->content = str;
+				free(tmp);
+			}
+		}
+		env = env->next;
+	}
+}
+
+int	get_len_var(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s != NULL && s[i] != '\0' && s[i] != '=')
+		i++;
+	return (i);
+}
+
+int	ft_check_path(t_shell *shell)
+{
+	char	*buf;
+	int		i;
+
+	i = 0;
+	buf = shell->exec[0];
+	if (buf != NULL)
+	{
+		while (buf[i] != '\0')
+		{
+			if (buf[i] == '/')
+				return (1);
+			i++;
+		}
+	}
+	return (0);
 }
