@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:26:58 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/25 13:47:52 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/28 14:00:55 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	find_separator(t_token **lexer)
 	return (i);
 }
 
-t_node	*ft_new_node(enum type type, t_list *cmd_lst)
+t_node	*ft_new_node(enum e_type type, t_list *cmd_lst)
 {
 	t_node		*node;
 
