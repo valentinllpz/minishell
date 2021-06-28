@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+         #
+#    By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/06/25 19:22:17 by vlugand-         ###   ########.fr        #
+#    Updated: 2021/06/28 08:33:03 by ade-garr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ SRCS		= 	srcs/lexer.c\
 CC			= 	gcc
 OBJS		= 	${SRCS:.c=.o}
 OBJS_BONUS 	= 	${SRCS_BONUS:.c=.o}
-CFLAGS		= 	-Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS		= 	-Wall -Wextra -Werror
 LIBS		=	-L libft -lft
 RM			= 	rm -f
 

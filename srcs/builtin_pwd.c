@@ -6,7 +6,7 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 18:45:56 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/24 20:07:05 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/28 08:45:57 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,11 @@ void	builtin_pwd(t_shell *shell)
 		else
 			ft_error(shell);
 	}
-	write(1, path, ft_strlen(path));
-	write(1, "\n", 1);
-	free(path);
-	shell->return_value = 0;
+	else
+	{
+		write(1, path, ft_strlen(path));
+		write(1, "\n", 1);
+		free(path);
+		shell->return_value = 0;
+	}
 }

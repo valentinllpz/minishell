@@ -6,11 +6,39 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 12:47:23 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/24 21:18:04 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/06/28 08:22:40 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	ft_set_path3(t_shell *shell, char *env_path, char **path_split)
+{
+	int			i;
+	char		*tmp;
+	struct stat	buf;
+
+	i = 0;
+	while (path_split[i] != NULL)
+	{
+		tmp = ft_strjoin(path_split[i], "/");
+		shell->path = ft_strjoin(tmp, shell->exec[0]);
+		if (tmp == NULL || shell->path == NULL)
+		{
+			free(tmp);
+			free(env_path);
+			free_charptr(path_split);
+			ft_error(shell);
+		}
+		free(tmp);
+		if (stat(shell->path, &buf) == 0 && S_ISREG(buf.st_mode) == 1)
+			return (0);
+		free(shell->path);
+		shell->path = NULL;
+		i++;
+	}
+	return (1);
+}
 
 void	get_return_value2(t_shell *shell)
 {
@@ -101,23 +129,5 @@ void	ft_execution2(t_shell *shell)
 			if (ret == -1)
 				ft_execution2_errno(shell);
 		}
-	}
-}
-
-void	ft_do_first_pipe(t_shell *shell)
-{
-	if (((t_cmd *)shell->tmp_cmd->content)->pipe_flag == 1)
-	{
-		shell->pid_pipe = fork();
-		if (shell->pid_pipe == -1)
-			ft_error(shell);
-		if (shell->pid_pipe == 0)
-		{
-			signal(SIGINT, SIG_IGN);
-			signal(SIGQUIT, SIG_IGN);
-			shell->child_flag = 1;
-		}
-		else
-			shell->parent_flag = 1;
 	}
 }

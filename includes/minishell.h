@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 10:38:41 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/25 19:19:24 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/06/28 08:32:35 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include <term.h>
 # include <signal.h>
 # include "../libft/libft.h"
-# include "struct.h"
+// # include "struct.h" // A VIRER ??
 
 enum	type
 {
@@ -180,6 +180,7 @@ void	free_global_struct(t_shell *shell);
 void	ft_exit(t_shell *shell);
 t_list	*get_heredoc_content(t_shell *shell, char *file);
 void	ft_heredoc(t_shell *shell, char *file);
+void	init_shell2(t_shell *shell);
 t_shell	*init_shell(void);
 t_token	*new_token(char *s);
 int	word_count(char *s);
