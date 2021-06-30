@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+         #
+#    By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/10 17:59:36 by vlugand-          #+#    #+#              #
-#    Updated: 2021/06/09 12:29:00 by vlugand-         ###   ########.fr        #
+#    Updated: 2021/06/30 17:43:06 by ade-garr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,15 @@ SRCS	= 	ft_memset.c\
 			ft_putendl_fd.c\
 			ft_putnbr_fd.c\
 			get_next_line.c\
+			ft_lstnew.c\
+			ft_lstadd_front.c\
+			ft_lstsize.c\
+			ft_lstlast.c\
+			ft_lstadd_back.c\
+			ft_lstdelone.c\
+			ft_lstclear.c\
+			ft_lstiter.c\
+			ft_lstmap.c\
 
 SRCS_BONUS = 	ft_lstnew.c\
 				ft_lstadd_front.c\

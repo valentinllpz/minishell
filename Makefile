@@ -6,7 +6,7 @@
 #    By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/06/28 08:33:03 by ade-garr         ###   ########.fr        #
+#    Updated: 2021/06/30 17:46:01 by ade-garr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,10 +55,21 @@ CC			= 	gcc
 OBJS		= 	${SRCS:.c=.o}
 OBJS_BONUS 	= 	${SRCS_BONUS:.c=.o}
 CFLAGS		= 	-Wall -Wextra -Werror
-LIBS		=	-L libft -lft
+LIBS		=	-L ./libft/ -lft
 RM			= 	rm -f
+libft		=	./libft/libft.a
 
 all:		${NAME}
+
+.c.o:
+			${CC} ${CFLAGS} -I ./includes/ -c $< -o ${<:.c=.o}
+
+${libft}:	remake_libft
+			@make -C ./libft
+
+		
+${NAME}:	${libft} ${OBJS}
+			${CC} ${CFLAGS} ${LIBS} ${OBJS} -o ${NAME} -lncurses
 			@echo ""
 			@echo "\033[92m███    ███ ██ ███    ██ ██ ███████ ██   ██ ███████ ██      ██      "
 			@echo "\033[93m████  ████ ██ ████   ██ ██ ██      ██   ██ ██      ██      ██      "
@@ -66,20 +77,8 @@ all:		${NAME}
 			@echo "\033[95m██  ██  ██ ██ ██  ██ ██ ██      ██ ██   ██ ██      ██      ██      "
 			@echo "\033[96m██      ██ ██ ██   ████ ██ ███████ ██   ██ ███████ ███████ ███████  \033[0mby ade-garr & vlugand-"
 			@echo ""
-	
-			
 
-.c.o:
-			${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
-
-lbft:
-			@echo "$(tput bold)\033[0;35m\033[1mPreparing Libft...\033[0m$(tput sgr0)"
-			@make bonus -C libft
-			@echo "\033[0;36m\033[1mLibft is ready to use.\033[0m"
-			
-${NAME}:	${OBJS_PATH} ${OBJS} lbft
-			${CC} ${CFLAGS} ${OBJS} ${LIBS} -o ${NAME} -lncurses
-			@echo "\033[0;32m\033[1mMinishell is now ready!\033[0m"
+remake_libft:
 
 clean:		
 			@make clean -C libft
@@ -94,3 +93,4 @@ fclean:		clean
 re:			fclean all
 
 .PHONY:		all clean fclean re bonus rebonus
+.SILENT:
