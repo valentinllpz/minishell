@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 10:38:41 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/07/01 11:42:00 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:56:09 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ void		ft_unwrite_line(t_shell *shell);
 void		ft_write_line(t_shell *shell);
 void		ft_process_arrow_up(t_shell *shell);
 void		ft_analyse_escp(t_shell *shell);
+int			ft_check_line_spaces(char *s);
 void		ft_readline_loop2(t_shell *shell);
 void		ft_readline_loop(t_shell *shell);
 void		ft_process_arrow_down(t_shell *shell);

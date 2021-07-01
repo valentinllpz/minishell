@@ -6,11 +6,25 @@
 /*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 10:31:09 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/25 14:54:55 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:56:04 by ade-garr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	ft_check_line_spaces(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] != ' ')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 void	ft_readline_loop2(t_shell *shell)
 {
@@ -35,7 +49,7 @@ void	ft_readline_loop(t_shell *shell)
 		ft_analyse_c(c, shell);
 		if (c == 10)
 		{
-			if (shell->line != NULL && shell->line[0] != '\0')
+			if (shell->line != NULL && ft_check_line_spaces(shell->line) == 1)
 			{
 				ft_add_to_hist(shell);
 				break ;
