@@ -81,7 +81,7 @@ t_node	*parser(t_token **lexer)
 {
 	t_node		*ast;
 
-	if (!lexer || !lexer[0])
+	if (!lexer)
 		return (NULL);
 	if (!syntax_check(lexer))
 		return (NULL);

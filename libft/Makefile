@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME	= libft.a
-HEADER	= .
+
 SRCS	= 	ft_memset.c\
 			ft_bzero.c\
 			ft_memcpy.c\
@@ -57,20 +57,9 @@ SRCS	= 	ft_memset.c\
 			ft_lstclear.c\
 			ft_lstiter.c\
 			ft_lstmap.c\
-
-SRCS_BONUS = 	ft_lstnew.c\
-				ft_lstadd_front.c\
-				ft_lstsize.c\
-				ft_lstlast.c\
-				ft_lstadd_back.c\
-				ft_lstdelone.c\
-				ft_lstclear.c\
-				ft_lstiter.c\
-				ft_lstmap.c\
 			
 OBJS		= ${SRCS:.c=.o}
-OBJS_BONUS 	= ${SRCS_BONUS:.c=.o}
-OPTION		= -I${HEADER}
+OPTION		= -I .
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
 RM			= rm -f
@@ -85,14 +74,11 @@ ${NAME}:	${OBJS}
 all:		${NAME}
 
 clean:		
-			${RM} ${OBJS} ${OBJS_BONUS}
+			${RM} ${OBJS}
 
 fclean:		clean
 			${RM} ${NAME}
 
 re:			fclean all
 
-bonus:		${NAME} ${OBJS_BONUS}
-			${AR} ${NAME} ${OBJS_BONUS}
-
-.PHONY:		all clean fclean re bonus
+.PHONY:		all clean fclean re

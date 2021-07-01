@@ -53,24 +53,23 @@ SRCS		= 	srcs/lexer.c\
 
 CC			= 	gcc
 OBJS		= 	${SRCS:.c=.o}
-OBJS_BONUS 	= 	${SRCS_BONUS:.c=.o}
 CFLAGS		= 	-Wall -Wextra -Werror
-LIBS		=	-L ./libft/ -lft
+LIBS		=	-L libft -lft
 RM			= 	rm -f
-LIBFT		=	./libft/libft.a
+LIBFT		=	libft/libft.a
 
 all:		${LIBFT} ${NAME}
 
 .c.o:
-			${CC} ${CFLAGS} -I ./includes/ -c $< -o ${<:.c=.o}
+			${CC} ${CFLAGS} -I includes -c $< -o ${<:.c=.o}
 
 ${LIBFT}:
-			@make -C ./libft
+			@make -C libft
 			@echo "\033[0;36m\033[1mLibft is ready to use.\033[0m"
+			#Any change will be ignore by the make rule if libft.a exists. If you do, please use make re or make on the Makefile located in ./libft/
 
-		
 ${NAME}:	${OBJS}
-			${CC} ${CFLAGS} ${LIBS} ${OBJS} -o ${NAME} -lncurses
+			${CC} ${CFLAGS} ${OBJS} -o ${NAME} ${LIBS} -lncurses
 			@echo "\033[0;32m\033[1mMinishell is now ready!\033[0m"
 			@echo ""
 			@echo "\033[92m███    ███ ██ ███    ██ ██ ███████ ██   ██ ███████ ██      ██      "
@@ -82,12 +81,12 @@ ${NAME}:	${OBJS}
 
 clean:		
 			@make clean -C libft
-			${RM} ${OBJS} ${OBJS_BONUS}
+			${RM} ${OBJS}
 			@echo "\033[0;35m\033[1mCleaned all .o files.\033[0m"
 
 fclean:		
 			@make fclean -C libft
-			${RM} ${OBJS} ${OBJS_BONUS}
+			${RM} ${OBJS}
 			${RM} ${NAME}
 			@echo "\033[0;35m\033[1mCleaned all .o files and executable.\033[0m"
 
