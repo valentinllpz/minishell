@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 14:26:58 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/28 14:00:55 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/07/01 11:07:57 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_node	*parser(t_token **lexer)
 {
 	t_node		*ast;
 
-	if (!lexer)
+	if (!lexer || !lexer[0])
 		return (NULL);
 	if (!syntax_check(lexer))
 		return (NULL);

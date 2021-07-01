@@ -6,7 +6,7 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 10:38:41 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/28 14:11:21 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/07/01 11:16:10 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ void		replace_elem(t_token **content, t_list *elem);
 void		expansion_in_exec_lst(t_list *exec_lst, t_list *env, int ret);
 int			is_ambiguous_redirect(char *s);
 void		expansion_in_rdir_lst(t_list *rdir_lst, t_list *env, int ret);
-int			env_var_is_enclosed(char *s, int i);
+int			is_enclosed_in_dq(char *s, int i);
 char		*dollar_question_mark(char *s, int *len, int return_value);
 char		*replace_var(char *s, int i, t_list *env, int return_value);
 char		*find_match_in_env(char *s, int *len, t_list *env, int dq_flag);

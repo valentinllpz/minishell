@@ -6,13 +6,13 @@
 /*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 15:57:58 by vlugand-          #+#    #+#             */
-/*   Updated: 2021/06/22 19:21:12 by vlugand-         ###   ########.fr       */
+/*   Updated: 2021/07/01 11:17:55 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	env_var_is_enclosed(char *s, int i)
+int	is_enclosed_in_dq(char *s, int i)
 {
 	int		dq_flag;
 
@@ -50,7 +50,7 @@ char	*replace_var(char *s, int i, t_list *env, int return_value)
 	int		dq_flag;
 
 	len = 0;
-	dq_flag = env_var_is_enclosed(s, i);
+	dq_flag = is_enclosed_in_dq(s, i);
 	match = find_match_in_env(s + i + 1, &len, env, dq_flag);
 	outlier = dollar_question_mark(s + i + 1, &len, return_value);
 	s[i] = '\0';
@@ -96,7 +96,7 @@ char	*expand_content(char *s, t_list *env, int return_value)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == '\'' && !is_escaped(s, i))
+		if (s[i] == '\'' && !is_escaped(s, i) && !is_enclosed_in_dq(s, i))
 		{
 			i = get_next_valid_quote_index(s, i);
 			i++;
