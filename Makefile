@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+         #
+#    By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/14 17:58:20 by vlugand-          #+#    #+#              #
-#    Updated: 2021/07/01 19:31:40 by ade-garr         ###   ########.fr        #
+#    Updated: 2021/07/05 16:52:31 by vlugand-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ all:		${LIBFT} ${NAME}
 ${LIBFT}:
 			@make -C libft
 			@echo "\033[0;36m\033[1mLibft is ready to use.\033[0m"
-			#Any change will be ignore by the make rule if libft.a exists. If you do, please use make re or make on the Makefile located in ./libft/
+			#For any change in libft please use "make re" with this Makefile or "make" on the Makefile located in ./libft/
 
 ${NAME}:	${OBJS}
 			${CC} ${CFLAGS} ${OBJS} -o ${NAME} ${LIBS} -lncurses

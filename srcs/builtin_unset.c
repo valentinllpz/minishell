@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-garr <ade-garr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlugand- <vlugand-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 19:52:27 by ade-garr          #+#    #+#             */
-/*   Updated: 2021/06/23 14:55:28 by ade-garr         ###   ########.fr       */
+/*   Updated: 2021/07/05 16:41:50 by vlugand-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	unset_var2(t_shell *shell, int i)
 		ft_strlen_safe(shell->exec[i])) == 0)
 		{
 			if (((char *)tmp->next->content)[ft_strlen_safe(shell->exec[i])]
-			== '=' ||
-			((char *)tmp->next->content)[ft_strlen_safe(shell->exec[i])] == '\0')
+			== '=' || ((char *)tmp->next->content)
+			[ft_strlen_safe(shell->exec[i])] == '\0')
 			{
 				tmp_bis = tmp->next;
 				free(tmp->next->content);
