@@ -23,7 +23,7 @@ We built a [lexer](https://en.wikipedia.org/wiki/Lexical_analysis) to split the 
 ## 🧭 Usage
 
 1. Clone this repo and access it with `cd`
-2. Run `make` to build the image
+2. Run `make` to build the program
 3. Use `./minishell` to launch it
 
 
